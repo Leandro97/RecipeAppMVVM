@@ -7,14 +7,19 @@
 
 import Foundation
 
-enum DishType: String {
-    case breakfast = "Breakfast"
-    case soup = "Soup"
-    case salad = "Salad"
-    case appetizer = "Appetizer"
-    case main = "Main"
-    case side = "Side"
-    case dessert = "Dessert"
-    case snack = "Snack"
-    case drink = "Drink"
+enum DishType: String, Decodable {
+    case mainCourse = "main course"
+    case sideDish = "side dish"
+    case dessert = "dessert"
+    case appetizer = "appetizer"
+    case salad = "salad"
+    case bread = "bread"
+    case breakfast = "breakfast"
+    case soup = "soup"
+    case beverage = "beverage"
+    case sauce = "sauce"
+    case marinade = "marinade"
+    case fingerfood = "fingerfood"
+    case snacl = "snack"
+    case drink = "drink"
 }

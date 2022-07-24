@@ -12,8 +12,12 @@ struct HomeTab: View {
     
     var body: some View {
         NavigationView {
-            Text(screenTitle)
-                .navigationTitle(screenTitle)
+            RecipeListView(
+                recipeList: (1...5).enumerated().map {
+                    (index, _) in Recipe(id: index)
+                }
+            )
+                .navigationTitle("My Recipes")
         }
         .navigationViewStyle(.stack)
     }

@@ -59,6 +59,6 @@ struct RecipeCard: View {
 
 struct RecipeCard_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCard(recipe: Recipe())
+        RecipeCard(recipe: Recipe(id: 0))
     }
 }

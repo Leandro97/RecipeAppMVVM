@@ -10,7 +10,12 @@ import Foundation
 struct Ingredient: Decodable {
     let id: Int
     let name: String
-    let meta: [String]
-    let amount: Double
-    let unit: String
+    let original: String
+    
+    // TODO: - Remove
+    init() {
+        self.id = 1
+        self.name = "butter"
+        self.original = "1 tbsp of butter"
+    }
 }
