@@ -8,37 +8,41 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    var recipe: Recipe
+    @ObservedObject private var viewModel: ViewModel
+    
+    init(with recipe: Recipe) {
+        self.viewModel = ViewModel(with: recipe)
+    }
     
     var body: some View {
         ScrollView {
-            RecipeDetailHeaderView(recipe: recipe)
+            RecipeDetailHeaderView(image: viewModel.state.image)
             
             VStack(spacing: 30) {
-                Text(recipe.title)
+                Text(viewModel.state.title)
                     .font(.largeTitle)
                     .bold()
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
                 
-                if !recipe.extendedIngredients.isEmpty {
+                if !viewModel.state.extendedIngredients.isEmpty {
                     Group {
                         Text("Ingredients")
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text(getIngredientList())
+                        Text(viewModel.getIngredientList())
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
                 
-                if !recipe.instructions.isEmpty {
+                if !viewModel.state.instructions.isEmpty {
                     Group {
                         Text("Instructions")
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text(getInstructionList())
+                        Text(viewModel.getInstructionList())
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
@@ -50,25 +54,10 @@ struct RecipeDetailView: View {
         .ignoresSafeArea(.container, edges: .top)
     }
     
-    private func getIngredientList() -> String {
-        var text = ""
-        recipe.extendedIngredients.enumerated().forEach { (index, value) in
-            text += "\(index + 1) - \(value.original)\n"
-        }
-        return text
-    }
-    
-    private func getInstructionList() -> String {
-        var text = ""
-        recipe.instructions.enumerated().forEach { (index, value) in
-            text += "\(index + 1) - \(value.step)\n"
-        }
-        return text
-    }
 }
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeDetailView(recipe: Recipe(id: 0))
+        RecipeDetailView(with: Recipe(id: 0))
     }
 }

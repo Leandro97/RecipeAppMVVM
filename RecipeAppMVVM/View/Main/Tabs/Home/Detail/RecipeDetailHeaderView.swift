@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct RecipeDetailHeaderView: View {
-    var recipe: Recipe
+    var image: String
     
     var body: some View {
         AsyncImage(
-            url: URL(string: recipe.image),
+            url: URL(string: image),
             content: { image in
                 image
                     .resizable()
@@ -40,6 +40,6 @@ struct RecipeDetailHeaderView: View {
 
 struct RecipeDetailHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeDetailHeaderView(recipe: Recipe(id: 0))
+        RecipeDetailHeaderView(image: Recipe(id: 0).image)
     }
 }
