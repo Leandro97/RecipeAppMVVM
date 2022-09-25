@@ -10,28 +10,28 @@ import SwiftUI
 struct TabBar: View {
     var body: some View {
         TabView {
-            HomeTab()
+            HomeTabView()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
             
-            CategoriesTab()
+            CategoriesTabView()
                 .tabItem {
                     Label("Categories", systemImage: "square.fill.text.grid.1x2")
                 }
             
             
-            NewRecipeTab()
+            NewRecipeTabView()
                 .tabItem {
                     Label("New Recipe", systemImage: "plus")
                 }
             
-            FavoritesTab()
+            FavoritesTabView()
                 .tabItem {
                     Label("Favorites", systemImage: "heart")
                 }
             
-            SettingsTab()
+            SettingsTabView()
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }

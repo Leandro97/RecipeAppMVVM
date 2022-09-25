@@ -1,5 +1,5 @@
 //
-//  NewRecipeTab.swift
+//  NewRecipeTabView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewRecipeTab: View {
+struct NewRecipeTabView: View {
     var screenTitle = "New Recipe"
     
     var body: some View {
@@ -19,8 +19,8 @@ struct NewRecipeTab: View {
     }
 }
 
-struct NewRecipeView_Previews: PreviewProvider {
+struct NewRecipeTabView_Previews: PreviewProvider {
     static var previews: some View {
-        NewRecipeTab()
+        NewRecipeTabView()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SettingsTab.swift
+//  SettingsTabView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsTab: View {
+struct SettingsTabView: View {
     var screenTitle = "Settings"
     
     var body: some View {
@@ -19,8 +19,8 @@ struct SettingsTab: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
+struct SettingsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTab()
+        SettingsTabView()
     }
 }

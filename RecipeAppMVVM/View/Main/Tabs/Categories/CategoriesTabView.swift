@@ -1,5 +1,5 @@
 //
-//  FavoritesTab.swift
+//  CategoriesTab.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct FavoritesTab: View {
-    var screenTitle = "Favorites"
+struct CategoriesTabView: View {
+    var screenTitle = "Categories"
     
     var body: some View {
         NavigationView {
@@ -19,8 +19,8 @@ struct FavoritesTab: View {
     }
 }
 
-struct FavoritesView_Previews: PreviewProvider {
+struct CategoriesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        FavoritesTab()
+        CategoriesTabView()
     }
 }

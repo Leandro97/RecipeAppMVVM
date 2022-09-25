@@ -1,5 +1,5 @@
 //
-//  HomeTab.swift
+//  HomeTabView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeTab: View {
+struct HomeTabView: View {
     var screenTitle = "My Recipes"
     
     // TODO: - Should allow user to see api recipes and custom recipes. Use switch? Tabs?
@@ -24,8 +24,8 @@ struct HomeTab: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct HomeTabView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTab()
+        HomeTabView()
     }
 }
