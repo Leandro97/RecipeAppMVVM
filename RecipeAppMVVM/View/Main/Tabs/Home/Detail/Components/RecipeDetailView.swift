@@ -36,7 +36,7 @@ struct RecipeDetailView: View {
                     }
                 }
                 
-                if !viewModel.state.instructions.isEmpty {
+                if !viewModel.state.steps.isEmpty {
                     Group {
                         Text("Instructions")
                             .bold()

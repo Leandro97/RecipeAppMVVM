@@ -7,12 +7,16 @@
 
 import Foundation
 
+struct RecipeList: Decodable {
+    let recipes: [Recipe]
+}
+
 struct Recipe: Decodable, Identifiable {
     let id: Int
     let title: String
     let image: String
     let extendedIngredients: [Ingredient]
-    let instructions: [Instruction]
+    let analyzedInstructions: [Instruction]
     let dishTypes: [DishType] // https://spoonacular.com/food-api/docs#Meal-Types
     let sourceUrl: String
     
@@ -21,7 +25,7 @@ struct Recipe: Decodable, Identifiable {
         self.title = "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs"
         self.image = "https://spoonacular.com/recipeImages/716429-556x370.jpg"
         self.extendedIngredients = [.init(), .init(), .init()]
-        self.instructions = [.init(), .init(), .init()]
+        self.analyzedInstructions = .init()
         self.dishTypes = [.breakfast, .mainCourse]
         self.sourceUrl = "http://fullbellysisters.blogspot.com/2012/06/pasta-with-garlic-scallions-cauliflower.html"
     }

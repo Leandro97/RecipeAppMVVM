@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct RecipeListView: View {
-    var recipeList: [Recipe]
+    @ObservedObject private var viewModel = ViewModel()
     
     var body: some View {
         ScrollView {
             VStack {
                 HStack {
-                    let sectionTitle = recipeList.count == 1 ? "recipe" : "recipes"
+                    let sectionTitle = viewModel.recipeList.count == 1 ? "recipe" : "recipes"
                     
-                    Text("\(recipeList.count) \(sectionTitle)")
+                    Text("\(viewModel.recipeList.count) \(sectionTitle)")
                         .font(.headline)
                         .fontWeight(.medium)
                         .opacity(0.7)
@@ -31,7 +31,7 @@ struct RecipeListView: View {
                 ]
                 
                 LazyVGrid(columns: gridItemList, spacing: 15) {
-                    ForEach(recipeList) { recipe in
+                    ForEach(viewModel.recipeList) { recipe in
                         NavigationLink(destination: RecipeDetailView(with: recipe)) {
                             RecipeCard(recipe: recipe)
                         }
@@ -41,15 +41,12 @@ struct RecipeListView: View {
             }
             .padding(.horizontal)
         }
+        .task { await viewModel.getRandomRecipes() }
     }
 }
 
 struct RecipeListView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeListView(
-            recipeList: (1...5).enumerated().map {
-                (index, recipe) in Recipe(id: index)
-            }
-        )
+        RecipeListView()
     }
 }

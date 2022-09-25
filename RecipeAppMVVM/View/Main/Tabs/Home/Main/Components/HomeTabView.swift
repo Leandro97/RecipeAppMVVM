@@ -13,12 +13,7 @@ struct HomeTabView: View {
     // TODO: - Should allow user to see api recipes and custom recipes. Use switch? Tabs?
     var body: some View {
         NavigationView {
-            RecipeListView(
-                recipeList: (1...5).enumerated().map {
-                    (index, _) in Recipe(id: index)
-                }
-            )
-                .navigationTitle("My Recipes")
+            RecipeListView().navigationTitle("My Recipes")
         }
         .navigationViewStyle(.stack)
     }

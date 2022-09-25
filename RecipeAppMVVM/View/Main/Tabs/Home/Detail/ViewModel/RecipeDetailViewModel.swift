@@ -11,7 +11,7 @@ struct RecipeDetailViewState {
     var title: String
     var image: String
     var extendedIngredients: [Ingredient]
-    var instructions: [Instruction]
+    var steps: [Step]
 }
 
 extension RecipeDetailView {
@@ -23,7 +23,7 @@ extension RecipeDetailView {
                 title: recipe.title,
                 image: recipe.image,
                 extendedIngredients: recipe.extendedIngredients,
-                instructions: recipe.instructions
+                steps: recipe.analyzedInstructions[0].steps
             )
         }
         
@@ -37,7 +37,7 @@ extension RecipeDetailView {
         
         func getInstructionList() -> String {
             var text = ""
-            state.instructions.enumerated().forEach { (index, value) in
+            state.steps.enumerated().forEach { (index, value) in
                 text += "\(index + 1) - \(value.step)\n"
             }
             return text

@@ -8,18 +8,14 @@
 import Foundation
 
 enum DishType: String, Decodable {
+    case dessert, appetizer, salad, bread, dinner, breakfast, soup, beverage, sauce, snack, lunch
     case mainCourse = "main course"
     case sideDish = "side dish"
-    case dessert = "dessert"
-    case appetizer = "appetizer"
-    case salad = "salad"
-    case bread = "bread"
-    case breakfast = "breakfast"
-    case soup = "soup"
-    case beverage = "beverage"
-    case sauce = "sauce"
-    case marinade = "marinade"
-    case fingerfood = "fingerfood"
-    case snacl = "snack"
-    case drink = "drink"
+    case unknown = "unknown"
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+        self = DishType(rawValue: string) ?? .unknown
+    }
 }

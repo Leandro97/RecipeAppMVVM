@@ -8,12 +8,10 @@
 import Foundation
 
 struct Instruction: Decodable {
-    let number: String
+    let steps: [Step]
+}
+
+struct Step: Decodable {
+    let number: Int
     let step: String
-    
-    // TODO: - Remove
-    init() {
-        self.number = "1"
-        self.step = "Add some salt and oregano."
-    }
 }
