@@ -8,52 +8,95 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    @ObservedObject private var viewModel: ViewModel
+    @ObservedObject private var viewModel: RecipeDetailViewModel
     
     init(with recipe: Recipe) {
-        self.viewModel = ViewModel(with: recipe)
+        self.viewModel = .init(with: recipe)
     }
     
     var body: some View {
-        ScrollView {
-            RecipeDetailHeaderView(image: viewModel.state.image)
-            
-            VStack(spacing: 30) {
-                Text(viewModel.state.title)
-                    .font(.largeTitle)
-                    .bold()
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                
-                if !viewModel.state.extendedIngredients.isEmpty {
-                    Group {
-                        Text("Ingredients")
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 16) {
+                    RecipeDetailHeaderView(image: viewModel.recipe.image)
+                    
+                    VStack(spacing: 16) {
+                        Text(viewModel.recipe.title)
+                            .font(.largeTitle)
                             .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .multilineTextAlignment(.center)
                         
-                        Text(viewModel.getIngredientList())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
-                
-                if !viewModel.state.steps.isEmpty {
-                    Group {
-                        Text("Instructions")
-                            .bold()
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        if !viewModel.recipe.extendedIngredients.isEmpty {
+                            VStack(spacing: 16) {
+                                Text("Ingredients")
+                                    .bold()
+                                
+                                VStack(alignment: .leading, spacing: 8) {
+                                    ForEach(
+                                        Array(
+                                            zip(
+                                                viewModel.ingredientList.indices,
+                                                viewModel.ingredientList
+                                            )
+                                        ),
+                                        id: \.0
+                                    ) { index, ingredient in
+                                        
+                                        HStack(spacing: 16) {
+                                            StepBadge(order: index + 1)
+                                                .frame(alignment: .leading)
+                                            
+                                            Text(ingredient)
+                                                .frame(alignment: .trailing)
+                                                .multilineTextAlignment(.leading)
+                                            
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                            }
+                        }
                         
-                        Text(viewModel.getInstructionList())
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        if !viewModel.recipe.steps.isEmpty {
+                            VStack(spacing: 16) {
+                                Text("Instructions")
+                                    .bold()
+                                
+                                VStack(alignment: .leading, spacing: 12) {
+                                    ForEach(
+                                        Array(
+                                            zip(
+                                                viewModel.stepList.indices,
+                                                viewModel.stepList
+                                            )
+                                        ),
+                                        id: \.0
+                                    ) { index, step in
+                                        HStack(spacing: 16) {
+                                            StepBadge(order: index + 1)
+                                                .frame(alignment: .leading)
+                                            
+                                            Text(step)
+                                                .frame(alignment: .trailing)
+                                                .multilineTextAlignment(.leading)
+                                            
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                            }
+                        }
                     }
+                    .padding(.horizontal)
                 }
+                .frame(width: geometry.size.width)
             }
-            .padding(.horizontal)
-            .padding(.leading, 32)
-            .padding(.trailing, 32)
+            .padding(.bottom, 16)
         }
         .ignoresSafeArea(.container, edges: .top)
     }
-    
 }
 
 struct RecipeDetailView_Previews: PreviewProvider {

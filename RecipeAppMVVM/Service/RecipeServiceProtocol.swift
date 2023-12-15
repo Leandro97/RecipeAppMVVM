@@ -8,10 +8,10 @@
 import Foundation
 
 protocol RecipeServiceProtocol {
-    func getRandomRecipes() async -> [Recipe]
+    func getRandomRecipes(quantity: Int) async throws -> [Recipe]
 }
 
 extension RecipeServiceProtocol {
-    var getRandomRecipesUrl: String { "recipes/random?apiKey=\(BaseUrl.apiKey)&number=6" }
+    var getRandomRecipesUrl: String { "recipes/random?apiKey=\(BaseUrl.apiKey)" }
     var searchRecipesUrl: String { "" }
 }

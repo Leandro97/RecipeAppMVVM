@@ -21,6 +21,7 @@ struct RecipeCard: View {
                         .overlay(alignment: .bottom) {
                             Text(recipe.title)
                                 .font(.headline)
+                                .minimumScaleFactor(0.7)
                                 .foregroundColor(.white)
                                 .shadow(color: .black, radius: 3, x: 1, y: 1)
                                 .frame(maxWidth: 136)
