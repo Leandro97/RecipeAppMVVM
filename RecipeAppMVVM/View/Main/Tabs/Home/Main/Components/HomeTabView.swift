@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeTabView {
     @ObservedObject private var viewModel = HomeViewModel()
+    @State private var hasLoadedRecipes = false
     var screenTitle = "My Recipes"
 }
 
@@ -30,7 +31,10 @@ extension HomeTabView: View {
                     }
                 }
                 .task {
-                    await viewModel.getRandomRecipes()
+                    if !hasLoadedRecipes {
+                        await viewModel.getRandomRecipes()
+                        hasLoadedRecipes = true
+                    }
                 }
         }
         .navigationViewStyle(.stack)

@@ -27,14 +27,17 @@ struct RecipeDetailHeaderView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         )
-            .frame(height: 300)
-            .background(
-                LinearGradient(
-                    colors: [Color(.gray).opacity(0.3), Color(.gray)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+        .frame(maxWidth: .infinity)
+        .background(
+            LinearGradient(
+                colors: [Color(.gray).opacity(0.3), Color(.gray)],
+                startPoint: .top,
+                endPoint: .bottom
             )
+        )
+        .clipShape(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+        )
     }
 }
 

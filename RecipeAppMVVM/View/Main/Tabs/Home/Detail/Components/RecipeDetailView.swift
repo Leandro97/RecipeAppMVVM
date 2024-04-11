@@ -2,105 +2,83 @@
 //  RecipeDetailView.swift
 //  RecipeAppMVVM
 //
-//  Created by Leandro Martins de Freitas on 06/03/22.
+//  Created by Leandro Martins de Freitas on 15/03/24.
 //
 
 import SwiftUI
 
-struct RecipeDetailView: View {
+struct RecipeDetailView {
     @ObservedObject private var viewModel: RecipeDetailViewModel
+    private var recipe: Recipe
     
     init(with recipe: Recipe) {
+        self.recipe = recipe
         self.viewModel = .init(with: recipe)
-    }
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack(spacing: 16) {
-                    RecipeDetailHeaderView(image: viewModel.recipe.image)
-                    
-                    VStack(spacing: 16) {
-                        Text(viewModel.recipe.title)
-                            .font(.largeTitle)
-                            .bold()
-                            .multilineTextAlignment(.center)
-                        
-                        if !viewModel.recipe.extendedIngredients.isEmpty {
-                            VStack(spacing: 16) {
-                                Text("Ingredients")
-                                    .bold()
-                                
-                                VStack(alignment: .leading, spacing: 8) {
-                                    ForEach(
-                                        Array(
-                                            zip(
-                                                viewModel.ingredientList.indices,
-                                                viewModel.ingredientList
-                                            )
-                                        ),
-                                        id: \.0
-                                    ) { index, ingredient in
-                                        
-                                        HStack(spacing: 16) {
-                                            StepBadge(order: index + 1)
-                                                .frame(alignment: .leading)
-                                            
-                                            Text(ingredient)
-                                                .frame(alignment: .trailing)
-                                                .multilineTextAlignment(.leading)
-                                            
-                                            Spacer()
-                                        }
-                                    }
-                                }
-                                .frame(maxWidth: .infinity)
-                            }
-                        }
-                        
-                        if !viewModel.recipe.steps.isEmpty {
-                            VStack(spacing: 16) {
-                                Text("Instructions")
-                                    .bold()
-                                
-                                VStack(alignment: .leading, spacing: 12) {
-                                    ForEach(
-                                        Array(
-                                            zip(
-                                                viewModel.stepList.indices,
-                                                viewModel.stepList
-                                            )
-                                        ),
-                                        id: \.0
-                                    ) { index, step in
-                                        HStack(spacing: 16) {
-                                            StepBadge(order: index + 1)
-                                                .frame(alignment: .leading)
-                                            
-                                            Text(step)
-                                                .frame(alignment: .trailing)
-                                                .multilineTextAlignment(.leading)
-                                            
-                                            Spacer()
-                                        }
-                                    }
-                                }
-                                .frame(maxWidth: .infinity)
-                            }
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .frame(width: geometry.size.width)
-            }
-            .padding(.bottom, 16)
-        }
-        .ignoresSafeArea(.container, edges: .top)
     }
 }
 
-struct RecipeDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeDetailView(with: Recipe(id: 0))
+extension RecipeDetailView: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            List {
+                RecipeDetailHeaderView(image: viewModel.recipe.image)
+                    .listRowBackground(Color.clear)
+                
+                Section(header: Text("Ingredients")) {
+                    ForEach(
+                        Array(viewModel.ingredientList.enumerated()),
+                        id: \.element
+                    ) { index, ingredient in
+                        HStack(alignment: .top, spacing: 16) {
+                            Text("\(index + 1)")
+                                .bold()
+                                .frame(alignment: .leading)
+                            
+                            Text(ingredient)
+                                .frame(alignment: .trailing)
+                                .multilineTextAlignment(.leading)
+                            
+                            Spacer()
+                        }
+                    }
+                }
+                
+                if !viewModel.stepList.isEmpty {
+                    Section(header: Text("Instructions")) {
+                        ForEach(
+                            Array(viewModel.stepList.enumerated()),
+                            id: \.element
+                        ) { index, step in
+                            HStack(alignment: .top, spacing: 16) {
+                                Text("\(index + 1)")
+                                    .bold()
+                                    .frame(alignment: .leading)
+                                
+                                Text(step)
+                                    .frame(alignment: .trailing)
+                                    .multilineTextAlignment(.leading)
+                                
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .navigationTitle(viewModel.recipe.title)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "heart")
+                }
+            }
+        }
     }
+}
+
+#Preview {
+    RecipeDetailView(with: .init(id: 0))
 }
