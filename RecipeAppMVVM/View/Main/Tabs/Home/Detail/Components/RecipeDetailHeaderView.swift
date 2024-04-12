@@ -13,13 +13,13 @@ struct RecipeDetailHeaderView {
 
 extension RecipeDetailHeaderView: View {
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             AsyncImage(
                 url: URL(string: recipe.image),
                 content: { image in
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                 },
                 placeholder: {
                     Image(systemName: "photo")
@@ -43,7 +43,7 @@ extension RecipeDetailHeaderView: View {
             )
             
             Text(recipe.title)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
                 .font(.title)
             
             HStack(spacing: 32) {
@@ -58,6 +58,8 @@ extension RecipeDetailHeaderView: View {
                     
                     Text("\(recipe.servings)")
                 }
+                
+                Spacer()
             }
         }
     }
