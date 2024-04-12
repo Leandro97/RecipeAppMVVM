@@ -20,22 +20,43 @@ struct RecipeDetailView {
 
 extension RecipeDetailView: View {
     var body: some View {
-        VStack(spacing: 0) {
-            List {
+        List {
+            Section {
                 RecipeDetailHeaderView(recipe: viewModel.recipe)
                     .listRowBackground(Color.clear)
-                
-                Section(header: Text("Ingredients")) {
+            }
+            
+            Section(header: Text("Ingredients")) {
+                ForEach(
+                    Array(viewModel.ingredientList.enumerated()),
+                    id: \.element
+                ) { index, ingredient in
+                    HStack(alignment: .top, spacing: 16) {
+                        Text("\(index + 1)")
+                            .bold()
+                            .frame(alignment: .leading)
+                        
+                        Text(ingredient)
+                            .frame(alignment: .trailing)
+                            .multilineTextAlignment(.leading)
+                        
+                        Spacer()
+                    }
+                }
+            }
+            
+            if !viewModel.stepList.isEmpty {
+                Section(header: Text("Instructions")) {
                     ForEach(
-                        Array(viewModel.ingredientList.enumerated()),
+                        Array(viewModel.stepList.enumerated()),
                         id: \.element
-                    ) { index, ingredient in
+                    ) { index, step in
                         HStack(alignment: .top, spacing: 16) {
                             Text("\(index + 1)")
                                 .bold()
                                 .frame(alignment: .leading)
                             
-                            Text(ingredient)
+                            Text(step)
                                 .frame(alignment: .trailing)
                                 .multilineTextAlignment(.leading)
                             
@@ -43,29 +64,9 @@ extension RecipeDetailView: View {
                         }
                     }
                 }
-                
-                if !viewModel.stepList.isEmpty {
-                    Section(header: Text("Instructions")) {
-                        ForEach(
-                            Array(viewModel.stepList.enumerated()),
-                            id: \.element
-                        ) { index, step in
-                            HStack(alignment: .top, spacing: 16) {
-                                Text("\(index + 1)")
-                                    .bold()
-                                    .frame(alignment: .leading)
-                                
-                                Text(step)
-                                    .frame(alignment: .trailing)
-                                    .multilineTextAlignment(.leading)
-                                
-                                Spacer()
-                            }
-                        }
-                    }
-                }
             }
         }
+        .listStyle(SidebarListStyle())
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

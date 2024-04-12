@@ -16,6 +16,7 @@ struct Recipe: Decodable, Identifiable {
     let title: String
     let image: String
     let servings: Int
+    let readyInMinutes: Int
     let extendedIngredients: [Ingredient]
     let analyzedInstructions: [Instruction]
     let dishTypes: [DishType] // https://spoonacular.com/food-api/docs#Meal-Types
@@ -27,6 +28,7 @@ struct Recipe: Decodable, Identifiable {
         self.title = "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs"
         self.image = "https://spoonacular.com/recipeImages/716429-556x370.jpg"
         self.servings = 2
+        self.readyInMinutes = 30
         self.extendedIngredients = [.init(), .init(), .init()]
         self.analyzedInstructions = .init()
         self.dishTypes = [.breakfast, .mainCourse]

@@ -43,7 +43,22 @@ extension RecipeDetailHeaderView: View {
             )
             
             Text(recipe.title)
+                .multilineTextAlignment(.center)
                 .font(.title)
+            
+            HStack(spacing: 32) {
+                HStack(spacing: 4) {
+                    Image(systemName: "clock")
+                    
+                    Text("\(recipe.readyInMinutes)")
+                }
+
+                HStack(spacing: 4) {
+                    Image(systemName: "person")
+                    
+                    Text("\(recipe.servings)")
+                }
+            }
         }
     }
 }
