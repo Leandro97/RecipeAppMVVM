@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct RecipeCard: View {
+struct RecipeCard {
     var recipe: Recipe
-    
+}
+
+extension RecipeCard: View {
     var body: some View {
         VStack {
             AsyncImage(

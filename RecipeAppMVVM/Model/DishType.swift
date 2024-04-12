@@ -11,7 +11,7 @@ enum DishType: String, Decodable {
     case dessert, appetizer, salad, bread, dinner, breakfast, soup, beverage, sauce, snack, lunch
     case mainCourse = "main course"
     case sideDish = "side dish"
-    case unknown = "unknown"
+    case unknown
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C29BB382BC9735100CD8244 /* Diet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C29BB372BC9735100CD8244 /* Diet.swift */; };
+		9C371F552BC81FE00060A2BB /* SimilarRecipeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C371F542BC81FE00060A2BB /* SimilarRecipeObject.swift */; };
 		9C4E85E32BA4729200590CEF /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4E85E22BA4729200590CEF /* RecipeDetailView.swift */; };
 		9C517D0328E0B945006641DB /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C517D0228E0B945006641DB /* RecipeDetailViewModel.swift */; };
 		9C517D0D28E0C119006641DB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C517D0C28E0C119006641DB /* HomeViewModel.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C29BB372BC9735100CD8244 /* Diet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diet.swift; sourceTree = "<group>"; };
+		9C371F542BC81FE00060A2BB /* SimilarRecipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarRecipeObject.swift; sourceTree = "<group>"; };
 		9C4E85E22BA4729200590CEF /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		9C517D0228E0B945006641DB /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
 		9C517D0C28E0C119006641DB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -244,6 +248,8 @@
 				9C5A123E27CE8981007D0A99 /* Ingredient.swift */,
 				9CDDBF6E283ABE3C005D63B0 /* Instruction.swift */,
 				9C517D0E28E0CCC0006641DB /* DishType.swift */,
+				9C371F542BC81FE00060A2BB /* SimilarRecipeObject.swift */,
+				9C29BB372BC9735100CD8244 /* Diet.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -464,9 +470,11 @@
 				9C89D28D2B29DFBA005940D9 /* CustomError.swift in Sources */,
 				9C5A123227CE7F55007D0A99 /* FavoritesTabView.swift in Sources */,
 				9C89D28F2B29E47E005940D9 /* ActivityIndicator.swift in Sources */,
+				9C29BB382BC9735100CD8244 /* Diet.swift in Sources */,
 				9C5A123827CE7F93007D0A99 /* HomeTabView.swift in Sources */,
 				9CA98700288CC91A00DF38FF /* RecipeServiceProtocol.swift in Sources */,
 				9C5A123427CE7F67007D0A99 /* NewRecipeTabView.swift in Sources */,
+				9C371F552BC81FE00060A2BB /* SimilarRecipeObject.swift in Sources */,
 				9C4E85E32BA4729200590CEF /* RecipeDetailView.swift in Sources */,
 				9CA98702288CCA3900DF38FF /* BaseUrl.swift in Sources */,
 				9C5A123A27CE8102007D0A99 /* TabBar.swift in Sources */,

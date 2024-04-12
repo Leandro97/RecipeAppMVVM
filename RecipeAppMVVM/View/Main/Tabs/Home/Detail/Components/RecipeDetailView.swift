@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecipeDetailView {
     @ObservedObject private var viewModel: RecipeDetailViewModel
+    @State private var showingSimilarRecipeAlert = false
     private var recipe: Recipe
     
     init(with recipe: Recipe) {
@@ -21,7 +22,7 @@ extension RecipeDetailView: View {
     var body: some View {
         VStack(spacing: 0) {
             List {
-                RecipeDetailHeaderView(image: viewModel.recipe.image)
+                RecipeDetailHeaderView(recipe: viewModel.recipe)
                     .listRowBackground(Color.clear)
                 
                 Section(header: Text("Ingredients")) {
@@ -65,14 +66,41 @@ extension RecipeDetailView: View {
                 }
             }
         }
-        .navigationTitle(viewModel.recipe.title)
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            toolbarItems
+        }
+        .modifier(ActivityIndicatorModifier(isLoading: viewModel.isLoading))
+    }
+}
+
+// MARK: - Toolbar
+extension RecipeDetailView {
+    @ToolbarContentBuilder var toolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            HStack(spacing: 8) {
                 Button {
-                    
+                    // TODO: - add to favorites
                 } label: {
                     Image(systemName: "heart")
+                }
+                
+                Button {
+                    showingSimilarRecipeAlert = true
+                } label: {
+                    Image(systemName: "text.magnifyingglass")
+                }
+                .alert("Search for a similar recipe?", isPresented: $showingSimilarRecipeAlert) {
+                    Button("Go for it!") {
+                        Task {
+                            await viewModel.getSimilarRecipe()
+                        }
+                    }
+                    
+                    Button("Not Now") {
+                        showingSimilarRecipeAlert = false
+                    }
                 }
             }
         }
