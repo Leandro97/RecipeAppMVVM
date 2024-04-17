@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RecipeDetailView {
     @ObservedObject private var viewModel: RecipeDetailViewModel
+    @State private var isIngredientsExpanded = true
+    @State private var isInstructionsExpanded = true
     @State private var showingSimilarRecipeAlert = false
     private var recipe: Recipe
     
@@ -26,37 +28,23 @@ extension RecipeDetailView: View {
                     .listRowBackground(Color.clear)
             }
             
-            Section(header: Text("Ingredients")) {
-                ForEach(
-                    Array(viewModel.ingredientList.enumerated()),
-                    id: \.element
-                ) { index, ingredient in
-                    HStack(alignment: .top, spacing: 16) {
-                        Text("\(index + 1)")
-                            .bold()
-                            .frame(alignment: .leading)
-                        
-                        Text(ingredient)
-                            .frame(alignment: .trailing)
-                            .multilineTextAlignment(.leading)
-                        
-                        Spacer()
-                    }
-                }
-            }
-            
-            if !viewModel.stepList.isEmpty {
-                Section(header: Text("Instructions")) {
+            Section(
+                header: SectionHeader(
+                    title: "Ingredients",
+                    isOn: $isIngredientsExpanded
+                )
+            ) {
+                if isIngredientsExpanded {
                     ForEach(
-                        Array(viewModel.stepList.enumerated()),
+                        Array(viewModel.ingredientList.enumerated()),
                         id: \.element
-                    ) { index, step in
+                    ) { index, ingredient in
                         HStack(alignment: .top, spacing: 16) {
                             Text("\(index + 1)")
                                 .bold()
                                 .frame(alignment: .leading)
                             
-                            Text(step)
+                            Text(ingredient)
                                 .frame(alignment: .trailing)
                                 .multilineTextAlignment(.leading)
                             
@@ -65,8 +53,35 @@ extension RecipeDetailView: View {
                     }
                 }
             }
+            
+            if !viewModel.stepList.isEmpty {
+                Section(
+                    header: SectionHeader(
+                        title: "Instructions",
+                        isOn: $isInstructionsExpanded
+                    )
+                ) {
+                    if isInstructionsExpanded {
+                        ForEach(
+                            Array(viewModel.stepList.enumerated()),
+                            id: \.element
+                        ) { index, step in
+                            HStack(alignment: .top, spacing: 16) {
+                                Text("\(index + 1)")
+                                    .bold()
+                                    .frame(alignment: .leading)
+                                
+                                Text(step)
+                                    .frame(alignment: .trailing)
+                                    .multilineTextAlignment(.leading)
+                                
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+            }
         }
-        .listStyle(SidebarListStyle())
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

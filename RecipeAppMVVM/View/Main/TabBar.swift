@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct TabBar: View {
+struct TabBar {
+    @Environment(\.managedObjectContext) var context
+}
+
+extension TabBar: View {
     var body: some View {
         TabView {
             HomeTabView()
@@ -21,10 +25,11 @@ struct TabBar: View {
                 }
             
             
-            NewRecipeTabView()
+            MyRecipesTabView()
                 .tabItem {
-                    Label("New Recipe", systemImage: "plus")
+                    Label("My Recipes", systemImage: "person.badge.plus")
                 }
+                .environment(\.managedObjectContext, context)
             
             FavoritesTabView()
                 .tabItem {
@@ -35,6 +40,7 @@ struct TabBar: View {
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+                .environment(\.managedObjectContext, context)
         }
     }
 }

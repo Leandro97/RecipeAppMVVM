@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContentView: View {    
     var body: some View {
         TabBar()
+            .environment(\.managedObjectContext, CoreDataProvider.shared.container.viewContext)
     }
 }
 
