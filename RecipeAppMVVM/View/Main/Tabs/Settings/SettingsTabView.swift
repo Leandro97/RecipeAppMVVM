@@ -10,21 +10,37 @@ import CoreData
 import SwiftUI
 
 struct SettingsTabView {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
+    @State private var showingClearDataAlert = false
     private var screenTitle = "Settings"
 }
 
 extension SettingsTabView: View {
     var body: some View {
         NavigationView {
-            VStack {
+            List {
                 Button {
-                    clearDatabase()
+                    showingClearDataAlert = true
                 } label: {
                     Text("Clear data")
                 }
-
+                .alert(
+                    "Clear all data?",
+                    isPresented: $showingClearDataAlert,
+                    actions: {
+                        Button("OK") {
+                            self.clearDatabase()
+                        }
+                        
+                        Button("Cancel") {
+                            showingClearDataAlert = false
+                        }
+                    }, message: {
+                        Text("All custom recipes and favorited recipes will be deleted.")
+                    }
+                )
             }
+            .navigationTitle(screenTitle)
         }
         .navigationViewStyle(.stack)
     }

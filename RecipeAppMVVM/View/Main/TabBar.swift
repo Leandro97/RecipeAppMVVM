@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBar {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
 }
 
 extension TabBar: View {
