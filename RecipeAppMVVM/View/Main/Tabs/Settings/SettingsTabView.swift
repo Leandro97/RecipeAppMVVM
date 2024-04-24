@@ -11,6 +11,7 @@ import SwiftUI
 
 struct SettingsTabView {
     @Environment(\.managedObjectContext) private var context
+    @AppStorage("appTheme") var appTheme: Int = AppTheme.light.rawValue
     @State private var showingClearDataAlert = false
     private var screenTitle = "Settings"
 }
@@ -19,6 +20,15 @@ extension SettingsTabView: View {
     var body: some View {
         NavigationView {
             List {
+                Picker(selection: $appTheme) {
+                    ForEach(AppTheme.allCases) { item in
+                        Text(item.title)
+                            .tag(item.rawValue)
+                    }
+                } label: {
+                    Text("Dark mode")
+                }
+                
                 Button {
                     showingClearDataAlert = true
                 } label: {

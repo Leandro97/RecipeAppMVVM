@@ -21,7 +21,7 @@ extension SectionHeader: View {
         } label: {
             HStack {
                 Text(title)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                 
                 Spacer()
                 
