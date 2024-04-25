@@ -7,10 +7,8 @@
         <attribute name="servings" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sourceUrl" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="diet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DietDataModel"/>
-        <relationship name="dishType" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DishTypeDataModel"/>
-        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="IngredientDataModel"/>
-        <relationship name="instructions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InstructionDataModel"/>
+        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="IngredientDataModel" inverseName="recipeId" inverseEntity="IngredientDataModel"/>
+        <relationship name="instructions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InstructionDataModel" inverseName="recipeId" inverseEntity="InstructionDataModel"/>
     </entity>
     <entity name="DietDataModel" representedClassName="DietDataModel" syncable="YES" codeGenerationType="class">
         <attribute name="type" optional="YES" attributeType="String"/>
@@ -26,13 +24,19 @@
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="original" optional="YES" attributeType="String"/>
+        <relationship name="recipeId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomRecipeDataModel" inverseName="ingredients" inverseEntity="CustomRecipeDataModel"/>
     </entity>
     <entity name="InstructionDataModel" representedClassName="InstructionDataModel" syncable="YES" codeGenerationType="class">
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="step" optional="YES" attributeType="String"/>
+        <relationship name="recipeId" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomRecipeDataModel" inverseName="instructions" inverseEntity="CustomRecipeDataModel"/>
     </entity>
-    <entity name="StepDataModel" representedClassName="StepDataModel" syncable="YES" codeGenerationType="class">
-        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="step" optional="YES" attributeType="String"/>
+    <entity name="RecipeDietDataModel" representedClassName="RecipeDietDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="dietId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="recipeId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="RecipeDishTypeDataModel" representedClassName="RecipeDishTypeDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="dishTypeId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="recipeId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

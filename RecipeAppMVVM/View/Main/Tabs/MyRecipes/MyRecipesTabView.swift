@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyRecipesTabView {
     @Environment(\.managedObjectContext) private var context
-    @FetchRequest(sortDescriptors: []) var steps: FetchedResults<StepDataModel>
+    @FetchRequest(sortDescriptors: []) var steps: FetchedResults<InstructionDataModel>
     @State private var id = UUID()
     private var screenTitle = "My Recipes"
 }

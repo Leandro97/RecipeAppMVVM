@@ -26,7 +26,7 @@ extension SettingsTabView: View {
                             .tag(item.rawValue)
                     }
                 } label: {
-                    Text("Dark mode")
+                    Text("App theme")
                 }
                 
                 Button {
