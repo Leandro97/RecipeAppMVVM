@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct RecipeCard {
-    var recipe: Recipe
+    var image: String
+    var title: String
 }
 
 extension RecipeCard: View {
     var body: some View {
         VStack {
             AsyncImage(
-                url: URL(string: recipe.image),
+                url: URL(string: image),
                 content: { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .overlay(alignment: .bottom) {
-                            Text(recipe.title)
+                            Text(title)
                                 .font(.headline)
                                 .minimumScaleFactor(0.7)
                                 .foregroundColor(.white)
@@ -62,6 +63,7 @@ extension RecipeCard: View {
 
 struct RecipeCard_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeCard(recipe: Recipe(id: 0))
+        var recipe = Recipe(id: 0)
+        RecipeCard(image: recipe.image, title: recipe.title)
     }
 }

@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct RecipeDetailView {
+    @Environment(\.managedObjectContext) private var context
+    @FetchRequest(fetchRequest: FavoriteRecipeDataModel.allFavorites) 
+    private var favoriteRecipes: FetchedResults<FavoriteRecipeDataModel>
+    
     @ObservedObject private var viewModel: RecipeDetailViewModel
     @State private var isIngredientsExpanded = true
     @State private var isInstructionsExpanded = true
@@ -93,13 +97,23 @@ extension RecipeDetailView: View {
 
 // MARK: - Toolbar
 extension RecipeDetailView {
+    private var isFavorite: Bool {
+        return favoriteRecipes.map { Int($0.recipeId) }.contains(recipe.id)
+    }
+    
     @ToolbarContentBuilder var toolbarItems: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             HStack(spacing: 8) {
                 Button {
-                    // TODO: - add to favorites
+                    if isFavorite {
+                        FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)
+                    } else {
+                        FavoriteRecipeDataModel.setAsFavorite(recipe, with: context, isCustom: true)
+                    }
                 } label: {
-                    Image(systemName: "heart")
+                    isFavorite
+                        ? Image(systemName: "heart.fill")
+                        : Image(systemName: "heart")
                 }
                 
                 Button {

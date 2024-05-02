@@ -17,8 +17,10 @@
         <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
     <entity name="FavoriteRecipeDataModel" representedClassName="FavoriteRecipeDataModel" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="isCustom" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="recipeId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <entity name="IngredientDataModel" representedClassName="IngredientDataModel" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

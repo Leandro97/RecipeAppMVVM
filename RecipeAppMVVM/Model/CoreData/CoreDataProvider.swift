@@ -23,3 +23,35 @@ struct CoreDataProvider {
         return container
     }()
 }
+
+enum Entity: CaseIterable {
+    case customRecipe
+    case favoriteRecipe
+    case diet
+    case dishType
+    case ingredient
+    case instruction
+    case recipeDiet
+    case recipeDishType
+    
+    var name: String {
+        switch self {
+        case .customRecipe:
+            CustomRecipeDataModel.identifier
+        case .favoriteRecipe:
+            FavoriteRecipeDataModel.identifier
+        case .diet:
+            DietDataModel.identifier
+        case .dishType:
+            DishTypeDataModel.identifier
+        case .ingredient:
+            IngredientDataModel.identifier
+        case .instruction:
+            InstructionDataModel.identifier
+        case .recipeDiet:
+            RecipeDietDataModel.identifier
+        case .recipeDishType:
+            RecipeDishTypeDataModel.identifier
+        }
+    }
+}

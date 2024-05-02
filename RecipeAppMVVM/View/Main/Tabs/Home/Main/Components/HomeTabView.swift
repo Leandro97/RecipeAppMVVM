@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeTabView {
     @ObservedObject private var viewModel = HomeViewModel()
     @State private var hasLoadedRecipes = false
-    var screenTitle = "My Recipes"
 }
 
 extension HomeTabView: View {
@@ -63,7 +62,7 @@ extension HomeTabView: View {
                 LazyVGrid(columns: gridItemList, spacing: 15) {
                     ForEach(viewModel.recipeList) { recipe in
                         NavigationLink(destination: RecipeDetailView(with: recipe)) {
-                            RecipeCard(recipe: recipe)
+                            RecipeCard(image: recipe.image, title: recipe.title)
                         }
                     }
                 }

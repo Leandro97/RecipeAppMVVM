@@ -70,9 +70,9 @@ extension SettingsTabView {
             }
         }
         
-        let entities = ["StepDataModel"]
+        let entities = Entity.allCases
         
-        entities.forEach { entity in
+        entities.map { $0.name }.forEach { entity in
             deleteTable(named: entity)
         }
     }
