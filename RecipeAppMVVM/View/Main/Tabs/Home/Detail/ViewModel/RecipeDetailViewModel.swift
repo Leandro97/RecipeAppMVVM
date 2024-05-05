@@ -7,18 +7,12 @@
 
 import Foundation
 
-//struct RecipeDetailViewState {
-//    var id: Int = 0
-//    var title: String = ""
-//    var image: String = ""
-//    var extendedIngredients: [Ingredient] = []
-//    var steps: [Step] = []
-//}
-
 class RecipeDetailViewModel: ObservableObject {
     private let service: RecipeServiceProtocol
     @Published var isLoading: Bool = false
-    @Published var recipe: Recipe
+    @Published var recipe: Recipe?
+    @Published var favoriteRecipe: FavoriteRecipeDataModel?
+    @Published var customRecipeId: Int?
     
     init(
         with recipe: Recipe,
@@ -28,49 +22,83 @@ class RecipeDetailViewModel: ObservableObject {
         self.service = service
     }
     
-//    private func setState(for recipe: Recipe) {
-//        var steps: [Step] {
-//            return recipe.analyzedInstructions.isEmpty
-//                ? []
-//                : recipe.analyzedInstructions[0].steps
-//        }
-//        
-//        self.recipe = RecipeDetailViewState(
-//            id: recipe.id,
-//            title: recipe.title,
-//            image: recipe.image,
-//            extendedIngredients: recipe.extendedIngredients,
-//            steps: steps
-//        )
-//    }
+    init(
+        with favoriteRecipe: FavoriteRecipeDataModel,
+        service: RecipeServiceProtocol = RecipeService()
+    ) {
+        self.favoriteRecipe = favoriteRecipe
+        self.service = service
+        
+        Task {
+            await getFavoriteRecipeData()
+        }
+    }
+    
+    init(
+        with customRecipeId: Int,
+        service: RecipeServiceProtocol = RecipeService()
+    ) {
+        self.customRecipeId = customRecipeId
+        self.service = service
+        
+        Task {
+            await getCustomRecipeData()
+        }
+    }
 }
 
-// MARK: - functions
+// MARK: - Public functions
 extension RecipeDetailViewModel {
     func getSimilarRecipe() async {
+        // TODO: fix touch on detail (it's redirecting to similar recipe on card touch)
         self.isLoading = true
         defer { self.isLoading = false }
         
         do {
             guard 
-                let recipe = try await service.getSimilarRecipe(with: recipe.id)
+                let recipe = recipe,
+                let similarRecipe = try await service.getSimilarRecipe(with: recipe.id)
             else { return }
             
-            self.recipe = recipe
+            self.recipe = similarRecipe
         } catch {
             // TODO: - handle error
         }
     }
 }
 
+// MARK: - Private functions
+extension RecipeDetailViewModel {
+    private func getFavoriteRecipeData() async {
+        guard let favoriteRecipe = favoriteRecipe else { return }
+        
+        self.isLoading = true
+        defer { self.isLoading = false }
+        
+        do {
+            self.recipe = try await service.getRecipe(with: Int(favoriteRecipe.recipeId))
+        } catch {
+            // TODO: - handle error
+        }
+    }
+    
+    private func getCustomRecipeData() async {
+        guard let customRecipeId = customRecipeId else { return }
+        
+        // self.recipe = // TODO
+    }
+}
+
 // MARK: - Properties
 extension RecipeDetailViewModel {
     var ingredientList: [String] {
-        return recipe.extendedIngredients.map { $0.original }
+        return recipe?.extendedIngredients.map { $0.original } ?? []
     }
     
     var stepList: [String] {
         var steps: [Step] {
+            guard let recipe = recipe else { return [] }
+            
             return recipe.analyzedInstructions.isEmpty
                 ? []
                 : recipe.analyzedInstructions[0].steps

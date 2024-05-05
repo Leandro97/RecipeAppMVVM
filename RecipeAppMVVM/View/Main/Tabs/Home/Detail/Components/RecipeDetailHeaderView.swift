@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct RecipeDetailHeaderView {
-    var recipe: Recipe
+    var recipe: Recipe?
 }
 
 extension RecipeDetailHeaderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             AsyncImage(
-                url: URL(string: recipe.image),
+                url: URL(string: recipe?.image ?? ""),
                 content: { image in
                     image
                         .resizable()
@@ -42,7 +42,7 @@ extension RecipeDetailHeaderView: View {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
             )
             
-            Text(recipe.title)
+            Text(recipe?.title ?? "")
                 .multilineTextAlignment(.leading)
                 .font(.title)
             
@@ -50,13 +50,13 @@ extension RecipeDetailHeaderView: View {
                 HStack(spacing: 4) {
                     Image(systemName: "clock")
                     
-                    Text("\(recipe.readyInMinutes)")
+                    Text("\(recipe?.readyInMinutes ?? 0)")
                 }
 
                 HStack(spacing: 4) {
                     Image(systemName: "person")
                     
-                    Text("\(recipe.servings)")
+                    Text("\(recipe?.servings ?? 0)")
                 }
                 
                 Spacer()

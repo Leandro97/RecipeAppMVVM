@@ -16,11 +16,21 @@ struct RecipeDetailView {
     @State private var isIngredientsExpanded = true
     @State private var isInstructionsExpanded = true
     @State private var showingSimilarRecipeAlert = false
-    private var recipe: Recipe
     
     init(with recipe: Recipe) {
-        self.recipe = recipe
         self.viewModel = .init(with: recipe)
+    }
+    
+    init(with favoriteRecipe: FavoriteRecipeDataModel) {
+//        if favoriteRecipe.isCustom {
+//            self.init(with: Int(favoriteRecipe.recipeId))
+//        } else {
+        self.viewModel = .init(with: favoriteRecipe)
+//        }
+    }
+    
+    init(with customRecipeId: Int) {
+        self.viewModel = .init(with: customRecipeId)
     }
 }
 
@@ -98,6 +108,7 @@ extension RecipeDetailView: View {
 // MARK: - Toolbar
 extension RecipeDetailView {
     private var isFavorite: Bool {
+        guard let recipe = viewModel.recipe else { return false }
         return favoriteRecipes.map { Int($0.recipeId) }.contains(recipe.id)
     }
     
@@ -105,10 +116,12 @@ extension RecipeDetailView {
         ToolbarItem(placement: .topBarTrailing) {
             HStack(spacing: 8) {
                 Button {
-                    if isFavorite {
-                        FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)
-                    } else {
-                        FavoriteRecipeDataModel.setAsFavorite(recipe, with: context, isCustom: true)
+                    if let recipe = viewModel.recipe {
+                        if isFavorite {
+                            FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)
+                        } else {
+                            FavoriteRecipeDataModel.setAsFavorite(recipe, with: context, isCustom: true)
+                        }
                     }
                 } label: {
                     isFavorite
