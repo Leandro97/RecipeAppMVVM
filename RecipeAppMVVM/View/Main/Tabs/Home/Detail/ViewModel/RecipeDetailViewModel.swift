@@ -28,12 +28,8 @@ extension RecipeDetailViewModel {
         defer { self.isLoading = false }
         
         do {
-            guard 
-                let recipe = recipe,
-                let similarRecipe = try await service.getSimilarRecipe(with: recipe.id)
-            else { return }
-            
-            self.recipe = similarRecipe
+            guard let recipe = recipe else { return }
+            self.recipe = try await service.getSimilarRecipe(with: recipe.id)
         } catch {
             // TODO: - handle error
         }

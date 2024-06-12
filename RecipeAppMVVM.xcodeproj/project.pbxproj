@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C0706922BD97B0900AB501A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0706912BD97B0900AB501A /* AppTheme.swift */; };
+		9C1F5C782C1A0726007A3D67 /* JSONError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F5C772C1A0726007A3D67 /* JSONError.swift */; };
 		9C2376852BC9A727007461C6 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2376842BC9A727007461C6 /* SectionHeader.swift */; };
 		9C29BB382BC9735100CD8244 /* Diet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C29BB372BC9735100CD8244 /* Diet.swift */; };
 		9C371F552BC81FE00060A2BB /* SimilarRecipeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C371F542BC81FE00060A2BB /* SimilarRecipeObject.swift */; };
@@ -35,7 +36,7 @@
 		9C5A124627CE8E15007D0A99 /* RecipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A124527CE8E15007D0A99 /* RecipeCard.swift */; };
 		9C5A124827CE8E48007D0A99 /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A124727CE8E48007D0A99 /* RecipeService.swift */; };
 		9C7ED08D2BD00A6000FEF1E7 /* NSManagedObjectContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7ED08C2BD00A6000FEF1E7 /* NSManagedObjectContextExtension.swift */; };
-		9C89D28D2B29DFBA005940D9 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C89D28C2B29DFBA005940D9 /* CustomError.swift */; };
+		9C89D28D2B29DFBA005940D9 /* HTTPRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C89D28C2B29DFBA005940D9 /* HTTPRequestError.swift */; };
 		9C89D28F2B29E47E005940D9 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C89D28E2B29E47E005940D9 /* ActivityIndicator.swift */; };
 		9C923B302BE3CE98004378DA /* CustomRecipeDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B2F2BE3CE98004378DA /* CustomRecipeDataModelExtension.swift */; };
 		9C923B322BE3CED3004378DA /* DietDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B312BE3CED3004378DA /* DietDataModelExtension.swift */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		9C0706912BD97B0900AB501A /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		9C1F5C772C1A0726007A3D67 /* JSONError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONError.swift; sourceTree = "<group>"; };
 		9C2376842BC9A727007461C6 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		9C29BB372BC9735100CD8244 /* Diet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diet.swift; sourceTree = "<group>"; };
 		9C371F542BC81FE00060A2BB /* SimilarRecipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarRecipeObject.swift; sourceTree = "<group>"; };
@@ -102,7 +104,7 @@
 		9C5A124527CE8E15007D0A99 /* RecipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCard.swift; sourceTree = "<group>"; };
 		9C5A124727CE8E48007D0A99 /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
 		9C7ED08C2BD00A6000FEF1E7 /* NSManagedObjectContextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextExtension.swift; sourceTree = "<group>"; };
-		9C89D28C2B29DFBA005940D9 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		9C89D28C2B29DFBA005940D9 /* HTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestError.swift; sourceTree = "<group>"; };
 		9C89D28E2B29E47E005940D9 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		9C923B2F2BE3CE98004378DA /* CustomRecipeDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRecipeDataModelExtension.swift; sourceTree = "<group>"; };
 		9C923B312BE3CED3004378DA /* DietDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietDataModelExtension.swift; sourceTree = "<group>"; };
@@ -151,6 +153,15 @@
 				9C0706912BD97B0900AB501A /* AppTheme.swift */,
 			);
 			path = AppTheme;
+			sourceTree = "<group>";
+		};
+		9C1F5C762C1A06EA007A3D67 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				9C89D28C2B29DFBA005940D9 /* HTTPRequestError.swift */,
+				9C1F5C772C1A0726007A3D67 /* JSONError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		9C343D722ACB61B800BFA5E3 /* Shared */ = {
@@ -359,7 +370,6 @@
 				9CD8A6602C19DFD20089D291 /* RequestBuilder */,
 				9CD8A65F2C19DD4C0089D291 /* Recipe */,
 				9CA98701288CCA3900DF38FF /* BaseUrl.swift */,
-				9C89D28C2B29DFBA005940D9 /* CustomError.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -399,6 +409,7 @@
 		9CD8A6602C19DFD20089D291 /* RequestBuilder */ = {
 			isa = PBXGroup;
 			children = (
+				9C1F5C762C1A06EA007A3D67 /* Errors */,
 				9CD8A6612C19DFDE0089D291 /* RequestBuilder.swift */,
 				9CD8A6632C19E06A0089D291 /* HTTPMethod.swift */,
 			);
@@ -549,7 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C923B382BE3CF24004378DA /* InstructionDataModelExtension.swift in Sources */,
-				9C89D28D2B29DFBA005940D9 /* CustomError.swift in Sources */,
+				9C89D28D2B29DFBA005940D9 /* HTTPRequestError.swift in Sources */,
 				9C5A123227CE7F55007D0A99 /* FavoritesTabView.swift in Sources */,
 				9C2376852BC9A727007461C6 /* SectionHeader.swift in Sources */,
 				9C89D28F2B29E47E005940D9 /* ActivityIndicator.swift in Sources */,
@@ -578,6 +589,7 @@
 				9C5A123027CE7F43007D0A99 /* SettingsTabView.swift in Sources */,
 				9C5A124827CE8E48007D0A99 /* RecipeService.swift in Sources */,
 				9C5A123D27CE8445007D0A99 /* Recipe.swift in Sources */,
+				9C1F5C782C1A0726007A3D67 /* JSONError.swift in Sources */,
 				9C517D0328E0B945006641DB /* RecipeDetailViewModel.swift in Sources */,
 				9C517D0D28E0C119006641DB /* HomeViewModel.swift in Sources */,
 				9CC428542BE27B9A007211F1 /* FavoriteRecipeDataModelExtension.swift in Sources */,

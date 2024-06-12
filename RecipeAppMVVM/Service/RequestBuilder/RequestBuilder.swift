@@ -8,15 +8,16 @@
 import Foundation
 
 class RequestBuilder {
-    static func makeRequest(
+    static func makeRequest<T: Decodable>(
         domain: String = BaseUrl.domain,
         apiKey: String = BaseUrl.apiKey,
         method: HTTPMethod,
         endpoint: String,
         headers: [String: String]? = nil,
         queryParameters: [URLQueryItem]? = nil,
-        bodyParameters: [String: Any]? = nil
-    ) async throws -> Data {
+        bodyParameters: [String: Any]? = nil,
+        using dataModel: T.Type
+    ) async throws -> T {
         let request = try Self.formattedRequest(
             domain,
             apiKey,
@@ -35,10 +36,15 @@ class RequestBuilder {
             response.statusCode <= 300
         else {
             let response = response as? HTTPURLResponse
-            throw CustomError.invalidStatusCode(response?.statusCode ?? 404)
+            throw HTTPRequestError.invalidStatusCode(response?.statusCode ?? 404)
         }
         
-        return data
+        do {
+            let model = try JSONDecoder().decode(T.self, from: data)
+            return model
+        } catch {
+            throw JSONError.invalidModelType
+        }
     }
 }
 
@@ -53,12 +59,12 @@ extension RequestBuilder {
         _ bodyParameters: [String: Any]?
     ) throws -> URLRequest {
         if method == .get && bodyParameters != nil {
-            throw CustomError.bodyNotAllowed
+            throw HTTPRequestError.bodyNotAllowed
         }
         
         guard
             let urlComponents = NSURLComponents(string: "\(domain)/\(endpoint)")
-        else { throw CustomError.invalidUrl }
+        else { throw HTTPRequestError.invalidUrl }
         
         // MARK: Query parameters
         urlComponents.queryItems = [

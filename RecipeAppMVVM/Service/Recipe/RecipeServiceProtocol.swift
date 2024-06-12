@@ -10,9 +10,9 @@ import Foundation
 protocol RecipeServiceProtocol {
     func getRandomRecipes(quantity: Int) async throws -> [Recipe]
     
-    func getSimilarRecipe(with id: Int) async throws -> Recipe?
+    func getSimilarRecipe(with id: Int) async throws -> Recipe
     
-    func getRecipe(with id: Int) async throws -> Recipe?
+    func getRecipe(with id: Int) async throws -> Recipe
 }
 
 extension RecipeServiceProtocol {
