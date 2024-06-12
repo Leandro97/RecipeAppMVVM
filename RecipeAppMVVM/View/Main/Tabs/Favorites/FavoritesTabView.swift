@@ -39,7 +39,7 @@ extension FavoritesTabView: View {
                     
                     LazyVGrid(columns: gridItemList, spacing: 15) {
                         ForEach(favoriteRecipes) { recipe in
-                            NavigationLink(destination: RecipeDetailView(with: recipe)) {
+                            NavigationLink(destination: RecipeDetailView(withFavorite: recipe)) {
                                 RecipeCard(image: recipe.image ?? "", title: recipe.title ?? "")
                             }
                         }

@@ -12,25 +12,28 @@ struct RecipeDetailView {
     @FetchRequest(fetchRequest: FavoriteRecipeDataModel.allFavorites) 
     private var favoriteRecipes: FetchedResults<FavoriteRecipeDataModel>
     
-    @ObservedObject private var viewModel: RecipeDetailViewModel
+    @ObservedObject private var viewModel: RecipeDetailViewModel = .init()
     @State private var isIngredientsExpanded = true
     @State private var isInstructionsExpanded = true
     @State private var showingSimilarRecipeAlert = false
+    private var recipe: Recipe?
+    private var favoriteRecipe: FavoriteRecipeDataModel?
+    private var customRecipeId: Int?
     
     init(with recipe: Recipe) {
-        self.viewModel = .init(with: recipe)
+        self.recipe = recipe
     }
     
-    init(with favoriteRecipe: FavoriteRecipeDataModel) {
-//        if favoriteRecipe.isCustom {
-//            self.init(with: Int(favoriteRecipe.recipeId))
-//        } else {
-        self.viewModel = .init(with: favoriteRecipe)
-//        }
+    init(withFavorite favoriteRecipe: FavoriteRecipeDataModel) {
+        if favoriteRecipe.isCustom {
+            self.customRecipeId = Int(favoriteRecipe.recipeId)
+        } else {
+            self.favoriteRecipe = favoriteRecipe
+        }
     }
     
-    init(with customRecipeId: Int) {
-        self.viewModel = .init(with: customRecipeId)
+    init(withCustomId customRecipeId: Int) {
+        self.customRecipeId = customRecipeId
     }
 }
 
@@ -102,6 +105,17 @@ extension RecipeDetailView: View {
             toolbarItems
         }
         .modifier(ActivityIndicatorModifier(isLoading: viewModel.isLoading))
+        .onAppear {
+            Task {
+                if let recipe {
+                    viewModel.set(recipe: recipe)
+                } else if let favoriteRecipe {
+                    await viewModel.getFavoriteRecipeData(with: favoriteRecipe.recipeId)
+                } else if let customRecipeId {
+                    await viewModel.getCustomRecipeData(with: customRecipeId)
+                }
+            }
+        }
     }
 }
 
@@ -120,7 +134,7 @@ extension RecipeDetailView {
                         if isFavorite {
                             FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)
                         } else {
-                            FavoriteRecipeDataModel.setAsFavorite(recipe, with: context, isCustom: true)
+                            FavoriteRecipeDataModel.setAsFavorite(recipe, with: context, isCustom: false)
                         }
                     }
                 } label: {

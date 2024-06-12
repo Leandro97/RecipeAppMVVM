@@ -11,46 +11,19 @@ class RecipeDetailViewModel: ObservableObject {
     private let service: RecipeServiceProtocol
     @Published var isLoading: Bool = false
     @Published var recipe: Recipe?
-    @Published var favoriteRecipe: FavoriteRecipeDataModel?
-    @Published var customRecipeId: Int?
     
-    init(
-        with recipe: Recipe,
-        service: RecipeServiceProtocol = RecipeService()
-    ) {
+    init(service: RecipeServiceProtocol = RecipeService()) {
+        self.service = service
+    }
+    
+    func set(recipe: Recipe) {
         self.recipe = recipe
-        self.service = service
-    }
-    
-    init(
-        with favoriteRecipe: FavoriteRecipeDataModel,
-        service: RecipeServiceProtocol = RecipeService()
-    ) {
-        self.favoriteRecipe = favoriteRecipe
-        self.service = service
-        
-        Task {
-            await getFavoriteRecipeData()
-        }
-    }
-    
-    init(
-        with customRecipeId: Int,
-        service: RecipeServiceProtocol = RecipeService()
-    ) {
-        self.customRecipeId = customRecipeId
-        self.service = service
-        
-        Task {
-            await getCustomRecipeData()
-        }
     }
 }
 
 // MARK: - Public functions
 extension RecipeDetailViewModel {
     func getSimilarRecipe() async {
-        // TODO: fix touch on detail (it's redirecting to similar recipe on card touch)
         self.isLoading = true
         defer { self.isLoading = false }
         
@@ -65,26 +38,19 @@ extension RecipeDetailViewModel {
             // TODO: - handle error
         }
     }
-}
 
-// MARK: - Private functions
-extension RecipeDetailViewModel {
-    private func getFavoriteRecipeData() async {
-        guard let favoriteRecipe = favoriteRecipe else { return }
-        
+    func getFavoriteRecipeData(with id: Int64) async {
         self.isLoading = true
         defer { self.isLoading = false }
         
         do {
-            self.recipe = try await service.getRecipe(with: Int(favoriteRecipe.recipeId))
+            self.recipe = try await service.getRecipe(with: Int(id))
         } catch {
             // TODO: - handle error
         }
     }
     
-    private func getCustomRecipeData() async {
-        guard let customRecipeId = customRecipeId else { return }
-        
+    func getCustomRecipeData(with id: Int) async {
         // self.recipe = // TODO
     }
 }

@@ -16,7 +16,7 @@ protocol RecipeServiceProtocol {
 }
 
 extension RecipeServiceProtocol {
-    var getRandomRecipesUrl: String { "recipes/random?apiKey=\(BaseUrl.apiKey)" }
-    var getSimilarRecipeUrl: String { "recipes/%@/similar?apiKey=\(BaseUrl.apiKey)" }
-    var getRecipeInfoUrl: String { "recipes/%@/information?apiKey=\(BaseUrl.apiKey)" }
+    var getRandomRecipesUrl: String { "recipes/random" }
+    var getSimilarRecipeUrl: String { "recipes/%@/similar" }
+    var getRecipeInfoUrl: String { "recipes/%@/information" }
 }

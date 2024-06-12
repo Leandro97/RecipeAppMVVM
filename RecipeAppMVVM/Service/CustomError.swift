@@ -8,12 +8,18 @@
 import Foundation
 
 public enum CustomError: Error {
-    case invalidStatusCode
+    case invalidUrl
+    case invalidStatusCode(_ code: Int)
+    case bodyNotAllowed
     
     var message: String {
         switch self {
+        case .invalidUrl:
+            return "Invalid URL"
         case .invalidStatusCode:
-            return "Invalid status code."
+            return "Invalid status code"
+        case .bodyNotAllowed:
+            return "GET requests should not use body data"
         }
     }
 }
