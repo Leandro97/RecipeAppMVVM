@@ -8,8 +8,14 @@
 import Foundation
 
 final class RecipeService: RecipeServiceProtocol {
+    private var requestBuilder: RequestBuilderProtocol
+    
+    init(requestBuilder: RequestBuilderProtocol = RequestBuilder.shared) {
+        self.requestBuilder = requestBuilder
+    }
+    
     func getRandomRecipes(quantity: Int) async throws -> [Recipe] {
-        let recipe = try await RequestBuilder.makeRequest(
+        let recipe = try await requestBuilder.makeRequest(
             method: .get,
             endpoint: self.getRandomRecipesUrl,
             queryParameters: [.init(name: "number", value: "\(quantity)")],
@@ -23,7 +29,7 @@ final class RecipeService: RecipeServiceProtocol {
         let endpoint = String(format: self.getSimilarRecipeUrl, String(id))
         let quantity = Int.random(in: 2...15)
         
-        let recipeList = try await RequestBuilder.makeRequest(
+        let recipeList = try await requestBuilder.makeRequest(
             method: .get,
             endpoint: endpoint,
             queryParameters: [.init(name: "number", value: "\(quantity)")],
@@ -42,7 +48,7 @@ final class RecipeService: RecipeServiceProtocol {
     func getRecipe(with id: Int) async throws -> Recipe {
         let endpoint = String(format: self.getRecipeInfoUrl, String(id))
         
-        let recipe = try await RequestBuilder.makeRequest(
+        let recipe = try await requestBuilder.makeRequest(
             method: .get,
             endpoint: endpoint,
             using: Recipe.self

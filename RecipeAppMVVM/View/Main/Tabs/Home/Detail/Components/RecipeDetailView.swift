@@ -130,6 +130,7 @@ extension RecipeDetailView {
         ToolbarItem(placement: .topBarTrailing) {
             HStack(spacing: 8) {
                 Button {
+                    // TODO: - fix favorite when similar recipe is displayed
                     if let recipe = viewModel.recipe {
                         if isFavorite {
                             FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)

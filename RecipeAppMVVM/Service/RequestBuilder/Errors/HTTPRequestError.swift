@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum HTTPRequestError: Error {
+public enum HTTPRequestError: Error, Equatable {
     case invalidUrl
     case invalidStatusCode(_ code: Int)
     case bodyNotAllowed

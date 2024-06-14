@@ -7,8 +7,25 @@
 
 import Foundation
 
-class RequestBuilder {
-    static func makeRequest<T: Decodable>(
+protocol URLSessionHandlerProtocol {
+    func getData(for request: URLRequest) async throws -> (Data, URLResponse)
+}
+
+private class DefaultURLSessionHandler: URLSessionHandlerProtocol {
+    func getData(for request: URLRequest) async throws -> (Data, URLResponse) {
+        return try await URLSession.shared.data(for: request)
+    }
+}
+
+class RequestBuilder: RequestBuilderProtocol {
+    private var urlSessionHandler: URLSessionHandlerProtocol
+    static let shared = RequestBuilder(with: DefaultURLSessionHandler())
+    
+    init(with urlSessionHandler: URLSessionHandlerProtocol) {
+        self.urlSessionHandler = urlSessionHandler
+    }
+    
+    func makeRequest<T: Decodable>(
         domain: String = BaseUrl.domain,
         apiKey: String = BaseUrl.apiKey,
         method: HTTPMethod,
@@ -18,7 +35,40 @@ class RequestBuilder {
         bodyParameters: [String: Any]? = nil,
         using dataModel: T.Type
     ) async throws -> T {
-        let request = try Self.formattedRequest(
+        let data = try await makeRequest(
+            domain: domain,
+            apiKey: apiKey,
+            method: method,
+            endpoint: endpoint,
+            headers: headers,
+            queryParameters: queryParameters,
+            bodyParameters: bodyParameters
+        )
+        
+        do {
+            let model = try JSONDecoder().decode(T.self, from: data)
+            return model
+        } catch {
+            let decodingError = error as? DecodingError
+            
+            if decodingError.debugDescription.contains("The given data was not valid JSON.") {
+                throw JSONError.invalidData
+            } else {
+                throw JSONError.invalidModelType
+            }
+        }
+    }
+    
+    func makeRequest(
+        domain: String = BaseUrl.domain,
+        apiKey: String = BaseUrl.apiKey,
+        method: HTTPMethod,
+        endpoint: String,
+        headers: [String: String]? = nil,
+        queryParameters: [URLQueryItem]? = nil,
+        bodyParameters: [String: Any]? = nil
+    ) async throws -> Data {
+        let request = try self.formattedRequest(
             domain,
             apiKey,
             method,
@@ -28,7 +78,7 @@ class RequestBuilder {
             bodyParameters
         )
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await urlSessionHandler.getData(for: request)
         
         guard
             let response = response as? HTTPURLResponse,
@@ -39,17 +89,12 @@ class RequestBuilder {
             throw HTTPRequestError.invalidStatusCode(response?.statusCode ?? 404)
         }
         
-        do {
-            let model = try JSONDecoder().decode(T.self, from: data)
-            return model
-        } catch {
-            throw JSONError.invalidModelType
-        }
+        return data
     }
 }
 
 extension RequestBuilder {
-    private static func formattedRequest(
+    private func formattedRequest(
         _ domain: String = BaseUrl.domain,
         _ apiKey: String = BaseUrl.apiKey,
         _ method: HTTPMethod,
@@ -62,8 +107,16 @@ extension RequestBuilder {
             throw HTTPRequestError.bodyNotAllowed
         }
         
+        var urlString: String {
+            if endpoint.isEmpty {
+                return domain
+            } else {
+                return "\(domain)/\(endpoint)"
+            }
+        }
+        
         guard
-            let urlComponents = NSURLComponents(string: "\(domain)/\(endpoint)")
+            let urlComponents = NSURLComponents(string: urlString)
         else { throw HTTPRequestError.invalidUrl }
         
         // MARK: Query parameters

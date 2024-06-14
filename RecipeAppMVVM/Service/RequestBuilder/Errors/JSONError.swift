@@ -7,9 +7,10 @@
 
 import Foundation
 
-public enum JSONError: Error {
+public enum JSONError: Error, Equatable {
     case invalidData
     case invalidModelType
+    case fileError(_ message: String)
     
     var message: String {
         switch self {
@@ -17,6 +18,8 @@ public enum JSONError: Error {
             return "Data is not a valid JSON object"
         case .invalidModelType:
             return "Cannot parse JSON to specified model"
+        case .fileError(let message):
+            return message
         }
     }
 }
