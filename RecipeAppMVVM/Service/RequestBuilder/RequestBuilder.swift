@@ -8,10 +8,14 @@
 import Foundation
 
 protocol URLSessionHandlerProtocol {
+    var jsonFile: String { get set }
+    
     func getData(for request: URLRequest) async throws -> (Data, URLResponse)
 }
 
 private class DefaultURLSessionHandler: URLSessionHandlerProtocol {
+    var jsonFile = ""
+    
     func getData(for request: URLRequest) async throws -> (Data, URLResponse) {
         return try await URLSession.shared.data(for: request)
     }

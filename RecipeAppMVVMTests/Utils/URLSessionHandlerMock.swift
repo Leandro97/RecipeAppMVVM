@@ -9,6 +9,8 @@
 import XCTest
 
 final class URLSessionHandlerMock: URLSessionHandlerProtocol {
+    var jsonFile = ""
+    
     func getData(for request: URLRequest) async throws -> (Data, URLResponse) {
         guard let url = request.url else { throw HTTPRequestError.invalidUrl }
         
@@ -16,15 +18,15 @@ final class URLSessionHandlerMock: URLSessionHandlerProtocol {
             throw HTTPRequestError.invalidUrl
         }
         
-        if url.absoluteString.contains("invalidEndpoint") {
+        if
+            url.absoluteString.contains("invalidEndpoint")
+            || url.absoluteString.contains("recipes/999/information")
+        {
             throw HTTPRequestError.invalidStatusCode(404)
         }
         
         var data: Data {
-            if
-                url.absoluteString.contains("recipes/random"),
-                let data = try? JSONLoader.load(from: "recipe-list-mock")
-            {
+            if !jsonFile.isEmpty, let data = try? JSONLoader.load(from: jsonFile) {
                 return data
             } else {
                 return Data()

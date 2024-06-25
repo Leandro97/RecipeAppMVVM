@@ -9,10 +9,12 @@
 import XCTest
 
 final class RequestBuilderTests: XCTestCase {
-    var requestBuilder: RequestBuilder!
+    private var sessionHandler: URLSessionHandlerProtocol!
+    private var requestBuilder: RequestBuilder!
     
     override func setUpWithError() throws {
-        requestBuilder = RequestBuilder(with: URLSessionHandlerMock())
+        sessionHandler = URLSessionHandlerMock()
+        requestBuilder = RequestBuilder(with: sessionHandler)
     }
     
     func testInvalidUrl() async {
@@ -75,6 +77,8 @@ final class RequestBuilderTests: XCTestCase {
     }
     
     func testRequestWithInvalidType() async throws {
+        sessionHandler.jsonFile = "recipe-list-mock"
+        
         do {
             _ = try await requestBuilder.makeRequest(
                 method: .get,
@@ -88,12 +92,14 @@ final class RequestBuilderTests: XCTestCase {
     }
     
     func testRequestWithValidType() async throws {
-        let recipes = try await requestBuilder.makeRequest(
+        sessionHandler.jsonFile = "recipe-list-mock"
+        
+        let recipeList = try await requestBuilder.makeRequest(
             method: .get,
             endpoint: "recipes/random",
-            using: [Recipe].self
+            using: RecipeList.self
         )
         
-        XCTAssertFalse(recipes.isEmpty)
+        XCTAssertFalse(recipeList.recipes.isEmpty)
     }
 }

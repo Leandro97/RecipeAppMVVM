@@ -69,10 +69,8 @@ extension SettingsTabView {
                 // TODO
             }
         }
-        
-        let entities = Entity.allCases
-        
-        entities.map { $0.name }.forEach { entity in
+
+        Entity.allCases.map { $0.name }.forEach { entity in
             deleteTable(named: entity)
         }
     }

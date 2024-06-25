@@ -29,7 +29,8 @@ extension RecipeDetailViewModel {
         
         do {
             guard let recipe = recipe else { return }
-            self.recipe = try await service.getSimilarRecipe(with: recipe.id)
+            let recipeId = try await service.getSimilarRecipe(with: recipe.id)
+            self.recipe = try await service.getRecipe(with: recipeId)
         } catch {
             // TODO: - handle error
         }

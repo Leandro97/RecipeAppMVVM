@@ -25,7 +25,7 @@ final class RecipeService: RecipeServiceProtocol {
         return recipe.recipes
     }
     
-    func getSimilarRecipe(with id: Int) async throws -> Recipe {
+    func getSimilarRecipe(with id: Int) async throws -> Int {
         let endpoint = String(format: self.getSimilarRecipeUrl, String(id))
         let quantity = Int.random(in: 2...15)
         
@@ -42,7 +42,7 @@ final class RecipeService: RecipeServiceProtocol {
         let recipeIndex = Int.random(in: 0...endIndex-1)
         let recipe = recipeList[recipeIndex]
         
-        return try await getRecipe(with: recipe.id)
+        return recipe.id
     }
     
     func getRecipe(with id: Int) async throws -> Recipe {

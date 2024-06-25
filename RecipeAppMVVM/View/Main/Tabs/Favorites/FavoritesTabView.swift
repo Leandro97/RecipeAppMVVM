@@ -48,7 +48,7 @@ extension FavoritesTabView: View {
                 }
                 .padding(.horizontal)
             }
-                .navigationTitle("Favorite recipes")
+            .navigationTitle("Favorite recipes")
         }
         .navigationViewStyle(.stack)
     }
