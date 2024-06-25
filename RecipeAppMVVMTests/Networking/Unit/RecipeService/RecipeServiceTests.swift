@@ -45,7 +45,7 @@ final class RecipeServiceTests: XCTestCase {
         XCTAssertNotNil(recipeId)
     }
     
-    func testUnsuccessfulGetRecipe() async {
+    func testFailedGetRecipe() async {
         let recipeId = 999
         sessionHandler.jsonFile = "recipe"
         

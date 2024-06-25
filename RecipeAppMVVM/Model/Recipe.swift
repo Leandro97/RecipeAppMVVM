@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct RecipeList: Decodable {
+struct RecipeList: Decodable, Equatable {
     let recipes: [Recipe]
+    
+    static func == (lhs: RecipeList, rhs: RecipeList) -> Bool {
+        lhs.recipes == rhs.recipes
+    }
 }
 
-struct Recipe: Decodable, Identifiable {
+struct Recipe: Decodable, Identifiable, Equatable {
     let id: Int
     let title: String
     let image: String
@@ -34,5 +38,9 @@ struct Recipe: Decodable, Identifiable {
         self.dishTypes = [.breakfast, .mainCourse]
         self.sourceUrl = "http://fullbellysisters.blogspot.com/2012/06/pasta-with-garlic-scallions-cauliflower.html"
         self.diets = []
+    }
+    
+    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
+        lhs.id == rhs.id
     }
 }

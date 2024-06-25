@@ -9,7 +9,7 @@ import Foundation
 
 class RecipeDetailViewModel: ObservableObject {
     private let service: RecipeServiceProtocol
-    @Published var isLoading: Bool = false
+    @Published var isLoading = false
     @Published var recipe: Recipe?
     
     init(service: RecipeServiceProtocol = RecipeService()) {

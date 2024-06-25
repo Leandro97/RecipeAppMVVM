@@ -34,6 +34,13 @@ extension HomeTabView: View {
                         hasLoadedRecipes = true
                     }
                 }
+                .alert(isPresented: $viewModel.hasError) {
+                    Alert(
+                        title: Text("Service error!"),
+                        message: Text("Please, try again later."),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
         }
         .navigationViewStyle(.stack)
     }
