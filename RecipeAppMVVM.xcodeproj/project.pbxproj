@@ -262,7 +262,7 @@
 		9C517D0428E0BDA7006641DB /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				9C5A122E27CE7EF5007D0A99 /* Components */,
+				9CC901082C2C3800003DF8F0 /* View */,
 				9C517D0B28E0BEFF006641DB /* ViewModel */,
 			);
 			path = Main;
@@ -296,7 +296,6 @@
 			isa = PBXGroup;
 			children = (
 				9CDDBF6C283AB5C6005D63B0 /* RecipeDetailHeaderView.swift */,
-				9C4E85E22BA4729200590CEF /* RecipeDetailView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -413,7 +412,7 @@
 		9C5A122D27CE7EEC007D0A99 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				9C517D0928E0BEE3006641DB /* Components */,
+				9CC901092C2C3824003DF8F0 /* View */,
 				9C517D0A28E0BEED006641DB /* ViewModel */,
 			);
 			path = Detail;
@@ -422,7 +421,6 @@
 		9C5A122E27CE7EF5007D0A99 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				9C5A123727CE7F93007D0A99 /* HomeTabView.swift */,
 				9C5A124527CE8E15007D0A99 /* RecipeCard.swift */,
 				9C2376842BC9A727007461C6 /* SectionHeader.swift */,
 			);
@@ -472,6 +470,24 @@
 				9C923B3B2BE3CF68004378DA /* RecipeDishTypeDataModelExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9CC901082C2C3800003DF8F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C5A123727CE7F93007D0A99 /* HomeTabView.swift */,
+				9C5A122E27CE7EF5007D0A99 /* Components */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9CC901092C2C3824003DF8F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C4E85E22BA4729200590CEF /* RecipeDetailView.swift */,
+				9C517D0928E0BEE3006641DB /* Components */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		9CD8A65F2C19DD4C0089D291 /* Recipe */ = {
