@@ -7,11 +7,13 @@
 
 import Foundation
 
-enum DishType: String, Decodable {
+enum DishType: String, Decodable, Identifiable {
     case dessert, appetizer, salad, bread, dinner, breakfast, soup, beverage, sauce, snack, lunch
     case mainCourse = "main course"
     case sideDish = "side dish"
     case unknown
+    
+    var id: Self { self }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

@@ -7,12 +7,14 @@
 
 import Foundation
 
-enum Diet: String, Decodable {
+enum Diet: String, Decodable, Identifiable {
     case pescatarian, vegetarian, vegan, paleolithic, ketogenic
     case dairyFree = "dairy free"
     case glutenFree = "gluten free"
     case lactoOvoVegetarian = "lacto ovo vegetarian"
     case unknown
+    
+    var id: Self { self }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

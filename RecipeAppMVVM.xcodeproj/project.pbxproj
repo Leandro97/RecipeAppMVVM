@@ -58,6 +58,11 @@
 		9CC428542BE27B9A007211F1 /* FavoriteRecipeDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC428532BE27B9A007211F1 /* FavoriteRecipeDataModelExtension.swift */; };
 		9CC9010D2C2C39EC003DF8F0 /* SettingsTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC9010C2C2C39EC003DF8F0 /* SettingsTabViewModel.swift */; };
 		9CC901102C2C3C68003DF8F0 /* RecipeDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC9010F2C2C3C68003DF8F0 /* RecipeDetailViewModelTests.swift */; };
+		9CC901152C2C40C4003DF8F0 /* CategoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC901142C2C40C4003DF8F0 /* CategoriesListViewModel.swift */; };
+		9CC901182C2C4580003DF8F0 /* DishTypeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC901172C2C4580003DF8F0 /* DishTypeTabView.swift */; };
+		9CC9011A2C2C4590003DF8F0 /* DietTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC901192C2C4590003DF8F0 /* DietTabView.swift */; };
+		9CC9011C2C2C555F003DF8F0 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC9011B2C2C555F003DF8F0 /* CategoriesListView.swift */; };
+		9CC9011E2C2C56B1003DF8F0 /* CategoriesTabOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC9011D2C2C56B1003DF8F0 /* CategoriesTabOptions.swift */; };
 		9CD8A6622C19DFDE0089D291 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD8A6612C19DFDE0089D291 /* RequestBuilder.swift */; };
 		9CD8A6642C19E06A0089D291 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD8A6632C19E06A0089D291 /* HTTPMethod.swift */; };
 		9CDDBF6D283AB5C6005D63B0 /* RecipeDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDDBF6C283AB5C6005D63B0 /* RecipeDetailHeaderView.swift */; };
@@ -139,6 +144,11 @@
 		9CC428532BE27B9A007211F1 /* FavoriteRecipeDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeDataModelExtension.swift; sourceTree = "<group>"; };
 		9CC9010C2C2C39EC003DF8F0 /* SettingsTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabViewModel.swift; sourceTree = "<group>"; };
 		9CC9010F2C2C3C68003DF8F0 /* RecipeDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModelTests.swift; sourceTree = "<group>"; };
+		9CC901142C2C40C4003DF8F0 /* CategoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListViewModel.swift; sourceTree = "<group>"; };
+		9CC901172C2C4580003DF8F0 /* DishTypeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishTypeTabView.swift; sourceTree = "<group>"; };
+		9CC901192C2C4590003DF8F0 /* DietTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietTabView.swift; sourceTree = "<group>"; };
+		9CC9011B2C2C555F003DF8F0 /* CategoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
+		9CC9011D2C2C56B1003DF8F0 /* CategoriesTabOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTabOptions.swift; sourceTree = "<group>"; };
 		9CD8A6612C19DFDE0089D291 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		9CD8A6632C19E06A0089D291 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		9CDDBF6C283AB5C6005D63B0 /* RecipeDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailHeaderView.swift; sourceTree = "<group>"; };
@@ -459,7 +469,8 @@
 		9CA986FB288CC0AE00DF38FF /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				9C5A123527CE7F77007D0A99 /* CategoriesTabView.swift */,
+				9CC901112C2C3F98003DF8F0 /* View */,
+				9CC901132C2C40B7003DF8F0 /* ViewModel */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -519,6 +530,34 @@
 				9CC9010F2C2C3C68003DF8F0 /* RecipeDetailViewModelTests.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		9CC901112C2C3F98003DF8F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9CC901162C2C4544003DF8F0 /* Tabs */,
+				9C5A123527CE7F77007D0A99 /* CategoriesTabView.swift */,
+				9CC9011B2C2C555F003DF8F0 /* CategoriesListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9CC901132C2C40B7003DF8F0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9CC901142C2C40C4003DF8F0 /* CategoriesListViewModel.swift */,
+				9CC9011D2C2C56B1003DF8F0 /* CategoriesTabOptions.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9CC901162C2C4544003DF8F0 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				9CC901172C2C4580003DF8F0 /* DishTypeTabView.swift */,
+				9CC901192C2C4590003DF8F0 /* DietTabView.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 		9CD8A65F2C19DD4C0089D291 /* Recipe */ = {
@@ -634,7 +673,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					9C5A11FB27CE7E68007D0A99 = {
 						CreatedOnToolsVersion = 13.1;
@@ -707,7 +746,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CC9011A2C2C4590003DF8F0 /* DietTabView.swift in Sources */,
 				9C923B382BE3CF24004378DA /* InstructionDataModelExtension.swift in Sources */,
+				9CC9011C2C2C555F003DF8F0 /* CategoriesListView.swift in Sources */,
 				9CC9010D2C2C39EC003DF8F0 /* SettingsTabViewModel.swift in Sources */,
 				9C89D28D2B29DFBA005940D9 /* HTTPRequestError.swift in Sources */,
 				9C5A123227CE7F55007D0A99 /* FavoritesTabView.swift in Sources */,
@@ -728,6 +769,7 @@
 				9CDDBF6D283AB5C6005D63B0 /* RecipeDetailHeaderView.swift in Sources */,
 				9C0706922BD97B0900AB501A /* AppTheme.swift in Sources */,
 				9C923B362BE3CEF2004378DA /* IngredientDataModelExtension.swift in Sources */,
+				9CC9011E2C2C56B1003DF8F0 /* CategoriesTabOptions.swift in Sources */,
 				9C7ED08D2BD00A6000FEF1E7 /* NSManagedObjectContextExtension.swift in Sources */,
 				9C923B3C2BE3CF68004378DA /* RecipeDishTypeDataModelExtension.swift in Sources */,
 				9C5A124627CE8E15007D0A99 /* RecipeCard.swift in Sources */,
@@ -741,11 +783,13 @@
 				9C5A123D27CE8445007D0A99 /* Recipe.swift in Sources */,
 				9C1F5C782C1A0726007A3D67 /* JSONError.swift in Sources */,
 				9C517D0328E0B945006641DB /* RecipeDetailViewModel.swift in Sources */,
+				9CC901152C2C40C4003DF8F0 /* CategoriesListViewModel.swift in Sources */,
 				9C517D0D28E0C119006641DB /* HomeTabViewModel.swift in Sources */,
 				9CC428542BE27B9A007211F1 /* FavoriteRecipeDataModelExtension.swift in Sources */,
 				9C5A120227CE7E68007D0A99 /* ContentView.swift in Sources */,
 				9C5A123F27CE8981007D0A99 /* Ingredient.swift in Sources */,
 				9C5A120027CE7E68007D0A99 /* RecipeAppMVVMApp.swift in Sources */,
+				9CC901182C2C4580003DF8F0 /* DishTypeTabView.swift in Sources */,
 				9CD8A6622C19DFDE0089D291 /* RequestBuilder.swift in Sources */,
 				9CDDBF6F283ABE3C005D63B0 /* Instruction.swift in Sources */,
 				9C923B322BE3CED3004378DA /* DietDataModelExtension.swift in Sources */,
@@ -795,6 +839,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -828,6 +873,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -856,6 +902,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -889,6 +936,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
