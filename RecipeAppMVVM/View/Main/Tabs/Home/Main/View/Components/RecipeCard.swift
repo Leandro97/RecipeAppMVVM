@@ -63,7 +63,7 @@ extension RecipeCard: View {
 
 struct RecipeCard_Previews: PreviewProvider {
     static var previews: some View {
-        var recipe = Recipe(id: 0)
+        let recipe = Recipe(id: 0)
         RecipeCard(image: recipe.image, title: recipe.title)
     }
 }
