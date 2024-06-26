@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeTabView {
-    @ObservedObject private var viewModel = HomeViewModel()
+    @ObservedObject private var viewModel = HomeTabViewModel()
     @State private var hasLoadedRecipes = false
 }
 

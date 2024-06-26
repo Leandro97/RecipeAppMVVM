@@ -1,5 +1,5 @@
 //
-//  HomeViewModelTests.swift
+//  HomeTabViewModelTests.swift
 //  RecipeAppMVVMTests
 //
 //  Created by Leandro Martins de Freitas on 25/06/24.
@@ -8,17 +8,17 @@
 @testable import RecipeAppMVVM
 import XCTest
 
-final class HomeViewModelTests: XCTestCase {
+final class HomeTabViewModelTests: XCTestCase {
     private var sessionHandler: URLSessionHandlerProtocol!
     private var requestBuilder: RequestBuilder!
     private var service: RecipeService!
-    private var viewModel: HomeViewModel!
+    private var viewModel: HomeTabViewModel!
     
     override func setUpWithError() throws {
         sessionHandler = URLSessionHandlerMock()
         requestBuilder = RequestBuilder(with: sessionHandler)
         service = RecipeService(requestBuilder: requestBuilder)
-        viewModel = HomeViewModel(service: service)
+        viewModel = HomeTabViewModel(service: service)
     }
     
     override func tearDown() {

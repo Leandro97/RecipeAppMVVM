@@ -11,9 +11,9 @@ import SwiftUI
 
 struct SettingsTabView {
     @Environment(\.managedObjectContext) private var context
-    @AppStorage("appTheme") var appTheme: Int = AppTheme.light.rawValue
+    @AppStorage("appTheme") private var appTheme: Int = AppTheme.light.rawValue
+    @StateObject private var viewModel = SettingsTabViewModel()
     @State private var showingClearDataAlert = false
-    private var screenTitle = "Settings"
 }
 
 extension SettingsTabView: View {
@@ -39,7 +39,7 @@ extension SettingsTabView: View {
                     isPresented: $showingClearDataAlert,
                     actions: {
                         Button("OK") {
-                            self.clearDatabase()
+                            viewModel.clearDatabase(with: context)
                         }
                         
                         Button("Cancel") {
@@ -50,29 +50,16 @@ extension SettingsTabView: View {
                     }
                 )
             }
-            .navigationTitle(screenTitle)
-        }
-        .navigationViewStyle(.stack)
-    }
-}
-
-extension SettingsTabView {
-    private func clearDatabase() {
-        func deleteTable(named name: String) {
-            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: name)
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            deleteRequest.resultType = .resultTypeObjectIDs
-            
-            do {
-                try context.executeAndMergeChanges(using: deleteRequest)
-            } catch let error as NSError {
-                // TODO
+            .navigationTitle("Settings")
+            .alert(isPresented: $viewModel.hasError) {
+                Alert(
+                    title: Text("Something went wrong!"),
+                    message: Text("Please, try again later."),
+                    dismissButton: .default(Text("OK"))
+                )
             }
         }
-
-        Entity.allCases.map { $0.name }.forEach { entity in
-            deleteTable(named: entity)
-        }
+        .navigationViewStyle(.stack)
     }
 }
 
