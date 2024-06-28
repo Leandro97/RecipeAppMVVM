@@ -14,29 +14,29 @@ struct TabBar {
 extension TabBar: View {
     var body: some View {
         TabView {
-            HomeTabView()
+            HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
             
-            CategoriesTabView()
+            CategoriesView()
                 .tabItem {
                     Label("Categories", systemImage: "square.fill.text.grid.1x2")
                 }
             
             
-            MyRecipesTabView()
+            CustomRecipesView()
                 .tabItem {
                     Label("My Recipes", systemImage: "person.badge.plus")
                 }
                 .environment(\.managedObjectContext, context)
             
-            FavoritesTabView()
+            FavoritesView()
                 .tabItem {
                     Label("Favorites", systemImage: "heart")
                 }
             
-            SettingsTabView()
+            SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }

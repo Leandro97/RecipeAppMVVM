@@ -22,7 +22,7 @@ final class RecipeServiceTests: XCTestCase {
     func testGetRandomRecipes() async throws {
         sessionHandler.jsonFile = "recipe-list-mock"
         
-        let recipeList = try await service.getRandomRecipes(quantity: 1)
+        let recipeList = try await service.getRandomRecipes(quantity: 1, dishType: nil, diet: nil)
         XCTAssertFalse(recipeList.isEmpty)
         XCTAssertEqual(recipeList.first?.title, "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs")
     }

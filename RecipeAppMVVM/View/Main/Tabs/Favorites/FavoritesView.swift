@@ -1,5 +1,5 @@
 //
-//  FavoritesTabView.swift
+//  FavoritesView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -8,13 +8,13 @@
 import CoreData
 import SwiftUI
 
-struct FavoritesTabView {
+struct FavoritesView {
     @Environment(\.managedObjectContext) private var context
     @FetchRequest(fetchRequest: FavoriteRecipeDataModel.allFavorites)
     private var favoriteRecipes: FetchedResults<FavoriteRecipeDataModel>
 }
 
-extension FavoritesTabView: View {
+extension FavoritesView: View {
     var body: some View {
         NavigationView {
             ScrollView {
@@ -56,6 +56,6 @@ extension FavoritesTabView: View {
 
 struct FavoritesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        FavoritesTabView()
+        FavoritesView()
     }
 }

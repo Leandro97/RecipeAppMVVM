@@ -25,7 +25,7 @@ extension HomeTabViewModel {
         defer { self.isLoading = false }
         
         do {
-            self.recipeList = try await service.getRandomRecipes(quantity: 8)
+            self.recipeList = try await service.getRandomRecipes(quantity: 8, dishType: nil, diet: nil)
         } catch {
             self.hasError = true
         }

@@ -14,11 +14,15 @@ final class RecipeService: RecipeServiceProtocol {
         self.requestBuilder = requestBuilder
     }
     
-    func getRandomRecipes(quantity: Int) async throws -> [Recipe] {
+    func getRandomRecipes(
+        quantity: Int,
+        dishType: DishType?,
+        diet: Diet?
+    ) async throws -> [Recipe] {
         let recipe = try await requestBuilder.makeRequest(
             method: .get,
             endpoint: self.getRandomRecipesUrl,
-            queryParameters: [.init(name: "number", value: "\(quantity)")],
+            queryParameters: getTags(quantity, dishType, diet),
             using: RecipeList.self
         )
         
@@ -55,5 +59,32 @@ final class RecipeService: RecipeServiceProtocol {
         )
         
         return recipe
+    }
+}
+
+extension RecipeService {
+    private func getTags(
+        _ quantity: Int,
+        _ dishType: DishType?,
+        _ diet: Diet?
+    ) -> [URLQueryItem] {
+        var tags = ""
+        var parameters: [URLQueryItem] = [
+            .init(name: "number", value: "\(quantity)")
+        ]
+
+        if let dishType {
+            tags += dishType.rawValue
+        }
+        
+        if let diet {
+            tags += diet.rawValue
+        }
+        
+        if !tags.isEmpty {
+            parameters.append(.init(name: "include-tags", value: tags))
+        }
+        
+        return parameters
     }
 }

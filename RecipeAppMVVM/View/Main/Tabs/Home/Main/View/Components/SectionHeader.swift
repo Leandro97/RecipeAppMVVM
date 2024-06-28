@@ -14,7 +14,7 @@ struct SectionHeader {
 
 extension SectionHeader: View {
     var body: some View {
-        Button{
+        Button {
             withAnimation {
                 isOn.toggle()
             }

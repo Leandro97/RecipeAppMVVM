@@ -1,5 +1,5 @@
 //
-//  CategoriesTab.swift
+//  CategoriesView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct CategoriesTabView {
+struct CategoriesView {
     @State private var selectedTab: CategoriesTabOptions = .dishType
 }
 
-extension CategoriesTabView: View {
+extension CategoriesView: View {
     var body: some View {
         NavigationView {
             VStack {
@@ -38,6 +38,6 @@ extension CategoriesTabView: View {
 
 struct CategoriesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoriesTabView()
+        CategoriesView()
     }
 }

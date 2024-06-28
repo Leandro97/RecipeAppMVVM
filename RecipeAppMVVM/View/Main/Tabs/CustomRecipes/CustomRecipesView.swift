@@ -1,5 +1,5 @@
 //
-//  MyRecipesTabView.swift
+//  CustomRecipesView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct MyRecipesTabView {
+struct CustomRecipesView {
     @Environment(\.managedObjectContext) private var context
     @FetchRequest(sortDescriptors: []) var steps: FetchedResults<InstructionDataModel>
     @State private var id = UUID()
     private var screenTitle = "My Recipes"
 }
 
-extension MyRecipesTabView: View {
+extension CustomRecipesView: View {
     var body: some View {
         NavigationView {
             VStack {
@@ -31,6 +31,6 @@ extension MyRecipesTabView: View {
 
 struct MyRecipesTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MyRecipesTabView()
+        CustomRecipesView()
     }
 }

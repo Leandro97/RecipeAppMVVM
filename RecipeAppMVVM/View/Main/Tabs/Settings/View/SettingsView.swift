@@ -1,5 +1,5 @@
 //
-//  SettingsTabView.swift
+//  SettingsView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -9,14 +9,14 @@
 import CoreData
 import SwiftUI
 
-struct SettingsTabView {
+struct SettingsView {
     @Environment(\.managedObjectContext) private var context
     @AppStorage("appTheme") private var appTheme: Int = AppTheme.light.rawValue
     @StateObject private var viewModel = SettingsTabViewModel()
     @State private var showingClearDataAlert = false
 }
 
-extension SettingsTabView: View {
+extension SettingsView: View {
     var body: some View {
         NavigationView {
             List {
@@ -65,6 +65,6 @@ extension SettingsTabView: View {
 
 struct SettingsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsTabView()
+        SettingsView()
     }
 }

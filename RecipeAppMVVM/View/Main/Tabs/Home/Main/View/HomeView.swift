@@ -1,5 +1,5 @@
 //
-//  HomeTabView.swift
+//  HomeView.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 01/03/22.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct HomeTabView {
+struct HomeView {
     @ObservedObject private var viewModel = HomeTabViewModel()
     @State private var hasLoadedRecipes = false
 }
 
-extension HomeTabView: View {
+extension HomeView: View {
     var body: some View {
         NavigationView {
             mainView
@@ -83,6 +83,6 @@ extension HomeTabView: View {
 
 struct HomeTabView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTabView()
+        HomeView()
     }
 }
