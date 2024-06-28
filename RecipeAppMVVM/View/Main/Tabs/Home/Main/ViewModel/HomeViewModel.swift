@@ -1,5 +1,5 @@
 //
-//  HomeTabViewModel.swift
+//  HomeViewModel.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 25/09/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HomeTabViewModel: ObservableObject {
+class HomeViewModel: ObservableObject {
     private let service: RecipeServiceProtocol
     @Published private(set) var recipeList = [Recipe]()
     @Published var isLoading = false
@@ -18,7 +18,7 @@ class HomeTabViewModel: ObservableObject {
     }
 }
 
-extension HomeTabViewModel {
+extension HomeViewModel {
     @MainActor func getRandomRecipes() async {
         // TODO: - get recipes using device time (breakfast, lunch, snack, dinner, etc..)
         self.isLoading = true

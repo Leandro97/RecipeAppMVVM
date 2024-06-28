@@ -30,7 +30,7 @@ extension DietTabView: View {
             }
             .background(
                 NavigationLink(
-                    destination: DietAndDishTypeView(diet: selectedDiet),
+                    destination: CategoriesListView(diet: selectedDiet),
                     isActive: $showList
                 ) { }
             )

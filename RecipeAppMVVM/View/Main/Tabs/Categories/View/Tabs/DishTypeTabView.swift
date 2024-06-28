@@ -20,7 +20,7 @@ extension DishTypeTabView: View {
     var body: some View {
         VStack(alignment: .leading) {
             ForEach(dishTypeList) { dishType in
-                Text(dishType.rawValue.capitalized)
+                Text(dishType.categoryTitle)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .onTapGesture {
@@ -30,7 +30,7 @@ extension DishTypeTabView: View {
             }
             .background(
                 NavigationLink(
-                    destination: DietAndDishTypeView(dishType: selectedDishType),
+                    destination: CategoriesListView(dishType: selectedDishType),
                     isActive: $showList
                 ) { }
             )

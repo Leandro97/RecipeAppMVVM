@@ -15,6 +15,23 @@ enum DishType: String, Decodable, Identifiable {
     
     var id: Self { self }
     
+    var categoryTitle: String {
+        switch self {
+        case .dessert:
+            return "Desserts"
+        case .appetizer:
+            return "Appetizers"
+        case .salad:
+            return "Salads"
+        case .beverage:
+            return "Beverages"
+        case .snack:
+            return "Snacks"
+        default:
+            return self.rawValue.capitalized
+        }
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let string = try container.decode(String.self)

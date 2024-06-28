@@ -1,48 +1,60 @@
 //
-//  HomeView.swift
+//  CategoriesListView.swift
 //  RecipeAppMVVM
 //
-//  Created by Leandro Martins de Freitas on 01/03/22.
+//  Created by Leandro Martins de Freitas on 26/06/24.
 //
 
 import SwiftUI
 
-struct HomeView {
-    @StateObject private var viewModel = HomeViewModel()
+struct CategoriesListView {
+    @StateObject private var viewModel = CategoriesListViewModel()
     @State private var hasLoadedRecipes = false
+    var dishType: DishType?
+    var diet: Diet?
+    
+    var title: String {
+        if let dishType {
+            return dishType.categoryTitle
+        }
+        
+        if let diet {
+            return "\(diet.rawValue.capitalized) recipes"
+        }
+        
+        return ""
+    }
 }
 
-extension HomeView: View {
+extension CategoriesListView: View {
     var body: some View {
-        NavigationView {
-            mainView
-                .navigationTitle("Suggested recipes")
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            Task {
-                                await viewModel.getRandomRecipes()
-                            }
-                        } label: {
-                            Image(systemName: "arrow.triangle.2.circlepath")
+        mainView
+            .navigationTitle(title)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        Task {
+                            await viewModel.getRandomRecipes(with: dishType, and: diet)
                         }
+                    } label: {
+                        Image(systemName: "arrow.triangle.2.circlepath")
                     }
                 }
-                .task {
-                    if !hasLoadedRecipes {
-                        await viewModel.getRandomRecipes()
-                        hasLoadedRecipes = true
-                    }
+            }
+            .task {
+                if !hasLoadedRecipes {
+                    await viewModel.getRandomRecipes(with: dishType, and: diet)
+                    hasLoadedRecipes = true
                 }
-                .alert(isPresented: $viewModel.hasError) {
-                    Alert(
-                        title: Text("Service error!"),
-                        message: Text("Please, try again later."),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
-        }
-        .navigationViewStyle(.stack)
+            }
+            .alert(isPresented: $viewModel.hasError) {
+                Alert(
+                    title: Text("Service error!"),
+                    message: Text("Please, try again later."),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+            .navigationViewStyle(.stack)
     }
     
     @ViewBuilder private var mainView: some View {
@@ -81,8 +93,6 @@ extension HomeView: View {
     }
 }
 
-struct HomeTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
+#Preview {
+    CategoriesListView()
 }

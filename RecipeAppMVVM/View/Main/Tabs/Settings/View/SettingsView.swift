@@ -12,7 +12,7 @@ import SwiftUI
 struct SettingsView {
     @Environment(\.managedObjectContext) private var context
     @AppStorage("appTheme") private var appTheme: Int = AppTheme.light.rawValue
-    @StateObject private var viewModel = SettingsTabViewModel()
+    @StateObject private var viewModel = SettingsViewModel()
     @State private var showingClearDataAlert = false
 }
 

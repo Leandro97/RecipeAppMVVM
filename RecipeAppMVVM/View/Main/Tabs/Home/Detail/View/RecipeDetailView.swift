@@ -12,7 +12,7 @@ struct RecipeDetailView {
     @FetchRequest(fetchRequest: FavoriteRecipeDataModel.allFavorites) 
     private var favoriteRecipes: FetchedResults<FavoriteRecipeDataModel>
     
-    @ObservedObject private var viewModel: RecipeDetailViewModel = .init()
+    @StateObject private var viewModel: RecipeDetailViewModel = .init()
     @State private var isIngredientsExpanded = true
     @State private var isInstructionsExpanded = true
     @State private var showingSimilarRecipeAlert = false

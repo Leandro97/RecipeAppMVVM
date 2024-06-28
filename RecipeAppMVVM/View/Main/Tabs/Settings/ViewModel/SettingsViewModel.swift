@@ -1,5 +1,5 @@
 //
-//  SettingsTabViewModel.swift
+//  SettingsViewModel.swift
 //  RecipeAppMVVM
 //
 //  Created by Leandro Martins de Freitas on 26/06/24.
@@ -8,7 +8,7 @@
 import CoreData
 import SwiftUI
 
-class SettingsTabViewModel: ObservableObject {
+class SettingsViewModel: ObservableObject {
     @Published var hasError = false
     
     func clearDatabase(with context: NSManagedObjectContext) {
