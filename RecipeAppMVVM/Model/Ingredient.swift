@@ -8,14 +8,19 @@
 import Foundation
 
 struct Ingredient: Decodable {
-    let id: Int
     let name: String
     let original: String
     
     // TODO: - Remove
     init() {
-        self.id = 1
         self.name = "butter"
         self.original = "1 tbsp of butter"
+    }
+}
+
+extension Ingredient {
+    init(with model: IngredientDataModel) {
+        self.name = model.name ?? ""
+        self.original = model.original ?? ""
     }
 }

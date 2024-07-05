@@ -54,7 +54,7 @@ extension RecipeDetailView: View {
                 if isIngredientsExpanded {
                     ForEach(
                         Array(viewModel.ingredientList.enumerated()),
-                        id: \.element
+                        id: \.offset
                     ) { index, ingredient in
                         HStack(alignment: .top, spacing: 16) {
                             Text("\(index + 1)")
@@ -81,7 +81,7 @@ extension RecipeDetailView: View {
                     if isInstructionsExpanded {
                         ForEach(
                             Array(viewModel.stepList.enumerated()),
-                            id: \.element
+                            id: \.offset
                         ) { index, step in
                             HStack(alignment: .top, spacing: 16) {
                                 Text("\(index + 1)")
@@ -112,7 +112,7 @@ extension RecipeDetailView: View {
                 } else if let favoriteRecipe {
                     await viewModel.getFavoriteRecipeData(with: favoriteRecipe.recipeId)
                 } else if let customRecipeId {
-                    await viewModel.getCustomRecipeData(with: customRecipeId)
+                    viewModel.getCustomRecipeData(with: customRecipeId, and: context)
                 }
             }
         }

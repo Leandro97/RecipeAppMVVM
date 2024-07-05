@@ -22,3 +22,9 @@ enum Diet: String, Decodable, Identifiable {
         self = Diet(rawValue: string) ?? .unknown
     }
 }
+
+extension Diet {
+    init(with model: RecipeDietDataModel) {
+        self.init(rawValue: model.diet?.dietId ?? "")!
+    }
+}

@@ -39,8 +39,14 @@ extension FavoritesView: View {
                     
                     LazyVGrid(columns: gridItemList, spacing: 15) {
                         ForEach(favoriteRecipes) { recipe in
-                            NavigationLink(destination: RecipeDetailView(withFavorite: recipe)) {
-                                RecipeCard(image: recipe.image ?? "", title: recipe.title ?? "")
+                            if recipe.isCustom {
+                                NavigationLink(destination: RecipeDetailView(withCustomId: Int(recipe.recipeId))) {
+                                    RecipeCard(image: recipe.image ?? "", title: recipe.title ?? "")
+                                }
+                            } else {
+                                NavigationLink(destination: RecipeDetailView(withFavorite: recipe)) {
+                                    RecipeCard(image: recipe.image ?? "", title: recipe.title ?? "")
+                                }
                             }
                         }
                     }

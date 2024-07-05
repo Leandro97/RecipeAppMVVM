@@ -24,7 +24,6 @@ struct Recipe: Decodable, Identifiable, Equatable {
     let extendedIngredients: [Ingredient]
     let analyzedInstructions: [Instruction]
     let dishTypes: [DishType] // https://spoonacular.com/food-api/docs#Meal-Types
-    let sourceUrl: String
     let diets: [Diet]
     
     init(id: Int) {
@@ -36,11 +35,52 @@ struct Recipe: Decodable, Identifiable, Equatable {
         self.extendedIngredients = [.init(), .init(), .init()]
         self.analyzedInstructions = .init()
         self.dishTypes = [.breakfast, .mainCourse]
-        self.sourceUrl = "http://fullbellysisters.blogspot.com/2012/06/pasta-with-garlic-scallions-cauliflower.html"
         self.diets = []
     }
     
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
         lhs.id == rhs.id
+    }
+}
+
+extension Recipe {
+    init(with model: CustomRecipeDataModel) {
+        self.id = Int(model.recipeId)
+        self.title = model.title ?? ""
+        self.image = model.image ?? ""
+        self.servings = Int(model.servings)
+        self.readyInMinutes = Int(model.readyInMinutes)
+        self.extendedIngredients = Self.getIngredients(model.ingredients)
+        self.analyzedInstructions = Self.getInstructions(model.instructions)
+        self.dishTypes = Self.getDishTypes(model.dishTypes)
+        self.diets = Self.getDiets(model.diets)
+    }
+    
+    private static func getIngredients(_ objects: NSSet?) -> [Ingredient] {
+        guard let objects = objects else { return [] }
+        
+        let list = objects.allObjects as! [IngredientDataModel]
+        return list.map { Ingredient(with: $0) }
+    }
+    
+    private static func getInstructions(_ objects: NSSet?) -> [Instruction] {
+        guard let objects = objects else { return [] }
+        
+        let list = objects.allObjects as! [InstructionDataModel]
+        return [Instruction(with: list)]
+    }
+    
+    private static func getDishTypes(_ objects: NSSet?) -> [DishType] {
+        guard let objects = objects else { return [] }
+        
+        let list = objects.allObjects as! [RecipeDishTypeDataModel]
+        return list.map { DishType(with: $0) }
+    }
+    
+    private static func getDiets(_ objects: NSSet?) -> [Diet] {
+        guard let objects = objects else { return [] }
+        
+        let list = objects.allObjects as! [RecipeDietDataModel]
+        return list.map { Diet(with: $0) }
     }
 }

@@ -31,4 +31,24 @@ final class RecipeDetailViewModelTests: XCTestCase {
     func testFailedGetRandomRecipes() async throws {
         XCTFail()
     }
+    
+    func testSuccessfulGetRandomRecipes() async throws {
+        XCTFail()
+    }
+    
+    func testFailedGetFavoriteRecipeData() async throws {
+        XCTFail()
+    }
+    
+    func testSuccessfulGetFavoriteRecipeData() async throws {
+        XCTFail()
+    }
+    
+    func testFailedGetCustomRecipeData() async throws {
+        XCTFail()
+    }
+    
+    func testSuccessfulGetCustomRecipeData() async throws {
+        XCTFail()
+    }
 }

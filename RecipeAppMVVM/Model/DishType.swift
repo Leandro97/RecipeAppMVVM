@@ -38,3 +38,9 @@ enum DishType: String, Decodable, Identifiable {
         self = DishType(rawValue: string) ?? .unknown
     }
 }
+
+extension DishType {
+    init(with model: RecipeDishTypeDataModel) {
+        self.init(rawValue: model.dishType?.dishTypeId ?? "")!
+    }
+}

@@ -5,6 +5,7 @@
 //  Created by Leandro Martins de Freitas on 25/09/22.
 //
 
+import CoreData
 import Foundation
 
 class RecipeDetailViewModel: ObservableObject {
@@ -47,8 +48,9 @@ extension RecipeDetailViewModel {
         }
     }
     
-    func getCustomRecipeData(with id: Int) async {
-        // self.recipe = // TODO
+    func getCustomRecipeData(with id: Int, and context: NSManagedObjectContext) {
+        guard let model = CustomRecipeDataModel.getRecipe(with: id, and: context) else { return }
+        self.recipe = Recipe(with: model)
     }
 }
 
