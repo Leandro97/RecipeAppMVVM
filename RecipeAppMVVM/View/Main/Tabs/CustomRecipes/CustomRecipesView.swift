@@ -56,7 +56,7 @@ extension CustomRecipesView: View {
                         .foregroundColor(Color.white)
                         .clipShape(Circle())
                 }
-                    .padding()
+                .padding()
             }
             .navigationTitle("My recipes")
         }
