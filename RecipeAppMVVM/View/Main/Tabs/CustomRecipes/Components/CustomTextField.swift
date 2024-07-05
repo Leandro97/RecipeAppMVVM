@@ -27,6 +27,7 @@ extension CustomTextField: View {
     var body: some View {
         TextField(text: $value) {
             Text(title)
+                .foregroundColor(.gray)
         }
         .keyboardType(keyboardType)
         .padding()

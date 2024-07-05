@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct AddCustomRecipeView {
-    @SwiftUI.State private var title = ""
-    @SwiftUI.State private var servings = ""
-    @SwiftUI.State private var readyInMinutes = ""
+    private static let dishTypeTitles: [DishType] = [
+        .breakfast, .appetizer, .salad, .lunch,
+        .dessert, .snack, .dinner, .beverage
+    ]
+    
+    private static let dietTitles: [Diet] = [
+        .vegetarian, .vegan, .dairyFree, .glutenFree,
+        .lactoOvoVegetarian, .pescatarian, .paleolithic, .ketogenic
+    ]
+    
+    @State private var title = ""
+    @State private var servings = ""
+    @State private var readyInMinutes = ""
+    @State private var dishTypeSelection: [(Bool, String)] = dishTypeTitles.map { (false, $0.categoryTitle) }
+    @State private var dietSelection: [(Bool, String)] = dietTitles.map { (false, $0.rawValue.capitalized) }
 }
 
 //image: String?,
@@ -50,8 +62,15 @@ extension AddCustomRecipeView: View {
                         keyboardType: .numberPad,
                         value: $readyInMinutes
                     )
+                    
+                    ScrollViewSelectionView(title: "Dish type(s)", list: $dishTypeSelection)
+                        .padding(.horizontal, -32)
+                    
+                    ScrollViewSelectionView(title: "Diet(s)", list: $dietSelection)
+                        .padding(.horizontal, -32)
                 }
                 .padding(.horizontal, 32)
+                .padding(.top, 2)
             }
         }
     }
