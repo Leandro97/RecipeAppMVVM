@@ -40,23 +40,23 @@ extension RecipeCard: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             )
-                .frame(width: 160, height: 217, alignment: .top)
-                .background(
-                    LinearGradient(
-                        colors: [Color(.gray).opacity(0.3), Color(.gray)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
+            .frame(width: 160, height: 217, alignment: .top)
+            .background(
+                LinearGradient(
+                    colors: [Color(.gray).opacity(0.3), Color(.gray)],
+                    startPoint: .top,
+                    endPoint: .bottom
                 )
-                .clipShape(
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                )
-                .shadow(
-                    color: Color(.black).opacity(0.3),
-                    radius: 15,
-                    x: 0,
-                    y: 10
-                )
+            )
+            .clipShape(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+            )
+            .shadow(
+                color: Color(.black).opacity(0.3),
+                radius: 15,
+                x: 0,
+                y: 10
+            )
         }
     }
 }
