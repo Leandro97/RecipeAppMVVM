@@ -28,8 +28,6 @@ struct AddCustomRecipeView {
 //image: String?,
 //ingredients: [Ingredient],
 //instruction: Instruction,
-//dishTypes: [DishType],
-//diets: [Diet],
 
 extension AddCustomRecipeView: View {
     var body: some View {

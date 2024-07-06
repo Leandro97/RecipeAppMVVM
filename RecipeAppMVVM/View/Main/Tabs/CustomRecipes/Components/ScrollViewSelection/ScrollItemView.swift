@@ -29,7 +29,10 @@ extension ScrollItemView: View {
             .cornerRadius(20)
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.accentColor, lineWidth: 1)
+                    .stroke(
+                        isSelected ? Color.clear : Color.accentColor,
+                        lineWidth: 1
+                    )
             )
             .onTapGesture {
                 isSelected.toggle()
