@@ -22,10 +22,9 @@ struct ScrollViewSelectionView {
 
 extension ScrollViewSelectionView: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading) {
             Text(title)
                 .font(.title2)
-                .padding(.horizontal, 32)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 2) {
@@ -34,9 +33,8 @@ extension ScrollViewSelectionView: View {
                     }
                 }
             }
-            .frame(height: 80)
+            .padding(.horizontal, -16)
         }
-        .padding(.top, 8)
     }
 }
 

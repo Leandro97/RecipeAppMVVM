@@ -32,43 +32,30 @@ struct AddCustomRecipeView {
 extension AddCustomRecipeView: View {
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Text("New recipe")
-                    .font(.title)
-                    .fontWeight(.medium)
-                
-                Spacer()
-            }
-            .padding([.leading, .bottom], 32)
-            .padding(.top, -32)
-            
-            ScrollView {
-                VStack(spacing: 16) {
-                    CustomTextField(
-                        title: "Title",
-                        value: $title
-                    )
-                    
-                    CustomTextField(
-                        title: "Servings",
-                        keyboardType: .numberPad,
-                        value: $servings
-                    )
-                    
-                    CustomTextField(
-                        title: "Preparation time (in minutes)",
-                        keyboardType: .numberPad,
-                        value: $readyInMinutes
-                    )
-                    
-                    ScrollViewSelectionView(title: "Dish type(s)", list: $dishTypeSelection)
-                        .padding(.horizontal, -32)
-                    
-                    ScrollViewSelectionView(title: "Diet(s)", list: $dietSelection)
-                        .padding(.horizontal, -32)
+            List {
+                Section {
+                    Text("New recipe")
+                        .font(.title)
+                        .fontWeight(.medium)
                 }
-                .padding(.horizontal, 32)
-                .padding(.top, 2)
+                
+                Section {
+                    TextField("Recipe title", text: $title)
+                    
+                    TextField("Servings", text: $servings)
+                        .keyboardType(.numberPad)
+                    
+                    TextField("Preparation time (in minutes)", text: $readyInMinutes)
+                        .keyboardType(.numberPad)
+                }
+                
+                Section {
+                    ScrollViewSelectionView(title: "Dish type(s)", list: $dishTypeSelection)
+                }
+                
+                Section {
+                    ScrollViewSelectionView(title: "Diet(s)", list: $dietSelection)
+                }
             }
         }
     }

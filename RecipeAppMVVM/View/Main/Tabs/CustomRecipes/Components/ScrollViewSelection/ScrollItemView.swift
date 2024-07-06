@@ -24,7 +24,7 @@ extension ScrollItemView: View {
     var body: some View {
         Text(title)
             .foregroundColor(isSelected ? .white : .accentColor)
-            .padding()
+            .padding(12)
             .background(isSelected ? Color.accentColor.colorInvert() : Color.primary.colorInvert())
             .cornerRadius(20)
             .overlay(
