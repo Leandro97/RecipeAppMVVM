@@ -11,8 +11,8 @@ struct TextFieldListView {
     @State private var currentValue = ""
     @Binding var values: [String]
     var placeHolder: String
-//    var hasOrderedValues: Bool
-//    var isMultiLine: Bool
+    var hasOrderedValues: Bool
+    var isMultiLine: Bool
 }
 
 extension TextFieldListView: View {
@@ -35,16 +35,22 @@ extension TextFieldListView: View {
             }
         }
         
-        VStack(alignment: .leading) {
-            ForEach(values, id: \.self) { item in
+        VStack(alignment: .leading, spacing: hasOrderedValues ? 16 : 8) {
+            ForEach(Array(values.enumerated()), id: \.0) { item in
                 HStack(alignment: .top, spacing: 16) {
-                    Image(systemName: "circle.fill")
-                        .resizable()
-                        .frame(width: 8, height: 8)
-                        .frame(alignment: .topLeading)
-                        .padding(.top, 8)
+                    if hasOrderedValues {
+                        Text("\(item.0 + 1)")
+                            .bold()
+                            .frame(alignment: .leading)
+                    } else {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .frame(width: 8, height: 8)
+                            .frame(alignment: .topLeading)
+                            .padding(.top, 8)
+                    }
                     
-                    Text(item)
+                    Text(item.1)
                         .frame(alignment: .topTrailing)
                         .multilineTextAlignment(.leading)
                     
@@ -58,6 +64,8 @@ extension TextFieldListView: View {
 #Preview {
     TextFieldListView(
         values: .constant(["abbc", "123"]),
-        placeHolder: "e.g. 1 tbsp of butter"
+        placeHolder: "e.g. 1 tbsp of butter",
+        hasOrderedValues: true,
+        isMultiLine: false
     )
 }
