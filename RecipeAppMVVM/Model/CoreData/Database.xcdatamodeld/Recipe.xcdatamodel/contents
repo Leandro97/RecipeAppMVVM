@@ -26,7 +26,6 @@
         <attribute name="title" attributeType="String"/>
     </entity>
     <entity name="IngredientDataModel" representedClassName="IngredientDataModel" syncable="YES" codeGenerationType="class">
-        <attribute name="name" attributeType="String"/>
         <attribute name="original" optional="YES" attributeType="String"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomRecipeDataModel" inverseName="ingredients" inverseEntity="CustomRecipeDataModel"/>
     </entity>

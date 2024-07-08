@@ -20,7 +20,7 @@ struct Ingredient: Decodable {
 
 extension Ingredient {
     init(with model: IngredientDataModel) {
-        self.name = model.name ?? ""
+        self.name = ""
         self.original = model.original ?? ""
     }
 }

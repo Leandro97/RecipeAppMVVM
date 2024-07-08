@@ -1,0 +1,63 @@
+//
+//  TextFieldListView.swift
+//  RecipeAppMVVM
+//
+//  Created by Leandro Martins de Freitas on 08/07/24.
+//
+
+import SwiftUI
+
+struct TextFieldListView {
+    @State private var currentValue = ""
+    @Binding var values: [String]
+    var placeHolder: String
+//    var hasOrderedValues: Bool
+//    var isMultiLine: Bool
+}
+
+extension TextFieldListView: View {
+    var body: some View {
+        HStack {
+            TextField(placeHolder, text: $currentValue)
+            
+            Button {
+                let text = currentValue.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+                
+                guard
+                    !text.isEmpty,
+                    !values.contains(text)
+                else { return }
+                
+                values.append(text)
+                currentValue = ""
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
+        
+        VStack(alignment: .leading) {
+            ForEach(values, id: \.self) { item in
+                HStack(alignment: .top, spacing: 16) {
+                    Image(systemName: "circle.fill")
+                        .resizable()
+                        .frame(width: 8, height: 8)
+                        .frame(alignment: .topLeading)
+                        .padding(.top, 8)
+                    
+                    Text(item)
+                        .frame(alignment: .topTrailing)
+                        .multilineTextAlignment(.leading)
+                    
+                    Spacer()
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    TextFieldListView(
+        values: .constant(["abbc", "123"]),
+        placeHolder: "e.g. 1 tbsp of butter"
+    )
+}

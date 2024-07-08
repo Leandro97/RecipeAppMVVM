@@ -65,7 +65,6 @@ extension CustomRecipeDataModel {
     ) {
         for object in ingredients {
             let model = IngredientDataModel(context: context)
-            model.name = object.name
             model.original = object.original
             
             recipe.addToIngredients(model)

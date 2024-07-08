@@ -52,17 +52,16 @@ extension RecipeDetailView: View {
                 )
             ) {
                 if isIngredientsExpanded {
-                    ForEach(
-                        Array(viewModel.ingredientList.enumerated()),
-                        id: \.offset
-                    ) { index, ingredient in
+                    ForEach(viewModel.ingredientList, id: \.self) { item in
                         HStack(alignment: .top, spacing: 16) {
-                            Text("\(index + 1)")
-                                .bold()
-                                .frame(alignment: .leading)
+                            Image(systemName: "circle.fill")
+                                .resizable()
+                                .frame(width: 8, height: 8)
+                                .frame(alignment: .topLeading)
+                                .padding(.top, 8)
                             
-                            Text(ingredient)
-                                .frame(alignment: .trailing)
+                            Text(item)
+                                .frame(alignment: .topTrailing)
                                 .multilineTextAlignment(.leading)
                             
                             Spacer()

@@ -23,10 +23,11 @@ struct AddCustomRecipeView {
     @State private var readyInMinutes = ""
     @State private var dishTypeSelection: [(Bool, String)] = dishTypeTitles.map { (false, $0.categoryTitle) }
     @State private var dietSelection: [(Bool, String)] = dietTitles.map { (false, $0.rawValue.capitalized) }
+    @State private var ingredients: [String] = []
+    @State private var instructions: [String] = []
 }
 
 //image: String?,
-//ingredients: [Ingredient],
 //instruction: Instruction,
 
 extension AddCustomRecipeView: View {
@@ -55,6 +56,26 @@ extension AddCustomRecipeView: View {
                 
                 Section {
                     ScrollViewSelectionView(title: "Diet(s)", list: $dietSelection)
+                }
+                
+                Section {
+                    Text("Ingredients")
+                        .font(.title2)
+                    
+                    TextFieldListView(
+                        values: $ingredients,
+                        placeHolder: "e.g. 1 tbsp of butter"
+                    )
+                }
+                
+                Section {
+                    Text("Instructions")
+                        .font(.title2)
+                    
+                    TextFieldListView(
+                        values: $instructions,
+                        placeHolder: "e.g. add the flour to batter. Stir and let it sit for 20 minutes."
+                    )
                 }
             }
         }
