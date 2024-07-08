@@ -20,37 +20,48 @@ class AddCustomRecipeViewModel: ObservableObject {
         .lactoOvoVegetarian, .pescatarian, .paleolithic, .ketogenic
     ]
     
+    @Published private var hasUncommittedChanges = true
+    @Published var showInvalidFieldsAlert = false
+    
     @Published var title = ""
-    @Published var hasValidTitle = true
+    var hasValidTitle: Bool {
+        hasUncommittedChanges || !title.isEmpty
+    }
     
     @Published var servings = ""
-    @Published var hasValidServings = true
+    var hasValidServings: Bool {
+        hasUncommittedChanges || !servings.isEmpty
+    }
     
     @Published var readyInMinutes = ""
-    @Published var hasValidReadyInMinutes = true
+    var hasValidReadyInMinutes: Bool {
+        hasUncommittedChanges || !readyInMinutes.isEmpty
+    }
     
     @Published var dishTypeSelection: [(Bool, String)] = dishTypeTitles.map { (false, $0.categoryTitle) }
-    @Published var hasValidDishType = true
+    var hasValidDishType: Bool {
+        hasUncommittedChanges || !dishTypeSelection.filter { $0.0 }.isEmpty
+    }
     
     @Published var dietSelection: [(Bool, String)] = dietTitles.map { (false, $0.rawValue.capitalized) }
-    @Published var hasValidDiet = true
+    var hasValidDiet: Bool {
+        hasUncommittedChanges || !dietSelection.filter { $0.0 }.isEmpty
+    }
     
     @Published var ingredients: [String] = []
-    @Published var hasValidIngredients = true
+    var hasValidIngredients: Bool {
+        hasUncommittedChanges || !ingredients.isEmpty
+    }
     
     @Published var instructions: [String] = []
-    @Published var hasValidInstructions = true
+    var hasValidInstructions: Bool {
+        hasUncommittedChanges || !instructions.isEmpty
+    }
 }
 
 extension AddCustomRecipeViewModel {
     func saveRecipe() {
-        hasValidTitle = !title.isEmpty
-        hasValidServings = !servings.isEmpty
-        hasValidReadyInMinutes = !readyInMinutes.isEmpty
-        hasValidDishType = !dishTypeSelection.filter { $0.0 }.isEmpty
-        hasValidDiet = !dietSelection.filter { $0.0 }.isEmpty
-        hasValidIngredients = !ingredients.isEmpty
-        hasValidInstructions = !instructions.isEmpty
+        hasUncommittedChanges = false
         
         let stateList = [
             hasValidTitle,
@@ -66,6 +77,8 @@ extension AddCustomRecipeViewModel {
         
         if isValid {
             // TODO: - save recipe on database
+        } else {
+            showInvalidFieldsAlert = true
         }
     }
 }
