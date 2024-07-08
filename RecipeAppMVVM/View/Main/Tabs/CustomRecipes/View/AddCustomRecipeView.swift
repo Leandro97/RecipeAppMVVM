@@ -8,23 +8,7 @@
 import SwiftUI
 
 struct AddCustomRecipeView {
-    private static let dishTypeTitles: [DishType] = [
-        .breakfast, .appetizer, .salad, .lunch,
-        .dessert, .snack, .dinner, .beverage
-    ]
-    
-    private static let dietTitles: [Diet] = [
-        .vegetarian, .vegan, .dairyFree, .glutenFree,
-        .lactoOvoVegetarian, .pescatarian, .paleolithic, .ketogenic
-    ]
-    
-    @State private var title = ""
-    @State private var servings = ""
-    @State private var readyInMinutes = ""
-    @State private var dishTypeSelection: [(Bool, String)] = dishTypeTitles.map { (false, $0.categoryTitle) }
-    @State private var dietSelection: [(Bool, String)] = dietTitles.map { (false, $0.rawValue.capitalized) }
-    @State private var ingredients: [String] = []
-    @State private var instructions: [String] = []
+    @StateObject private var viewModel = AddCustomRecipeViewModel()
 }
 
 //image: String?,
@@ -37,24 +21,36 @@ extension AddCustomRecipeView: View {
                     Text("New recipe")
                         .font(.title)
                         .fontWeight(.medium)
+                        .padding(8)
                 }
                 
                 Section {
-                    TextField("Recipe title", text: $title)
+                    TextField("Recipe title", text: $viewModel.title)
+                        .validate($viewModel.hasValidTitle)
                     
-                    TextField("Servings", text: $servings)
+                    TextField("Servings", text: $viewModel.servings)
                         .keyboardType(.numberPad)
+                        .validate($viewModel.hasValidServings)
                     
-                    TextField("Preparation time (in minutes)", text: $readyInMinutes)
+                    TextField("Preparation time (in minutes)", text: $viewModel.readyInMinutes)
                         .keyboardType(.numberPad)
+                        .validate($viewModel.hasValidReadyInMinutes)
                 }
                 
                 Section {
-                    ScrollViewSelectionView(title: "Dish type(s)", list: $dishTypeSelection)
+                    Text("Dish type(s)")
+                        .font(.title2)
+                        .validate($viewModel.hasValidDishType)
+                    
+                    ScrollViewSelectionView(list: $viewModel.dishTypeSelection)
                 }
                 
                 Section {
-                    ScrollViewSelectionView(title: "Diet(s)", list: $dietSelection)
+                    Text("Diet(s)")
+                        .font(.title2)
+                        .validate($viewModel.hasValidDiet)
+                    
+                    ScrollViewSelectionView(list: $viewModel.dietSelection)
                 }
                 
                 Section {
@@ -62,10 +58,11 @@ extension AddCustomRecipeView: View {
                         .font(.title2)
                     
                     TextFieldListView(
-                        values: $ingredients,
+                        values: $viewModel.ingredients,
                         placeHolder: "e.g. 1 tbsp of butter",
                         hasOrderedValues: false
                     )
+                    .validate($viewModel.hasValidIngredients)
                 }
                 
                 Section {
@@ -73,25 +70,48 @@ extension AddCustomRecipeView: View {
                         .font(.title2)
                     
                     TextFieldListView(
-                        values: $instructions,
+                        values: $viewModel.instructions,
                         placeHolder: "e.g. add the flour to batter. Stir and let it sit for 20 minutes.",
                         hasOrderedValues: true
                     )
+                    .validate($viewModel.hasValidInstructions)
                 }
             }
             
-            Button {
-                // TODO
-            } label: {
-                Text("Save")
-                    .foregroundColor(.white)
-            }
-            .padding(12)
-            .frame(maxWidth: .infinity)
-            .background(Color.accentColor)
-            .cornerRadius(12)
-            .padding(24)
+            Text("Save")
+                .foregroundColor(.white)
+                .padding(12)
+                .frame(maxWidth: .infinity)
+                .background(Color.accentColor)
+                .cornerRadius(12)
+                .onTapGesture {
+                    viewModel.saveRecipe()
+                }
+                .padding(24)
         }
+    }
+}
+
+struct FieldValidator: ViewModifier {
+    @Binding var isValid: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .background(
+                isValid
+                ? .clear
+                : Color(red: 1.0, green: 0, blue: 0, opacity: 0.1)
+            )
+    }
+    
+    init(_ isValid: Binding<Bool>) {
+        self._isValid = isValid
+    }
+}
+
+extension View {
+    func validate(_ isValid: Binding<Bool>) -> some View {
+        modifier(FieldValidator(isValid))
     }
 }
 

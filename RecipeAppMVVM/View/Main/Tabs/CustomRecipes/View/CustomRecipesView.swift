@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomRecipesView {
     @Environment(\.managedObjectContext) private var context
-    @FetchRequest(sortDescriptors: []) var customRecipes: FetchedResults<CustomRecipeDataModel>
+    @FetchRequest(sortDescriptors: []) private var customRecipes: FetchedResults<CustomRecipeDataModel>
 }
 
 extension CustomRecipesView: View {
