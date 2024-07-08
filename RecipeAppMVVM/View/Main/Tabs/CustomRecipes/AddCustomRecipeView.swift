@@ -28,7 +28,6 @@ struct AddCustomRecipeView {
 }
 
 //image: String?,
-//instruction: Instruction,
 
 extension AddCustomRecipeView: View {
     var body: some View {
@@ -80,6 +79,18 @@ extension AddCustomRecipeView: View {
                     )
                 }
             }
+            
+            Button {
+                // TODO
+            } label: {
+                Text("Save")
+                    .foregroundColor(.white)
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity)
+            .background(Color.accentColor)
+            .cornerRadius(12)
+            .padding(24)
         }
     }
 }
