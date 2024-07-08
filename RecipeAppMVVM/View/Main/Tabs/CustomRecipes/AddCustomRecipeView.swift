@@ -65,8 +65,7 @@ extension AddCustomRecipeView: View {
                     TextFieldListView(
                         values: $ingredients,
                         placeHolder: "e.g. 1 tbsp of butter",
-                        hasOrderedValues: false,
-                        isMultiLine: false
+                        hasOrderedValues: false
                     )
                 }
                 
@@ -77,8 +76,7 @@ extension AddCustomRecipeView: View {
                     TextFieldListView(
                         values: $instructions,
                         placeHolder: "e.g. add the flour to batter. Stir and let it sit for 20 minutes.",
-                        hasOrderedValues: true,
-                        isMultiLine: true
+                        hasOrderedValues: true
                     )
                 }
             }

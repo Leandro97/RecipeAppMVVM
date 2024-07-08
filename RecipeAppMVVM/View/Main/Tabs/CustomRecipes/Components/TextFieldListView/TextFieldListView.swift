@@ -12,26 +12,33 @@ struct TextFieldListView {
     @Binding var values: [String]
     var placeHolder: String
     var hasOrderedValues: Bool
-    var isMultiLine: Bool
+    
+    private func submit() {
+        let text = currentValue.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        guard
+            !text.isEmpty,
+            !values.contains(text)
+        else { return }
+        
+        values.append(text)
+        currentValue = ""
+    }
 }
 
 extension TextFieldListView: View {
     var body: some View {
-        HStack {
-            TextField(placeHolder, text: $currentValue)
+        ZStack(alignment: .leading) {
+            TextField("", text: $currentValue)
+                .submitLabel(.done)
+                .onSubmit {
+                    submit()
+                }
             
-            Button {
-                let text = currentValue.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-                
-                guard
-                    !text.isEmpty,
-                    !values.contains(text)
-                else { return }
-                
-                values.append(text)
-                currentValue = ""
-            } label: {
-                Image(systemName: "plus")
+            if currentValue.isEmpty {
+                Text(placeHolder)
+                    .foregroundColor(.gray)
+                    .allowsHitTesting(false)
             }
         }
         
@@ -62,10 +69,19 @@ extension TextFieldListView: View {
 }
 
 #Preview {
-    TextFieldListView(
-        values: .constant(["abbc", "123"]),
-        placeHolder: "e.g. 1 tbsp of butter",
-        hasOrderedValues: true,
-        isMultiLine: false
-    )
+    List {
+        Section {
+            TextFieldListView(
+                values: .constant(["abbc", "123"]),
+                placeHolder: "e.g. 1 tbsp of butter",
+                hasOrderedValues: false
+            )
+            
+            TextFieldListView(
+                values: .constant(["abbc", "123"]),
+                placeHolder: "e.g. 1 tbsp of butter",
+                hasOrderedValues: true
+            )
+        }
+    }
 }
