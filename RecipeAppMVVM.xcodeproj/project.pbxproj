@@ -23,6 +23,7 @@
 		9C371F552BC81FE00060A2BB /* SimilarRecipeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C371F542BC81FE00060A2BB /* SimilarRecipeObject.swift */; };
 		9C38478E2BCEFD5C009A9173 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C38478C2BCEFD5C009A9173 /* Database.xcdatamodeld */; };
 		9C3847AC2BCF0550009A9173 /* CoreDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3847AB2BCF0550009A9173 /* CoreDataProvider.swift */; };
+		9C4B37862C3DBE27004B7A9A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4B37852C3DBE27004B7A9A /* CameraView.swift */; };
 		9C4E85E32BA4729200590CEF /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4E85E22BA4729200590CEF /* RecipeDetailView.swift */; };
 		9C517D0328E0B945006641DB /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C517D0228E0B945006641DB /* RecipeDetailViewModel.swift */; };
 		9C517D0D28E0C119006641DB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C517D0C28E0C119006641DB /* HomeViewModel.swift */; };
@@ -112,6 +113,7 @@
 		9C371F542BC81FE00060A2BB /* SimilarRecipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarRecipeObject.swift; sourceTree = "<group>"; };
 		9C38478D2BCEFD5C009A9173 /* Recipe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Recipe.xcdatamodel; sourceTree = "<group>"; };
 		9C3847AB2BCF0550009A9173 /* CoreDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProvider.swift; sourceTree = "<group>"; };
+		9C4B37852C3DBE27004B7A9A /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		9C4E85E22BA4729200590CEF /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		9C517D0228E0B945006641DB /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
 		9C517D0C28E0C119006641DB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 			children = (
 				9CDA0E9B2C3C209600542DCC /* TextFieldListView */,
 				9C6E027D2C388E58001E93D4 /* ScrollViewSelection */,
+				9C4B37852C3DBE27004B7A9A /* CameraView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				9C923B302BE3CE98004378DA /* CustomRecipeDataModelExtension.swift in Sources */,
 				9C5A123A27CE8102007D0A99 /* TabBar.swift in Sources */,
 				9C5A123627CE7F77007D0A99 /* CategoriesView.swift in Sources */,
+				9C4B37862C3DBE27004B7A9A /* CameraView.swift in Sources */,
 				9CDDBF6D283AB5C6005D63B0 /* RecipeDetailHeaderView.swift in Sources */,
 				9C0706922BD97B0900AB501A /* AppTheme.swift in Sources */,
 				9C923B362BE3CEF2004378DA /* IngredientDataModelExtension.swift in Sources */,
@@ -1032,12 +1036,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RecipeAppMVVM/Preview Content\"";
-				DEVELOPMENT_TEAM = K353TDH7H3;
+				DEVELOPMENT_TEAM = U245PKG9W9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1048,8 +1054,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.me.RecipeAppMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.br.RecipeAppMVVM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1061,12 +1068,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RecipeAppMVVM/Preview Content\"";
-				DEVELOPMENT_TEAM = K353TDH7H3;
+				DEVELOPMENT_TEAM = U245PKG9W9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1077,8 +1086,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.me.RecipeAppMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.br.RecipeAppMVVM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

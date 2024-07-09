@@ -16,7 +16,7 @@ struct FieldValidator: ViewModifier {
             .background(
                 isValid
                 ? .clear
-                : Color(red: 1.0, green: 0, blue: 0, opacity: 0.1)
+                : Color(red: 1.0, green: 0, blue: 0, opacity: 0.3)
             )
     }
     

@@ -5,10 +5,13 @@
 //  Created by Leandro Martins de Freitas on 05/07/24.
 //
 
+import PhotosUI
 import SwiftUI
 
 struct AddCustomRecipeView {
     @StateObject private var viewModel = AddCustomRecipeViewModel()
+    @State private var openCamera = false
+    @State private var photo: UIImage?
 }
 
 //image: String?,
@@ -39,13 +42,32 @@ extension AddCustomRecipeView: View {
                 
                 Section {
                     Button {
-                        // TODO: - open camera
+                        openCamera = true
                     } label: {
-                        Image(systemName: "camera.circle")
-                            .resizable()
-                            .frame(width: 64, height: 64)
-                            .padding(6)
-                            .frame(maxWidth: .infinity)
+                        if let photo {
+                            ZStack {
+                                Image(uiImage: photo)
+                                    .resizable()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 180)
+                                
+                                Image(systemName: "pencil.circle.fill")
+                                    .resizable()
+                                    .frame(width: 64, height: 64)
+                                    .padding(6)
+                                    .frame(maxWidth: .infinity)
+                                    .foregroundColor(.white)
+                            }
+                        } else {
+                            Image(systemName: "camera.circle")
+                                .resizable()
+                                .frame(width: 64, height: 64)
+                                .padding(6)
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .fullScreenCover(isPresented: $openCamera) {
+                        CameraView(selectedImage: $photo)
                     }
                 }
                 
