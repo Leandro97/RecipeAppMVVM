@@ -10,11 +10,11 @@ import SwiftUI
 
 struct AddCustomRecipeView {
     @StateObject private var viewModel = AddCustomRecipeViewModel()
+    @FocusState private var focusField
+    @State private var selectedTextField: Int?
     @State private var openCamera = false
     @State private var photo: UIImage?
 }
-
-//image: String?,
 
 extension AddCustomRecipeView: View {
     var body: some View {
@@ -33,11 +33,47 @@ extension AddCustomRecipeView: View {
                     
                     TextField("Servings", text: $viewModel.servings)
                         .keyboardType(.numberPad)
+                        .focused($focusField)
                         .validate(viewModel.hasValidServings)
+                        .toolbar {
+                            if selectedTextField == 1 {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    Spacer()
+                                    
+                                    Button("Done") {
+                                        selectedTextField = nil
+                                        focusField = false
+                                    }
+                                }
+                            }
+                        }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                selectedTextField = 1
+                            }
+                        )
                     
                     TextField("Preparation time (in minutes)", text: $viewModel.readyInMinutes)
                         .keyboardType(.numberPad)
+                        .focused($focusField)
                         .validate(viewModel.hasValidReadyInMinutes)
+                        .toolbar {
+                            if selectedTextField == 2 {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    Spacer()
+                                    
+                                    Button("Done") {
+                                        selectedTextField = nil
+                                        focusField = false
+                                    }
+                                }
+                            }
+                        }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                selectedTextField = 2
+                            }
+                        )
                 }
                 
                 Section {
