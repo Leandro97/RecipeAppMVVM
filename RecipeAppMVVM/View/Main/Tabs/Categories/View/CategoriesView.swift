@@ -19,7 +19,7 @@ struct CategoriesView {
     
     @State private var showDishTypeList = false
     @State private var showDietList = false
-    @State private var selectedCategory: CategoriesTabOptions = .dishType
+    @State private var currentCategory: CategoriesTabOptions = .dishType
     @State private var selectedDishType: DishType = .breakfast
     @State private var selectedDiet: Diet = .vegetarian
 }
@@ -30,14 +30,14 @@ extension CategoriesView: View {
             ZStack {
                 VStack {
                     List {
-                        Picker("", selection: $selectedCategory) {
+                        Picker("", selection: $currentCategory) {
                             ForEach(CategoriesTabOptions.allCases) { option in
                                 Text(option.title)
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         
-                        if selectedCategory.rawValue == 0 {
+                        if currentCategory.rawValue == 0 {
                             VStack(alignment: .leading) {
                                 ForEach(dishTypeList) { dishType in
                                     Text(dishType.categoryTitle)
