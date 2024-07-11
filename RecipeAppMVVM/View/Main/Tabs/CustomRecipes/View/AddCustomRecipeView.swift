@@ -9,6 +9,8 @@ import PhotosUI
 import SwiftUI
 
 struct AddCustomRecipeView {
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) var isPresented
     @StateObject private var viewModel = AddCustomRecipeViewModel()
     @FocusState private var focusField
     @State private var selectedTextField: Int?
@@ -160,18 +162,31 @@ extension AddCustomRecipeView: View {
                         .background(Color.accentColor)
                         .cornerRadius(12)
                         .onTapGesture {
-                            viewModel.saveRecipe()
+                            viewModel.saveRecipe(with: context)
                         }
                 }
             }
         }
-        .alert(isPresented: $viewModel.showInvalidFieldsAlert) {
-            Alert(
-                title: Text("Invalid recipe!"),
-                message: Text("It seems you custom recipe has empty fields. Please, fill them in."),
-                dismissButton: .default(Text("OK"))
-            )
-        }
+        .alert(
+            viewModel.errorTitle,
+            isPresented: $viewModel.showErrorAlert,
+            actions: {
+                Button("OK") {}
+            },
+            message: {
+                Text(viewModel.errorMessage)
+            }
+        )
+        .alert(
+            "Recipe saved successfully!",
+            isPresented: $viewModel.showSaveSuccessAlert,
+            actions: {
+                Button("OK") {
+                    self.isPresented.wrappedValue.dismiss()
+                }
+            }
+        )
+        
     }
 }
 

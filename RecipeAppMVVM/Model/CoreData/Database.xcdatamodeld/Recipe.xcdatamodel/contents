@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23B74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CustomRecipeDataModel" representedClassName="CustomRecipeDataModel" syncable="YES" codeGenerationType="class">
-        <attribute name="image" attributeType="String" defaultValueString=""/>
+        <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="readyInMinutes" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="recipeId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="servings" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -30,7 +30,6 @@
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomRecipeDataModel" inverseName="ingredients" inverseEntity="CustomRecipeDataModel"/>
     </entity>
     <entity name="InstructionDataModel" representedClassName="InstructionDataModel" syncable="YES" codeGenerationType="class">
-        <attribute name="number" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="step" attributeType="String"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomRecipeDataModel" inverseName="instructions" inverseEntity="CustomRecipeDataModel"/>
     </entity>

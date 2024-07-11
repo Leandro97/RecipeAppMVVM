@@ -21,7 +21,12 @@ class AddCustomRecipeViewModel: ObservableObject {
     ]
     
     @Published private var hasUncommittedChanges = true
-    @Published var showInvalidFieldsAlert = false
+    
+    @Published var showErrorAlert = false
+    @Published var errorTitle = ""
+    @Published var errorMessage = ""
+    
+    @Published var showSaveSuccessAlert = false
     @Published var photo: UIImage?
     
     @Published var title = ""
@@ -39,12 +44,12 @@ class AddCustomRecipeViewModel: ObservableObject {
         hasUncommittedChanges || !readyInMinutes.isEmpty
     }
     
-    @Published var dishTypeSelection: [(Bool, String)] = dishTypeTitles.map { (false, $0.categoryTitle) }
+    @Published var dishTypeSelection: [(Bool, DishType)] = dishTypeTitles.map { (false, $0) }
     var hasValidDishType: Bool {
         hasUncommittedChanges || !dishTypeSelection.filter { $0.0 }.isEmpty
     }
     
-    @Published var dietSelection: [(Bool, String)] = dietTitles.map { (false, $0.rawValue.capitalized) }
+    @Published var dietSelection: [(Bool, Diet)] = dietTitles.map { (false, $0) }
     var hasValidDiet: Bool {
         hasUncommittedChanges || !dietSelection.filter { $0.0 }.isEmpty
     }
@@ -61,7 +66,7 @@ class AddCustomRecipeViewModel: ObservableObject {
 }
 
 extension AddCustomRecipeViewModel {
-    func saveRecipe() {
+    func saveRecipe(with context: NSManagedObjectContext) {
         hasUncommittedChanges = false
         
         let stateList = [
@@ -77,9 +82,34 @@ extension AddCustomRecipeViewModel {
         let isValid = stateList.filter { !$0 }.isEmpty
         
         if isValid {
-            // TODO: - save recipe on database
+            let ingredientList = ingredients.map { Ingredient(original: $0) }
+            let instructionList = Instruction(steps: instructions.map { Step($0) })
+            let dishTypeList = dishTypeSelection.filter { $0.0 }.map { $0.1 }
+            let dietList = dietSelection.filter { $0.0 }.map { $0.1 }
+            
+            do {
+                try CustomRecipeDataModel.addRecipe(
+                    title: title,
+                    image: photo?.pngData()?.base64EncodedString(),
+                    servings: Int(servings) ?? 1,
+                    readyInMinutes: Int(readyInMinutes) ?? 1,
+                    ingredients: ingredientList,
+                    instruction: instructionList,
+                    dishTypes: dishTypeList,
+                    diets: dietList,
+                    with: context
+                )
+                
+                showSaveSuccessAlert = true
+            } catch {
+                errorTitle = "Error on recipe creation!"
+                errorMessage = "Please, try again later."
+                showErrorAlert = true
+            }
         } else {
-            showInvalidFieldsAlert = true
+            errorTitle = "Invalid recipe!"
+            errorMessage = "It seems you custom recipe has empty fields. Please, fill them in."
+            showErrorAlert = true
         }
     }
 }

@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ScrollViewSelectionView {
-    @Binding var list: [(Bool, String)]
+struct ScrollViewSelectionView<T: CategoryEnum> {
+    @Binding var list: [(Bool, T)]
 }
 
 extension ScrollViewSelectionView: View {
@@ -16,7 +16,7 @@ extension ScrollViewSelectionView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 2) {
                     ForEach($list, id: \.1) { selection in
-                        ScrollItemView(isSelected: selection.0, title: selection.1)
+                        ScrollItemView(isSelected: selection.0, title: selection.1.categoryTitle)
                     }
                 }
             }
@@ -25,5 +25,7 @@ extension ScrollViewSelectionView: View {
 }
 
 #Preview {
-    ScrollViewSelectionView(list: .constant([(true, "a"), (false, "b")]))
+    ScrollViewSelectionView(
+        list: .constant([(true, DishType.bread), (false, DishType.beverage)])
+    )
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DishType: String, Decodable, Identifiable {
+enum DishType: String, Decodable, Identifiable, CategoryEnum {
     case dessert, appetizer, salad, bread, dinner, breakfast, soup, beverage, sauce, snack, lunch
     case mainCourse = "main course"
     case sideDish = "side dish"
@@ -16,20 +16,24 @@ enum DishType: String, Decodable, Identifiable {
     var id: Self { self }
     
     var categoryTitle: String {
-        switch self {
-        case .dessert:
-            return "Desserts"
-        case .appetizer:
-            return "Appetizers"
-        case .salad:
-            return "Salads"
-        case .beverage:
-            return "Beverages"
-        case .snack:
-            return "Snacks"
-        default:
-            return self.rawValue.capitalized
+        get {
+            switch self {
+            case .dessert:
+                return "Desserts"
+            case .appetizer:
+                return "Appetizers"
+            case .salad:
+                return "Salads"
+            case .beverage:
+                return "Beverages"
+            case .snack:
+                return "Snacks"
+            default:
+                return self.rawValue.capitalized
+            }
         }
+        
+        set {}
     }
     
     init(from decoder: Decoder) throws {

@@ -27,7 +27,7 @@ extension CustomRecipeDataModel {
         dishTypes: [DishType],
         diets: [Diet],
         with context: NSManagedObjectContext
-    ) {
+    ) throws {
         let recipe = CustomRecipeDataModel(context: context)
         let id = Int64.random(in: -999999999 ..< -1)
         recipe.recipeId = id
@@ -40,11 +40,7 @@ extension CustomRecipeDataModel {
         set(dishTypes, for: recipe, with: context)
         set(diets, for: recipe, with: context)
         
-        do {
-            try context.save()
-        } catch {
-            // TODO
-        }
+        try context.save()
     }
     
     static func getRecipe(with id: Int, and context: NSManagedObjectContext) -> CustomRecipeDataModel? {
@@ -78,7 +74,6 @@ extension CustomRecipeDataModel {
     ) {
         for object in instruction.steps {
             let model = InstructionDataModel(context: context)
-            model.number = Int64(object.number)
             model.step = object.step
             
             recipe.addToInstructions(model)

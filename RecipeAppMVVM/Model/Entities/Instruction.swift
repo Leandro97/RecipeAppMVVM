@@ -10,24 +10,22 @@ import Foundation
 struct Instruction: Decodable {
     let steps: [Step]
     
-    // TODO: - Remove
-    init() {
-        self.steps = [.init(1, "abc"), .init(2, "abc")]
+    // TODO: - Remove defaults
+    init(steps: [Step] = [.init("abc"), .init("abc")]) {
+        self.steps = steps
     }
 }
 
 struct Step: Decodable {
-    let number: Int
     let step: String
     
-    init(_ number: Int, _ step: String?) {
-        self.number = number
-        self.step = step ?? ""
+    init(_ step: String) {
+        self.step = step
     }
 }
 
 extension Instruction {
     init(with model: [InstructionDataModel]) {
-        self.steps = model.map { .init(Int($0.number), $0.step) }
+        self.steps = model.map { .init($0.step ?? "") }
     }
 }
