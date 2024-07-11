@@ -83,9 +83,10 @@ extension AddCustomRecipeView: View {
                             ZStack {
                                 Image(uiImage: photo)
                                     .resizable()
+                                    .scaledToFit()
                                     .frame(maxWidth: .infinity)
-                                    .frame(height: 180)
-                                    .cornerRadius(20)
+                                    .frame(height: 217)
+                                    .cornerRadius(16)
                                 
                                 Image(systemName: "pencil.circle.fill")
                                     .resizable()
