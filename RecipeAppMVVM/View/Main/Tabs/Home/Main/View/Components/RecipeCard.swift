@@ -15,6 +15,7 @@ struct RecipeCard {
 extension RecipeCard: View {
     var body: some View {
         VStack {
+            // TODO: - get image for custom recipe
             AsyncImage(
                 url: URL(string: image),
                 content: { image in

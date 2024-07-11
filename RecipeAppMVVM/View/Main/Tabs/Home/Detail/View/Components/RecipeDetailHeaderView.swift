@@ -14,6 +14,7 @@ struct RecipeDetailHeaderView {
 extension RecipeDetailHeaderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            // TODO: - get image for custom recipe
             AsyncImage(
                 url: URL(string: recipe?.image ?? ""),
                 content: { image in
@@ -52,7 +53,7 @@ extension RecipeDetailHeaderView: View {
                     
                     Text("\(recipe?.readyInMinutes ?? 0)")
                 }
-
+                
                 HStack(spacing: 4) {
                     Image(systemName: "person")
                     
@@ -60,6 +61,43 @@ extension RecipeDetailHeaderView: View {
                 }
                 
                 Spacer()
+            }
+            
+            if
+                let list = recipe?.dishTypes.filter({ $0 != .unknown }).prefix(3),
+                !list.isEmpty
+            {
+                HStack(spacing: 0) {
+                    ForEach(Array(list.enumerated()), id: \.0) { item in
+                        Button(action: { /** TODO **/ }) {
+                            if item.0 != list.endIndex - 1 {
+                                Text(item.1.categoryTitle + ",")
+                            } else {
+                                Text(item.1.categoryTitle)
+                            }
+                        }
+                        .padding(6)
+                    }
+                }
+                .padding(.top, 16)
+            }
+            
+            if
+                let list = recipe?.diets.filter({ $0 != .unknown }).prefix(3),
+                !list.isEmpty
+            {
+                HStack(spacing: 0) {
+                    ForEach(Array(list.enumerated()), id: \.0) { item in
+                        Button(action: { /** TODO **/ }) {
+                            if item.0 != list.endIndex - 1 {
+                                Text(item.1.categoryTitle + ",")
+                            } else {
+                                Text(item.1.categoryTitle)
+                            }
+                        }
+                        .padding(6)
+                    }
+                }
             }
         }
     }
