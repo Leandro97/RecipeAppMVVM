@@ -22,6 +22,7 @@ class AddCustomRecipeViewModel: ObservableObject {
     
     @Published private var hasUncommittedChanges = true
     @Published var showInvalidFieldsAlert = false
+    @Published var photo: UIImage?
     
     @Published var title = ""
     var hasValidTitle: Bool {

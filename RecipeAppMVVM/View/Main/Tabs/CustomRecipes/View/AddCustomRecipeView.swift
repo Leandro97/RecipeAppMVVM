@@ -13,7 +13,6 @@ struct AddCustomRecipeView {
     @FocusState private var focusField
     @State private var selectedTextField: Int?
     @State private var openCamera = false
-    @State private var photo: UIImage?
 }
 
 extension AddCustomRecipeView: View {
@@ -80,12 +79,13 @@ extension AddCustomRecipeView: View {
                     Button {
                         openCamera = true
                     } label: {
-                        if let photo {
+                        if let photo = viewModel.photo {
                             ZStack {
                                 Image(uiImage: photo)
                                     .resizable()
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 180)
+                                    .cornerRadius(20)
                                 
                                 Image(systemName: "pencil.circle.fill")
                                     .resizable()
@@ -103,7 +103,7 @@ extension AddCustomRecipeView: View {
                         }
                     }
                     .fullScreenCover(isPresented: $openCamera) {
-                        CameraView(selectedImage: $photo)
+                        CameraView(selectedImage: $viewModel.photo)
                     }
                 }
                 
@@ -150,18 +150,19 @@ extension AddCustomRecipeView: View {
                     )
                     .validate(viewModel.hasValidInstructions)
                 }
-            }
-            
-            Text("Save")
-                .foregroundColor(.white)
-                .padding(12)
-                .frame(maxWidth: .infinity)
-                .background(Color.accentColor)
-                .cornerRadius(12)
-                .onTapGesture {
-                    viewModel.saveRecipe()
+                
+                Section {
+                    Text("Save")
+                        .foregroundColor(.white)
+                        .padding(12)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.accentColor)
+                        .cornerRadius(12)
+                        .onTapGesture {
+                            viewModel.saveRecipe()
+                        }
                 }
-                .padding(24)
+            }
         }
         .alert(isPresented: $viewModel.showInvalidFieldsAlert) {
             Alert(
