@@ -79,7 +79,7 @@ extension RecipeDetailHeaderView: View {
                         .padding(6)
                     }
                 }
-                .padding(.top, 16)
+                .padding(.top, 6)
             }
             
             if
