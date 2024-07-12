@@ -26,57 +26,48 @@ struct CategoriesView {
 
 extension CategoriesView: View {
     var body: some View {
-        NavigationView {
-            ZStack {
-                VStack {
-                    List {
-                        Picker("", selection: $currentCategory) {
-                            ForEach(CategoriesTabOptions.allCases) { option in
-                                Text(option.title)
-                            }
+        NavigationStack {
+            List {
+                Picker("", selection: $currentCategory) {
+                    ForEach(CategoriesTabOptions.allCases) { option in
+                        Text(option.title)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                
+                if currentCategory.rawValue == 0 {
+                    VStack(alignment: .leading) {
+                        ForEach(dishTypeList) { dishType in
+                            Text(dishType.categoryTitle)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .onTapGesture {
+                                    self.selectedDishType = dishType
+                                    self.showDishTypeList = true
+                                }
+                                .navigationDestination(isPresented: $showDishTypeList) {
+                                    CategoriesListView(dishType: selectedDishType)
+                                }
                         }
-                        .pickerStyle(SegmentedPickerStyle())
-                        
-                        if currentCategory.rawValue == 0 {
-                            VStack(alignment: .leading) {
-                                ForEach(dishTypeList) { dishType in
-                                    Text(dishType.categoryTitle)
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                        .onTapGesture {
-                                            self.selectedDishType = dishType
-                                            self.showDishTypeList = true
-                                        }
+                    }
+                } else {
+                    VStack(alignment: .leading) {
+                        ForEach(dietList) { diet in
+                            Text(diet.rawValue.capitalized)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .onTapGesture {
+                                    self.selectedDiet = diet
+                                    self.showDietList = true
                                 }
-                            }
-                        } else {
-                            VStack(alignment: .leading) {
-                                ForEach(dietList) { diet in
-                                    Text(diet.rawValue.capitalized)
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                        .onTapGesture {
-                                            self.selectedDiet = diet
-                                            self.showDietList = true
-                                        }
+                                .navigationDestination(isPresented: $showDietList) {
+                                    CategoriesListView(diet: selectedDiet)
                                 }
-                            }
                         }
                     }
                 }
-                
-                NavigationLink(
-                    destination: CategoriesListView(dishType: selectedDishType),
-                    isActive: $showDishTypeList
-                ) {}
-                
-                NavigationLink(
-                    destination: CategoriesListView(diet: selectedDiet),
-                    isActive: $showDietList
-                ) {}
             }
         }
-        .navigationTitle("Categories")
     }
 }
 
