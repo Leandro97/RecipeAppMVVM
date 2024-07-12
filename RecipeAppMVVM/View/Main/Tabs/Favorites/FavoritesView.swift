@@ -16,7 +16,7 @@ struct FavoritesView {
 
 extension FavoritesView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack {
                     HStack {
@@ -56,7 +56,6 @@ extension FavoritesView: View {
             }
             .navigationTitle("Favorite recipes")
         }
-        .navigationViewStyle(.stack)
     }
 }
 

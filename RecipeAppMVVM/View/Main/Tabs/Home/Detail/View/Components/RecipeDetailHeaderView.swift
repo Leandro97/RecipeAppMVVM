@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct RecipeDetailHeaderView {
+    @State private var showDishTypeList = false
+    @State private var showDietList = false
+    @State private var selectedDishType: DishType = .breakfast
+    @State private var selectedDiet: Diet = .vegetarian
     var recipe: Recipe?
 }
 
@@ -69,14 +73,17 @@ extension RecipeDetailHeaderView: View {
             {
                 HStack(spacing: 0) {
                     ForEach(Array(list.enumerated()), id: \.0) { item in
-                        Button(action: { /** TODO **/ }) {
-                            if item.0 != list.endIndex - 1 {
-                                Text(item.1.categoryTitle + ",")
-                            } else {
-                                Text(item.1.categoryTitle)
-                            }
+                        Text(
+                            item.0 != list.endIndex - 1
+                                ? item.1.categoryTitle + ","
+                                : item.1.categoryTitle
+                        )
+                        .foregroundColor(.accentColor)
+                        .padding(4)
+                        .onTapGesture {
+                            selectedDishType = item.1
+                            showDishTypeList = true
                         }
-                        .padding(6)
                     }
                 }
                 .padding(.top, 6)
@@ -88,17 +95,26 @@ extension RecipeDetailHeaderView: View {
             {
                 HStack(spacing: 0) {
                     ForEach(Array(list.enumerated()), id: \.0) { item in
-                        Button(action: { /** TODO **/ }) {
-                            if item.0 != list.endIndex - 1 {
-                                Text(item.1.categoryTitle + ",")
-                            } else {
-                                Text(item.1.categoryTitle)
-                            }
+                        Text(
+                            item.0 != list.endIndex - 1
+                                ? item.1.categoryTitle + ","
+                                : item.1.categoryTitle
+                        )
+                        .foregroundColor(.accentColor)
+                        .padding(4)
+                        .onTapGesture {
+                            selectedDiet = item.1
+                            showDietList = true
                         }
-                        .padding(6)
                     }
                 }
             }
+        }
+        .navigationDestination(isPresented: $showDishTypeList) {
+            CategoriesListView(dishType: selectedDishType)
+        }
+        .navigationDestination(isPresented: $showDietList) {
+            CategoriesListView(diet: selectedDiet)
         }
     }
 }

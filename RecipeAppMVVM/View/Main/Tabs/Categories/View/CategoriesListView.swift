@@ -54,7 +54,6 @@ extension CategoriesListView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .navigationViewStyle(.stack)
     }
     
     @ViewBuilder private var mainView: some View {

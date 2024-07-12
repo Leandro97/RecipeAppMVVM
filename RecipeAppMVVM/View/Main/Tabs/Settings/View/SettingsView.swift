@@ -18,7 +18,7 @@ struct SettingsView {
 
 extension SettingsView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 Picker(selection: $appTheme) {
                     ForEach(AppTheme.allCases) { item in
@@ -59,7 +59,6 @@ extension SettingsView: View {
                 )
             }
         }
-        .navigationViewStyle(.stack)
     }
 }
 

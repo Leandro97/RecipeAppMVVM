@@ -14,7 +14,7 @@ struct HomeView {
 
 extension HomeView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             mainView
                 .navigationTitle("Suggested recipes")
                 .toolbar {
@@ -42,7 +42,6 @@ extension HomeView: View {
                     )
                 }
         }
-        .navigationViewStyle(.stack)
     }
     
     @ViewBuilder private var mainView: some View {

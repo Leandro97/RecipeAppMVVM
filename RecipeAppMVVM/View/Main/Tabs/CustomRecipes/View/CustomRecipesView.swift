@@ -14,7 +14,7 @@ struct CustomRecipesView {
 
 extension CustomRecipesView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 ScrollView {
                     VStack {
@@ -60,7 +60,6 @@ extension CustomRecipesView: View {
             }
             .navigationTitle("My recipes")
         }
-        .navigationViewStyle(.stack)
     }
 }
 

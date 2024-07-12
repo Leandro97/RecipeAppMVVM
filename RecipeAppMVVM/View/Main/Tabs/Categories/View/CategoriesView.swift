@@ -67,6 +67,7 @@ extension CategoriesView: View {
                     }
                 }
             }
+            .navigationTitle("Categories")
         }
     }
 }
