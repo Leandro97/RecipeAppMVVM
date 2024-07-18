@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: - add delete and reorder actions
 struct TextFieldListView {
     @State private var currentValue = ""
     @Binding var values: [String]

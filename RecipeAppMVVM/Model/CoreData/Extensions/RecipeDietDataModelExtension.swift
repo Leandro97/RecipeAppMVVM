@@ -17,15 +17,8 @@ extension RecipeDietDataModel {
         with context: NSManagedObjectContext
     ) {
         for object in diets {
-            // TODO: - add diets on installation
-            let dietModel = DietDataModel(context: context)
-            dietModel.dietId = object.rawValue
-            
-            let relationModel = RecipeDietDataModel(context: context)
-            relationModel.recipe = recipe
-            relationModel.diet = dietModel
-            
-            recipe.addToDiets(relationModel)
+            let model = createModel(for: object, with: recipe, and: context)
+            recipe.addToDiets(model)
         }
     }
     
@@ -34,6 +27,31 @@ extension RecipeDietDataModel {
         for recipe: CustomRecipeDataModel,
         with context: NSManagedObjectContext
     ) {
-        // TODO
+        let currentDiets = recipe.diets?.allObjects as? [RecipeDietDataModel] ?? []
+        
+        for diet in currentDiets {
+            recipe.removeFromDiets(diet)
+        }
+        
+        for object in diets {
+            let model = createModel(for: object, with: recipe, and: context)
+            recipe.addToDiets(model)
+        }
+    }
+    
+    private static func createModel(
+        for object: Diet,
+        with recipe: CustomRecipeDataModel,
+        and context: NSManagedObjectContext
+    ) -> RecipeDietDataModel {
+        // TODO: - add diets on installation
+        let dietModel = DietDataModel(context: context)
+        dietModel.dietId = object.rawValue
+        
+        let relationModel = RecipeDietDataModel(context: context)
+        relationModel.recipe = recipe
+        relationModel.diet = dietModel
+        
+        return relationModel
     }
 }

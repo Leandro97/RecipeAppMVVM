@@ -17,15 +17,8 @@ extension RecipeDishTypeDataModel {
         with context: NSManagedObjectContext
     ) {
         for object in dishTypes {
-            // TODO: - add dish types on installation
-            let dishTypeModel = DishTypeDataModel(context: context)
-            dishTypeModel.dishTypeId = object.rawValue
-            
-            let relationModel = RecipeDishTypeDataModel(context: context)
-            relationModel.recipe = recipe
-            relationModel.dishType = dishTypeModel
-            
-            recipe.addToDishTypes(relationModel)
+            let model = createModel(for: object, with: recipe, and: context)
+            recipe.addToDishTypes(model)
         }
     }
     
@@ -34,6 +27,31 @@ extension RecipeDishTypeDataModel {
         for recipe: CustomRecipeDataModel,
         with context: NSManagedObjectContext
     ) {
-        // TODO
+        let currentDishTypes = recipe.dishTypes?.allObjects as? [RecipeDishTypeDataModel] ?? []
+        
+        for dishType in currentDishTypes {
+            recipe.removeFromDishTypes(dishType)
+        }
+        
+        for object in dishTypes {
+            let model = createModel(for: object, with: recipe, and: context)
+            recipe.addToDishTypes(model)
+        }
+    }
+    
+    private static func createModel(
+        for object: DishType,
+        with recipe: CustomRecipeDataModel,
+        and context: NSManagedObjectContext
+    ) -> RecipeDishTypeDataModel {
+        // TODO: - add dish types on installation
+        let dishTypeModel = DishTypeDataModel(context: context)
+        dishTypeModel.dishTypeId = object.rawValue
+        
+        let relationModel = RecipeDishTypeDataModel(context: context)
+        relationModel.recipe = recipe
+        relationModel.dishType = dishTypeModel
+        
+        return relationModel
     }
 }

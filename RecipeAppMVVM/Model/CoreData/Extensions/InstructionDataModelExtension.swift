@@ -27,7 +27,7 @@ extension InstructionDataModel {
         for recipe: CustomRecipeDataModel,
         with context: NSManagedObjectContext
     ) {
-        let currentInstructions = recipe.ingredients?.allObjects as? [InstructionDataModel] ?? []
+        let currentInstructions = recipe.instructions?.allObjects as? [InstructionDataModel] ?? []
         
         for instruction in currentInstructions {
             recipe.removeFromInstructions(instruction)

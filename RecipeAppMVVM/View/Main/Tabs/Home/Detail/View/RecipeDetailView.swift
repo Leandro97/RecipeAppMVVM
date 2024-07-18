@@ -13,6 +13,7 @@ struct RecipeDetailView {
     private var favoriteRecipes: FetchedResults<FavoriteRecipeDataModel>
     
     @StateObject private var viewModel: RecipeDetailViewModel = .init()
+    @State private var headerId = UUID()
     @State private var isIngredientsExpanded = true
     @State private var isInstructionsExpanded = true
     @State private var showingSimilarRecipeAlert = false
@@ -43,6 +44,7 @@ extension RecipeDetailView: View {
             Section {
                 RecipeDetailHeaderView(recipe: viewModel.recipe)
                     .listRowBackground(Color.clear)
+                    .id(headerId)
             }
             
             Section(
@@ -115,6 +117,9 @@ extension RecipeDetailView: View {
                 }
             }
         }
+//        .onChange(of: viewModel.recipe) { _ in
+//            self.headerId = UUID()
+//        }
         .alert(isPresented: $viewModel.hasError) {
             Alert(
                 title: Text("Service error!"),

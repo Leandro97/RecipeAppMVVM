@@ -43,7 +43,15 @@ struct Recipe: Decodable, Identifiable, Equatable {
     }
     
     static func == (lhs: Recipe, rhs: Recipe) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id &&
+        lhs.title == rhs.title &&
+        lhs.image == rhs.image &&
+        lhs.servings == rhs.servings &&
+        lhs.readyInMinutes == rhs.readyInMinutes &&
+        lhs.extendedIngredients == rhs.extendedIngredients &&
+        lhs.analyzedInstructions == rhs.analyzedInstructions &&
+        lhs.dishTypes == rhs.dishTypes &&
+        lhs.diets == rhs.diets
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Instruction: Decodable {
+struct Instruction: Decodable, Equatable {
     let steps: [Step]
     
     // TODO: - Remove defaults
@@ -16,7 +16,7 @@ struct Instruction: Decodable {
     }
 }
 
-struct Step: Decodable {
+struct Step: Decodable, Equatable {
     let number: Int
     let step: String
     
