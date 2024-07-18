@@ -82,7 +82,8 @@ extension CategoriesListView: View {
                         NavigationLink(destination: RecipeDetailView(with: recipe)) {
                             RecipeCard(
                                 image: recipe.image,
-                                title: recipe.title
+                                title: recipe.title,
+                                isCustom: false
                             )
                         }
                     }

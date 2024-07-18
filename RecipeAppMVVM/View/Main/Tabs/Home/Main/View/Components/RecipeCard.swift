@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipeCard {
     var image: String
     var title: String
-    var isCustom: Bool = false
+    var isCustom: Bool
 }
 
 extension RecipeCard: View {
@@ -23,15 +23,6 @@ extension RecipeCard: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .overlay(alignment: .bottom) {
-                                Text(title)
-                                    .font(.headline)
-                                    .minimumScaleFactor(0.7)
-                                    .foregroundColor(.white)
-                                    .shadow(color: .black, radius: 3, x: 1, y: 1)
-                                    .frame(maxWidth: 136)
-                                    .padding()
-                            }
                     },
                     placeholder: {
                         Image(systemName: "photo")
@@ -42,7 +33,7 @@ extension RecipeCard: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 )
-                .modifier(CardModifier())
+                .modifier(CardModifier(title: title))
             } else {
                 let data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
                 let decodedImage = UIImage(data: data) ?? UIImage()
@@ -50,42 +41,43 @@ extension RecipeCard: View {
                 Image(uiImage: decodedImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .overlay(alignment: .bottom) {
-                        Text(title)
-                            .font(.headline)
-                            .minimumScaleFactor(0.7)
-                            .foregroundColor(.white)
-                            .shadow(color: .black, radius: 3, x: 1, y: 1)
-                            .frame(maxWidth: 136)
-                            .padding()
-                    }
-                    .modifier(CardModifier())
+                    .modifier(CardModifier(title: title))
             }
         }
     }
 }
 
 private struct CardModifier: ViewModifier {
+    var title: String
+    
     func body(content: Content) -> some View {
         content
-        
-        .frame(width: 160, height: 217, alignment: .top)
-        .background(
-            LinearGradient(
-                colors: [Color(.gray).opacity(0.3), Color(.gray)],
-                startPoint: .top,
-                endPoint: .bottom
+            .overlay(alignment: .bottom) {
+                Text(title)
+                    .font(.headline)
+                    .minimumScaleFactor(0.7)
+                    .foregroundColor(.white)
+                    .shadow(color: .black, radius: 3, x: 1, y: 1)
+                    .frame(maxWidth: 136)
+                    .padding()
+            }
+            .frame(width: 160, height: 217, alignment: .top)
+            .background(
+                LinearGradient(
+                    colors: [Color(.gray).opacity(0.3), Color(.gray)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
             )
-        )
-        .clipShape(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-        )
-        .shadow(
-            color: Color(.black).opacity(0.3),
-            radius: 15,
-            x: 0,
-            y: 10
-        )
+            .clipShape(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+            )
+            .shadow(
+                color: Color(.black).opacity(0.3),
+                radius: 15,
+                x: 0,
+                y: 10
+            )
     }
 }
 
@@ -94,7 +86,8 @@ struct RecipeCard_Previews: PreviewProvider {
         let recipe = Recipe(id: 0)
         RecipeCard(
             image: recipe.image,
-            title: recipe.title
+            title: recipe.title,
+            isCustom: false
         )
     }
 }

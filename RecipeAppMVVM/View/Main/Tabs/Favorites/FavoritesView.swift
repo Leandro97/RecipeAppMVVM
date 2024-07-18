@@ -41,11 +41,19 @@ extension FavoritesView: View {
                         ForEach(favoriteRecipes) { recipe in
                             if recipe.isCustom {
                                 NavigationLink(destination: RecipeDetailView(withCustomId: Int(recipe.recipeId))) {
-                                    RecipeCard(image: recipe.image ?? "", title: recipe.title ?? "")
+                                    RecipeCard(
+                                        image: recipe.image ?? "",
+                                        title: recipe.title ?? "",
+                                        isCustom: true
+                                    )
                                 }
                             } else {
                                 NavigationLink(destination: RecipeDetailView(withFavorite: recipe)) {
-                                    RecipeCard(image: recipe.image ?? "", title: recipe.title ?? "")
+                                    RecipeCard(
+                                        image: recipe.image ?? "",
+                                        title: recipe.title ?? "",
+                                        isCustom: false
+                                    )
                                 }
                             }
                         }

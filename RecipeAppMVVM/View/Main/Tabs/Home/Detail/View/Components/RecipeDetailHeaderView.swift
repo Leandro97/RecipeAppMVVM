@@ -18,34 +18,33 @@ struct RecipeDetailHeaderView {
 extension RecipeDetailHeaderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // TODO: - get image for custom recipe
-            AsyncImage(
-                url: URL(string: recipe?.image ?? ""),
-                content: { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                },
-                placeholder: {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 100, alignment: .center)
-                        .foregroundColor(Color(.white).opacity(0.7))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-            )
-            .frame(maxWidth: .infinity)
-            .background(
-                LinearGradient(
-                    colors: [Color(.gray).opacity(0.3), Color(.gray)],
-                    startPoint: .top,
-                    endPoint: .bottom
+            if let recipe, recipe.id > 0 {
+                AsyncImage(
+                    url: URL(string: recipe.image),
+                    content: { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .modifier(HeaderModifier())
+                    },
+                    placeholder: {
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .foregroundColor(Color(.white).opacity(0.7))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 )
-            )
-            .clipShape(
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-            )
+            } else {
+                let data = Data(base64Encoded: recipe?.image ?? "", options: .ignoreUnknownCharacters)!
+                let decodedImage = UIImage(data: data) ?? UIImage()
+                
+                Image(uiImage: decodedImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .modifier(HeaderModifier())
+            }
             
             Text(recipe?.title ?? "")
                 .multilineTextAlignment(.leading)
@@ -75,8 +74,8 @@ extension RecipeDetailHeaderView: View {
                     ForEach(Array(list.enumerated()), id: \.0) { item in
                         Text(
                             item.0 != list.endIndex - 1
-                                ? item.1.categoryTitle + ","
-                                : item.1.categoryTitle
+                            ? item.1.categoryTitle + ","
+                            : item.1.categoryTitle
                         )
                         .foregroundColor(.accentColor)
                         .padding(4)
@@ -97,8 +96,8 @@ extension RecipeDetailHeaderView: View {
                     ForEach(Array(list.enumerated()), id: \.0) { item in
                         Text(
                             item.0 != list.endIndex - 1
-                                ? item.1.categoryTitle + ","
-                                : item.1.categoryTitle
+                            ? item.1.categoryTitle + ","
+                            : item.1.categoryTitle
                         )
                         .foregroundColor(.accentColor)
                         .padding(4)
@@ -116,6 +115,23 @@ extension RecipeDetailHeaderView: View {
         .navigationDestination(isPresented: $showDietList) {
             CategoriesListView(diet: selectedDiet)
         }
+    }
+}
+
+private struct HeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: .infinity)
+            .background(
+                LinearGradient(
+                    colors: [Color(.gray).opacity(0.3), Color(.gray)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+            .clipShape(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+            )
     }
 }
 
