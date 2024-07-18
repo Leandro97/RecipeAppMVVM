@@ -49,6 +49,7 @@ extension RecipeDetailViewModel {
         }
     }
     
+    @MainActor
     func getCustomRecipeData(with id: Int, and context: NSManagedObjectContext) {
         guard let model = CustomRecipeDataModel.getRecipe(with: id, and: context) else { return }
         self.recipe = Recipe(with: model)

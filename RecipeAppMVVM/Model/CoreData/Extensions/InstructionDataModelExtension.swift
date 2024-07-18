@@ -10,4 +10,18 @@ import Foundation
 
 extension InstructionDataModel {
     static var identifier: String { String(describing: self) }
+    
+    static func create(
+        _ instruction: Instruction,
+        for recipe: CustomRecipeDataModel,
+        with context: NSManagedObjectContext
+    ) {
+        for object in instruction.steps {
+            let model = InstructionDataModel(context: context)
+            model.number = Int64(object.number)
+            model.step = object.step
+            
+            recipe.addToInstructions(model)
+        }
+    }
 }

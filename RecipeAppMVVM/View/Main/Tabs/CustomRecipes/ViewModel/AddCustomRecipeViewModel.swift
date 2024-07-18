@@ -128,7 +128,7 @@ extension AddCustomRecipeViewModel {
             servings: Int(servings) ?? 1,
             readyInMinutes: Int(readyInMinutes) ?? 1,
             ingredients: ingredientList,
-            instruction: instructionList,
+            instructions: instructionList,
             dishTypes: dishTypeList,
             diets: dietList,
             with: context
@@ -153,7 +153,7 @@ extension AddCustomRecipeViewModel {
             servings: Int(servings) ?? 1,
             readyInMinutes: Int(readyInMinutes) ?? 1,
             ingredients: ingredientList,
-            instruction: instructionList,
+            instructions: instructionList,
             dishTypes: dishTypeList,
             diets: dietList,
             with: context

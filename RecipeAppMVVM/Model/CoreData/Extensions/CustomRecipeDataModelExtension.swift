@@ -23,7 +23,7 @@ extension CustomRecipeDataModel {
         servings: Int,
         readyInMinutes: Int,
         ingredients: [Ingredient],
-        instruction: Instruction,
+        instructions: Instruction,
         dishTypes: [DishType],
         diets: [Diet],
         with context: NSManagedObjectContext
@@ -35,10 +35,11 @@ extension CustomRecipeDataModel {
         recipe.image = image
         recipe.servings = Int64(servings)
         recipe.readyInMinutes = Int64(readyInMinutes)
-        set(ingredients, for: recipe, with: context)
-        set(instruction, for: recipe, with: context)
-        set(dishTypes, for: recipe, with: context)
-        set(diets, for: recipe, with: context)
+        
+        IngredientDataModel.create(ingredients, for: recipe, with: context)
+        InstructionDataModel.create(instructions, for: recipe, with: context)
+        RecipeDishTypeDataModel.create(dishTypes, for: recipe, with: context)
+        RecipeDietDataModel.create(diets, for: recipe, with: context)
         
         try context.save()
     }
@@ -50,7 +51,7 @@ extension CustomRecipeDataModel {
         servings: Int,
         readyInMinutes: Int,
         ingredients: [Ingredient],
-        instruction: Instruction,
+        instructions: Instruction,
         dishTypes: [DishType],
         diets: [Diet],
         with context: NSManagedObjectContext
@@ -60,14 +61,16 @@ extension CustomRecipeDataModel {
         let recipe = try? context.fetch(request).first
         
         recipe?.setValue(title, forKey: "title")
-//        recipe.image = image
-//        recipe.servings = Int64(servings)
-//        recipe.readyInMinutes = Int64(readyInMinutes)
-//        set(ingredients, for: recipe, with: context)
-//        set(instruction, for: recipe, with: context)
-//        set(dishTypes, for: recipe, with: context)
-//        set(diets, for: recipe, with: context)
+        recipe?.setValue(image, forKey: "image")
+        recipe?.setValue(servings, forKey: "servings")
+        recipe?.setValue(readyInMinutes, forKey: "readyInMinutes")
+        
+//        create(ingredients, for: recipe, with: context)
+//        create(instructions, for: recipe, with: context)
+//        create(dishTypes, for: recipe, with: context)
+//        create(diets, for: recipe, with: context)
 //        
+        // TODO: - change recipe title and image onFavorite table
         try context.save()
     }
     
@@ -77,72 +80,5 @@ extension CustomRecipeDataModel {
         
         let objects = try? context.fetch(request)
         return objects?.first
-    }
-}
-
-// MARK: - Utils
-extension CustomRecipeDataModel {
-    private static func set(
-        _ ingredients: [Ingredient],
-        for recipe: CustomRecipeDataModel,
-        with context: NSManagedObjectContext
-    ) {
-        for (index, object) in ingredients.enumerated() {
-            let model = IngredientDataModel(context: context)
-            model.number = Int64(index)
-            model.original = object.original
-            
-            recipe.addToIngredients(model)
-        }
-    }
-    
-    private static func set(
-        _ instruction: Instruction,
-        for recipe: CustomRecipeDataModel,
-        with context: NSManagedObjectContext
-    ) {
-        for object in instruction.steps {
-            let model = InstructionDataModel(context: context)
-            model.number = Int64(object.number)
-            model.step = object.step
-            
-            recipe.addToInstructions(model)
-        }
-    }
-    
-    private static func set(
-        _ dishTypes: [DishType],
-        for recipe: CustomRecipeDataModel,
-        with context: NSManagedObjectContext
-    ) {
-        for object in dishTypes {
-            // TODO: - add dish types on installation
-            let dishTypeModel = DishTypeDataModel(context: context)
-            dishTypeModel.dishTypeId = object.rawValue
-            
-            let relationModel = RecipeDishTypeDataModel(context: context)
-            relationModel.recipe = recipe
-            relationModel.dishType = dishTypeModel
-            
-            recipe.addToDishTypes(relationModel)
-        }
-    }
-    
-    private static func set(
-        _ diets: [Diet],
-        for recipe: CustomRecipeDataModel,
-        with context: NSManagedObjectContext
-    ) {
-        for object in diets {
-            // TODO: - add diets on installation
-            let dietModel = DietDataModel(context: context)
-            dietModel.dietId = object.rawValue
-            
-            let relationModel = RecipeDietDataModel(context: context)
-            relationModel.recipe = recipe
-            relationModel.diet = dietModel
-            
-            recipe.addToDiets(relationModel)
-        }
     }
 }

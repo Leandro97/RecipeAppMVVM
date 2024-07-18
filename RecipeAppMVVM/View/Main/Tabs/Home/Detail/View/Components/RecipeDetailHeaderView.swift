@@ -107,9 +107,11 @@ extension RecipeDetailHeaderView: View {
             }
         }
         .navigationDestination(isPresented: $showDishTypeList) {
+            // TODO: - fix back action
             CategoriesListView(dishType: selectedDishType)
         }
         .navigationDestination(isPresented: $showDietList) {
+            // TODO: - fix back action
             CategoriesListView(diet: selectedDiet)
         }
     }
