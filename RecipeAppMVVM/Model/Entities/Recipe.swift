@@ -26,6 +26,10 @@ struct Recipe: Decodable, Identifiable, Equatable {
     let dishTypes: [DishType] // https://spoonacular.com/food-api/docs#Meal-Types
     let diets: [Diet]
     
+    var isCustom: Bool {
+        return id < 0
+    }
+    
     init(id: Int) {
         self.id = id
         self.title = "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs"

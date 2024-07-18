@@ -115,6 +115,13 @@ extension RecipeDetailView: View {
                 }
             }
         }
+        .alert(isPresented: $viewModel.hasError) {
+            Alert(
+                title: Text("Service error!"),
+                message: Text("Please, try again later."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }
 
@@ -128,13 +135,19 @@ extension RecipeDetailView {
     @ToolbarContentBuilder var toolbarItems: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             HStack(spacing: 8) {
+                if let recipe = viewModel.recipe , recipe.isCustom {
+                    NavigationLink(destination: AddCustomRecipeView(with: recipe)) {
+                        Image(systemName: "pencil.circle.fill")
+                    }
+                }
+                
                 Button {
                     // TODO: - fix favorite when similar recipe is displayed
                     if let recipe = viewModel.recipe {
                         if isFavorite {
                             FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)
                         } else {
-                            FavoriteRecipeDataModel.setAsFavorite(recipe, with: context)
+                            FavoriteRecipeDataModel.createFavorite(recipe, with: context)
                         }
                     }
                 } label: {

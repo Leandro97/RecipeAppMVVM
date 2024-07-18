@@ -11,10 +11,36 @@ import SwiftUI
 struct AddCustomRecipeView {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) var isPresented
-    @StateObject private var viewModel = AddCustomRecipeViewModel()
+    @StateObject private var viewModel: AddCustomRecipeViewModel
     @FocusState private var focusField
     @State private var selectedTextField: Int?
     @State private var openCamera = false
+    private var recipeId: Int?
+    
+    init(with recipe: Recipe? = nil) {
+        let auxViewModel = AddCustomRecipeViewModel()
+        
+        guard let recipe else {
+            self._viewModel = StateObject(wrappedValue: auxViewModel)
+            return
+        }
+        
+        self.recipeId = recipe.id
+        auxViewModel.title = recipe.title
+        auxViewModel.photo = UIImage(base64: recipe.image)
+        auxViewModel.servings = String(recipe.servings)
+        auxViewModel.readyInMinutes = String(recipe.readyInMinutes)
+        auxViewModel.ingredients = recipe.extendedIngredients.map { $0.original }
+        auxViewModel.instructions = recipe.analyzedInstructions.flatMap { $0.steps }.map { $0.step }
+        auxViewModel.dishTypeSelection = AddCustomRecipeViewModel.getDishTypeList(using: recipe.dishTypes)
+        auxViewModel.dietSelection  = AddCustomRecipeViewModel.getDietList(using: recipe.diets)
+        
+        self._viewModel = StateObject(wrappedValue: auxViewModel)
+    }
+    
+    init() {
+        self._viewModel = StateObject(wrappedValue: AddCustomRecipeViewModel())
+    }
 }
 
 extension AddCustomRecipeView: View {
@@ -166,7 +192,7 @@ extension AddCustomRecipeView: View {
                         .background(Color.accentColor)
                         .cornerRadius(12)
                         .onTapGesture {
-                            viewModel.saveRecipe(with: context)
+                            viewModel.saveRecipe(recipeId: recipeId, with: context)
                         }
                 }
             }

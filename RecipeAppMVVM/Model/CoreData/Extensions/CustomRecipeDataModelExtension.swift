@@ -17,7 +17,7 @@ extension CustomRecipeDataModel {
         return request
     }
     
-    static func addRecipe(
+    static func createRecipe(
         title: String,
         image: String?,
         servings: Int,
@@ -40,6 +40,34 @@ extension CustomRecipeDataModel {
         set(dishTypes, for: recipe, with: context)
         set(diets, for: recipe, with: context)
         
+        try context.save()
+    }
+    
+    static func updateRecipe(
+        id: Int,
+        title: String,
+        image: String?,
+        servings: Int,
+        readyInMinutes: Int,
+        ingredients: [Ingredient],
+        instruction: Instruction,
+        dishTypes: [DishType],
+        diets: [Diet],
+        with context: NSManagedObjectContext
+    ) throws {
+        let request = CustomRecipeDataModel.fetchRequest()
+        request.predicate = NSPredicate(format: "recipeId == %i", Int64(id))
+        let recipe = try? context.fetch(request).first
+        
+        recipe?.setValue(title, forKey: "title")
+//        recipe.image = image
+//        recipe.servings = Int64(servings)
+//        recipe.readyInMinutes = Int64(readyInMinutes)
+//        set(ingredients, for: recipe, with: context)
+//        set(instruction, for: recipe, with: context)
+//        set(dishTypes, for: recipe, with: context)
+//        set(diets, for: recipe, with: context)
+//        
         try context.save()
     }
     

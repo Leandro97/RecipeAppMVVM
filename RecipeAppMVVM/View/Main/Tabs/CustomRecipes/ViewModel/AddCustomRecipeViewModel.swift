@@ -63,10 +63,21 @@ class AddCustomRecipeViewModel: ObservableObject {
     var hasValidInstructions: Bool {
         hasUncommittedChanges || !instructions.isEmpty
     }
+    
+    static func getDietList(using list: [Diet]) -> [(Bool, Diet)] {
+        return dietTitles.map { (list.contains($0), $0) }
+    }
+    
+    static func getDishTypeList(using list: [DishType]) -> [(Bool, DishType)] {
+        return dishTypeTitles.map { (list.contains($0), $0) }
+    }
 }
 
 extension AddCustomRecipeViewModel {
-    func saveRecipe(with context: NSManagedObjectContext) {
+    func saveRecipe(
+        recipeId: Int?,
+        with context: NSManagedObjectContext
+    ) {
         hasUncommittedChanges = false
         
         let stateList = [
@@ -82,27 +93,16 @@ extension AddCustomRecipeViewModel {
         let isValid = stateList.filter { !$0 }.isEmpty
         
         if isValid {
-            let ingredientList = ingredients.map { Ingredient(original: $0) }
-            let instructionList = Instruction(steps: instructions.enumerated().map { Step($0.0, $0.1) })
-            let dishTypeList = dishTypeSelection.filter { $0.0 }.map { $0.1 }
-            let dietList = dietSelection.filter { $0.0 }.map { $0.1 }
-            
             do {
-                try CustomRecipeDataModel.addRecipe(
-                    title: title,
-                    image: photo?.pngData()?.base64EncodedString(),
-                    servings: Int(servings) ?? 1,
-                    readyInMinutes: Int(readyInMinutes) ?? 1,
-                    ingredients: ingredientList,
-                    instruction: instructionList,
-                    dishTypes: dishTypeList,
-                    diets: dietList,
-                    with: context
-                )
+                if let recipeId {
+                    try update(recipeId, with: context)
+                } else {
+                    try create(with: context)
+                }
                 
                 showSaveSuccessAlert = true
             } catch {
-                errorTitle = "Error on recipe creation!"
+                errorTitle = recipeId != nil ? "Error on recipe update!" : "Error on recipe creation!"
                 errorMessage = "Please, try again later."
                 showErrorAlert = true
             }
@@ -111,5 +111,52 @@ extension AddCustomRecipeViewModel {
             errorMessage = "It seems you custom recipe has empty fields. Please, fill them in."
             showErrorAlert = true
         }
+    }
+}
+
+// MARK: - database functions
+extension AddCustomRecipeViewModel {
+    private func create(with context: NSManagedObjectContext) throws {
+        let ingredientList = ingredients.map { Ingredient(original: $0) }
+        let instructionList = Instruction(steps: instructions.enumerated().map { Step($0.0, $0.1) })
+        let dishTypeList = dishTypeSelection.filter { $0.0 }.map { $0.1 }
+        let dietList = dietSelection.filter { $0.0 }.map { $0.1 }
+        
+        try CustomRecipeDataModel.createRecipe(
+            title: title,
+            image: photo?.pngData()?.base64EncodedString(),
+            servings: Int(servings) ?? 1,
+            readyInMinutes: Int(readyInMinutes) ?? 1,
+            ingredients: ingredientList,
+            instruction: instructionList,
+            dishTypes: dishTypeList,
+            diets: dietList,
+            with: context
+        )
+    }
+    
+    private func update(
+        _  id: Int?,
+        with context: NSManagedObjectContext
+    ) throws {
+        guard let id else { return }
+        
+        let ingredientList = ingredients.map { Ingredient(original: $0) }
+        let instructionList = Instruction(steps: instructions.enumerated().map { Step($0.0, $0.1) })
+        let dishTypeList = dishTypeSelection.filter { $0.0 }.map { $0.1 }
+        let dietList = dietSelection.filter { $0.0 }.map { $0.1 }
+        
+        try CustomRecipeDataModel.updateRecipe(
+            id: id,
+            title: title,
+            image: photo?.pngData()?.base64EncodedString(),
+            servings: Int(servings) ?? 1,
+            readyInMinutes: Int(readyInMinutes) ?? 1,
+            ingredients: ingredientList,
+            instruction: instructionList,
+            dishTypes: dishTypeList,
+            diets: dietList,
+            with: context
+        )
     }
 }

@@ -18,7 +18,7 @@ struct RecipeDetailHeaderView {
 extension RecipeDetailHeaderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if let recipe, recipe.id > 0 {
+            if let recipe, !recipe.isCustom {
                 AsyncImage(
                     url: URL(string: recipe.image),
                     content: { image in
@@ -37,10 +37,7 @@ extension RecipeDetailHeaderView: View {
                     }
                 )
             } else {
-                let data = Data(base64Encoded: recipe?.image ?? "", options: .ignoreUnknownCharacters)!
-                let decodedImage = UIImage(data: data) ?? UIImage()
-                
-                Image(uiImage: decodedImage)
+                Image(uiImage: UIImage(base64: recipe?.image ?? "") ?? UIImage())
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .modifier(HeaderModifier())

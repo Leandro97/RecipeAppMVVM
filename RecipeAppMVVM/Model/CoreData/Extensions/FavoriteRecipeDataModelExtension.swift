@@ -17,7 +17,7 @@ extension FavoriteRecipeDataModel {
         return request
     }
     
-    static func setAsFavorite(
+    static func createFavorite(
         _ recipe: Recipe,
         with context: NSManagedObjectContext
     ) {
@@ -25,7 +25,7 @@ extension FavoriteRecipeDataModel {
         favorite.recipeId = Int64(recipe.id)
         favorite.title = recipe.title
         favorite.image = recipe.image
-        favorite.isCustom = recipe.id < 0
+        favorite.isCustom = recipe.isCustom
         
         do {
             try context.save()

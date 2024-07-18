@@ -12,6 +12,7 @@ class RecipeDetailViewModel: ObservableObject {
     private let service: RecipeServiceProtocol
     @Published var isLoading = false
     @Published var recipe: Recipe?
+    @Published var hasError = false
     
     init(service: RecipeServiceProtocol = RecipeService()) {
         self.service = service
@@ -33,7 +34,7 @@ extension RecipeDetailViewModel {
             let recipeId = try await service.getSimilarRecipe(with: recipe.id)
             self.recipe = try await service.getRecipe(with: recipeId)
         } catch {
-            // TODO: - handle error
+            self.hasError = true
         }
     }
 
@@ -44,7 +45,7 @@ extension RecipeDetailViewModel {
         do {
             self.recipe = try await service.getRecipe(with: Int(id))
         } catch {
-            // TODO: - handle error
+            self.hasError = true
         }
     }
     

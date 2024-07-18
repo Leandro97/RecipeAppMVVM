@@ -35,10 +35,7 @@ extension RecipeCard: View {
                 )
                 .modifier(CardModifier(title: title))
             } else {
-                let data = Data(base64Encoded: image, options: .ignoreUnknownCharacters)!
-                let decodedImage = UIImage(data: data) ?? UIImage()
-                
-                Image(uiImage: decodedImage)
+                Image(uiImage: UIImage(base64: image) ?? UIImage())
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .modifier(CardModifier(title: title))
