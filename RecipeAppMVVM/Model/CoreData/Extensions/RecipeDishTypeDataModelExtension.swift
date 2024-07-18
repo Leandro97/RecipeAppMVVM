@@ -28,4 +28,12 @@ extension RecipeDishTypeDataModel {
             recipe.addToDishTypes(relationModel)
         }
     }
+    
+    static func update(
+        _ dishTypes: [DishType],
+        for recipe: CustomRecipeDataModel,
+        with context: NSManagedObjectContext
+    ) {
+        // TODO
+    }
 }

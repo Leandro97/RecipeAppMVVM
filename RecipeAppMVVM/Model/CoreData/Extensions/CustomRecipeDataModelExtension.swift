@@ -58,18 +58,21 @@ extension CustomRecipeDataModel {
     ) throws {
         let request = CustomRecipeDataModel.fetchRequest()
         request.predicate = NSPredicate(format: "recipeId == %i", Int64(id))
-        let recipe = try? context.fetch(request).first
         
-        recipe?.setValue(title, forKey: "title")
-        recipe?.setValue(image, forKey: "image")
-        recipe?.setValue(servings, forKey: "servings")
-        recipe?.setValue(readyInMinutes, forKey: "readyInMinutes")
+        guard
+            let recipe = try? context.fetch(request).first
+        else { throw NSError(domain: "Non existing recipe", code: 404) }
         
-//        create(ingredients, for: recipe, with: context)
-//        create(instructions, for: recipe, with: context)
-//        create(dishTypes, for: recipe, with: context)
-//        create(diets, for: recipe, with: context)
-//        
+        recipe.setValue(title, forKey: "title")
+        recipe.setValue(image, forKey: "image")
+        recipe.setValue(servings, forKey: "servings")
+        recipe.setValue(readyInMinutes, forKey: "readyInMinutes")
+        
+        IngredientDataModel.update(ingredients, for: recipe, with: context)
+        InstructionDataModel.update(instructions, for: recipe, with: context)
+        RecipeDishTypeDataModel.update(dishTypes, for: recipe, with: context)
+        RecipeDietDataModel.update(diets, for: recipe, with: context)
+        
         // TODO: - change recipe title and image onFavorite table
         try context.save()
     }

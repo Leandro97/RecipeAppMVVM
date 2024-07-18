@@ -17,11 +17,36 @@ extension IngredientDataModel {
         with context: NSManagedObjectContext
     ) {
         for (index, object) in ingredients.enumerated() {
-            let model = IngredientDataModel(context: context)
-            model.number = Int64(index)
-            model.original = object.original
-            
+            let model = createModel(for: object, with: index, and: context)
             recipe.addToIngredients(model)
         }
+    }
+    
+    static func update(
+        _ ingredients: [Ingredient],
+        for recipe: CustomRecipeDataModel,
+        with context: NSManagedObjectContext
+    ) {
+        let currentIngredients = recipe.ingredients?.allObjects as? [IngredientDataModel] ?? []
+        
+        for ingredient in currentIngredients {
+            recipe.removeFromIngredients(ingredient)
+        }
+        
+        for (index, object) in ingredients.enumerated() {
+            let model = createModel(for: object, with: index, and: context)
+            recipe.addToIngredients(model)
+        }
+    }
+    
+    private static func createModel(
+        for object: Ingredient,
+        with index: Int,
+        and context: NSManagedObjectContext
+    ) -> IngredientDataModel {
+        let model = IngredientDataModel(context: context)
+        model.number = Int64(index)
+        model.original = object.original
+        return model
     }
 }

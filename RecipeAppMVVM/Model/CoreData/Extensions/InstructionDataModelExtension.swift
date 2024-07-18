@@ -17,11 +17,35 @@ extension InstructionDataModel {
         with context: NSManagedObjectContext
     ) {
         for object in instruction.steps {
-            let model = InstructionDataModel(context: context)
-            model.number = Int64(object.number)
-            model.step = object.step
-            
+            let model = createModel(for: object, with: context)
             recipe.addToInstructions(model)
         }
+    }
+    
+    static func update(
+        _ instruction: Instruction,
+        for recipe: CustomRecipeDataModel,
+        with context: NSManagedObjectContext
+    ) {
+        let currentInstructions = recipe.ingredients?.allObjects as? [InstructionDataModel] ?? []
+        
+        for instruction in currentInstructions {
+            recipe.removeFromInstructions(instruction)
+        }
+        
+        for object in instruction.steps {
+            let model = createModel(for: object, with: context)
+            recipe.addToInstructions(model)
+        }
+    }
+    
+    private static func createModel(
+        for object: Step,
+        with context: NSManagedObjectContext
+    ) -> InstructionDataModel {
+        let model = InstructionDataModel(context: context)
+        model.number = Int64(object.number)
+        model.step = object.step
+        return model
     }
 }
