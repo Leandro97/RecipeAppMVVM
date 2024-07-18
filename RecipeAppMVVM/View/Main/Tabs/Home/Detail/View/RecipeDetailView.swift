@@ -134,7 +134,7 @@ extension RecipeDetailView {
                         if isFavorite {
                             FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)
                         } else {
-                            FavoriteRecipeDataModel.setAsFavorite(recipe, with: context, isCustom: false)
+                            FavoriteRecipeDataModel.setAsFavorite(recipe, with: context)
                         }
                     }
                 } label: {

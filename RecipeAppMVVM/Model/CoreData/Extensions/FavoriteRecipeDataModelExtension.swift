@@ -19,14 +19,13 @@ extension FavoriteRecipeDataModel {
     
     static func setAsFavorite(
         _ recipe: Recipe,
-        with context: NSManagedObjectContext,
-        isCustom: Bool
+        with context: NSManagedObjectContext
     ) {
         let favorite = FavoriteRecipeDataModel(context: context)
         favorite.recipeId = Int64(recipe.id)
         favorite.title = recipe.title
         favorite.image = recipe.image
-        favorite.isCustom = isCustom
+        favorite.isCustom = recipe.id < 0
         
         do {
             try context.save()

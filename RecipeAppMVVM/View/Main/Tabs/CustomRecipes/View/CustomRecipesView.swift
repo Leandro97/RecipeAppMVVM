@@ -39,7 +39,11 @@ extension CustomRecipesView: View {
                         LazyVGrid(columns: gridItemList, spacing: 15) {
                             ForEach(customRecipes) { recipe in
                                 NavigationLink(destination: RecipeDetailView(withCustomId: Int(recipe.recipeId))) {
-                                    RecipeCard(image: recipe.image ?? "", title: recipe.title ?? "")
+                                    RecipeCard(
+                                        image: recipe.image ?? "",
+                                        title: recipe.title ?? "",
+                                        isCustom: true
+                                    )
                                 }
                             }
                         }
