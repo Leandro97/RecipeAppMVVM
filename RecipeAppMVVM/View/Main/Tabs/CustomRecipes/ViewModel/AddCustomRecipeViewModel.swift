@@ -83,7 +83,7 @@ extension AddCustomRecipeViewModel {
         
         if isValid {
             let ingredientList = ingredients.map { Ingredient(original: $0) }
-            let instructionList = Instruction(steps: instructions.map { Step($0) })
+            let instructionList = Instruction(steps: instructions.enumerated().map { Step($0.0, $0.1) })
             let dishTypeList = dishTypeSelection.filter { $0.0 }.map { $0.1 }
             let dietList = dietSelection.filter { $0.0 }.map { $0.1 }
             

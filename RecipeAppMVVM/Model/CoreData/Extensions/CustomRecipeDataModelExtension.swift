@@ -59,8 +59,9 @@ extension CustomRecipeDataModel {
         for recipe: CustomRecipeDataModel,
         with context: NSManagedObjectContext
     ) {
-        for object in ingredients {
+        for (index, object) in ingredients.enumerated() {
             let model = IngredientDataModel(context: context)
+            model.number = Int64(index)
             model.original = object.original
             
             recipe.addToIngredients(model)
@@ -74,6 +75,7 @@ extension CustomRecipeDataModel {
     ) {
         for object in instruction.steps {
             let model = InstructionDataModel(context: context)
+            model.number = Int64(object.number)
             model.step = object.step
             
             recipe.addToInstructions(model)

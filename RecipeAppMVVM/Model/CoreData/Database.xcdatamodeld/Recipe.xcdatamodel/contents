@@ -26,10 +26,12 @@
         <attribute name="title" attributeType="String"/>
     </entity>
     <entity name="IngredientDataModel" representedClassName="IngredientDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="original" optional="YES" attributeType="String"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomRecipeDataModel" inverseName="ingredients" inverseEntity="CustomRecipeDataModel"/>
     </entity>
     <entity name="InstructionDataModel" representedClassName="InstructionDataModel" syncable="YES" codeGenerationType="class">
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="step" attributeType="String"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CustomRecipeDataModel" inverseName="instructions" inverseEntity="CustomRecipeDataModel"/>
     </entity>

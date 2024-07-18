@@ -79,7 +79,11 @@ extension AddCustomRecipeView: View {
                 
                 Section {
                     Button {
+                        #if targetEnvironment(simulator)
+                        viewModel.photo = UIImage(systemName: "text.below.photo")
+                        #else
                         openCamera = true
+                        #endif
                     } label: {
                         if let photo = viewModel.photo {
                             ZStack {
