@@ -31,6 +31,8 @@ struct Step: Decodable, Equatable {
 
 extension Instruction {
     init(with model: [InstructionDataModel]) {
-        self.steps = model.map { .init(0, $0.step ?? "") }.sorted { $0.number <  $1.number }
+        self.steps = model
+            .map { .init(Int($0.number), $0.step ?? "") }
+            .sorted { $0.number < $1.number }
     }
 }

@@ -27,8 +27,6 @@ struct CoreDataProvider {
 enum Entity: CaseIterable {
     case customRecipe
     case favoriteRecipe
-    case diet
-    case dishType
     case ingredient
     case instruction
     case recipeDiet
@@ -40,10 +38,6 @@ enum Entity: CaseIterable {
             CustomRecipeDataModel.identifier
         case .favoriteRecipe:
             FavoriteRecipeDataModel.identifier
-        case .diet:
-            DietDataModel.identifier
-        case .dishType:
-            DishTypeDataModel.identifier
         case .ingredient:
             IngredientDataModel.identifier
         case .instruction:

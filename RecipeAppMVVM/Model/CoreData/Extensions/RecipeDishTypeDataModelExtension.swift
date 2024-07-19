@@ -44,14 +44,10 @@ extension RecipeDishTypeDataModel {
         with recipe: CustomRecipeDataModel,
         and context: NSManagedObjectContext
     ) -> RecipeDishTypeDataModel {
-        // TODO: - add dish types on installation
-        let dishTypeModel = DishTypeDataModel(context: context)
-        dishTypeModel.dishTypeId = object.rawValue
+        let model = RecipeDishTypeDataModel(context: context)
+        model.recipe = recipe
+        model.dishType = object.rawValue
         
-        let relationModel = RecipeDishTypeDataModel(context: context)
-        relationModel.recipe = recipe
-        relationModel.dishType = dishTypeModel
-        
-        return relationModel
+        return model
     }
 }

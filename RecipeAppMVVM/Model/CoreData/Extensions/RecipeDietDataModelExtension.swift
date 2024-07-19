@@ -44,14 +44,10 @@ extension RecipeDietDataModel {
         with recipe: CustomRecipeDataModel,
         and context: NSManagedObjectContext
     ) -> RecipeDietDataModel {
-        // TODO: - add diets on installation
-        let dietModel = DietDataModel(context: context)
-        dietModel.dietId = object.rawValue
+        let model = RecipeDietDataModel(context: context)
+        model.recipe = recipe
+        model.diet = object.rawValue
         
-        let relationModel = RecipeDietDataModel(context: context)
-        relationModel.recipe = recipe
-        relationModel.diet = dietModel
-        
-        return relationModel
+        return model
     }
 }

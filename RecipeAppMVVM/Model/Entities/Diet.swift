@@ -33,6 +33,6 @@ enum Diet: String, Decodable, Identifiable, CategoryEnum {
 
 extension Diet {
     init(with model: RecipeDietDataModel) {
-        self.init(rawValue: model.diet?.dietId ?? "")!
+        self.init(rawValue: model.diet ?? "")!
     }
 }

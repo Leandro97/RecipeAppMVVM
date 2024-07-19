@@ -45,6 +45,6 @@ enum DishType: String, Decodable, Identifiable, CategoryEnum {
 
 extension DishType {
     init(with model: RecipeDishTypeDataModel) {
-        self.init(rawValue: model.dishType?.dishTypeId ?? "")!
+        self.init(rawValue: model.dishType ?? "")!
     }
 }

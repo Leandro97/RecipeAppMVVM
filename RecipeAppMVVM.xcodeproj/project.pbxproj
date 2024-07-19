@@ -53,8 +53,6 @@
 		9C89D28D2B29DFBA005940D9 /* HTTPRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C89D28C2B29DFBA005940D9 /* HTTPRequestError.swift */; };
 		9C89D28F2B29E47E005940D9 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C89D28E2B29E47E005940D9 /* ActivityIndicator.swift */; };
 		9C923B302BE3CE98004378DA /* CustomRecipeDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B2F2BE3CE98004378DA /* CustomRecipeDataModelExtension.swift */; };
-		9C923B322BE3CED3004378DA /* DietDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B312BE3CED3004378DA /* DietDataModelExtension.swift */; };
-		9C923B342BE3CEDD004378DA /* DishTypeDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B332BE3CEDD004378DA /* DishTypeDataModelExtension.swift */; };
 		9C923B362BE3CEF2004378DA /* IngredientDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B352BE3CEF2004378DA /* IngredientDataModelExtension.swift */; };
 		9C923B382BE3CF24004378DA /* InstructionDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B372BE3CF24004378DA /* InstructionDataModelExtension.swift */; };
 		9C923B3A2BE3CF58004378DA /* RecipeDietDataModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C923B392BE3CF58004378DA /* RecipeDietDataModelExtension.swift */; };
@@ -146,8 +144,6 @@
 		9C89D28C2B29DFBA005940D9 /* HTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestError.swift; sourceTree = "<group>"; };
 		9C89D28E2B29E47E005940D9 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		9C923B2F2BE3CE98004378DA /* CustomRecipeDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRecipeDataModelExtension.swift; sourceTree = "<group>"; };
-		9C923B312BE3CED3004378DA /* DietDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietDataModelExtension.swift; sourceTree = "<group>"; };
-		9C923B332BE3CEDD004378DA /* DishTypeDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishTypeDataModelExtension.swift; sourceTree = "<group>"; };
 		9C923B352BE3CEF2004378DA /* IngredientDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDataModelExtension.swift; sourceTree = "<group>"; };
 		9C923B372BE3CF24004378DA /* InstructionDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionDataModelExtension.swift; sourceTree = "<group>"; };
 		9C923B392BE3CF58004378DA /* RecipeDietDataModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDietDataModelExtension.swift; sourceTree = "<group>"; };
@@ -532,8 +528,6 @@
 			children = (
 				9C923B2F2BE3CE98004378DA /* CustomRecipeDataModelExtension.swift */,
 				9CC428532BE27B9A007211F1 /* FavoriteRecipeDataModelExtension.swift */,
-				9C923B312BE3CED3004378DA /* DietDataModelExtension.swift */,
-				9C923B332BE3CEDD004378DA /* DishTypeDataModelExtension.swift */,
 				9C923B352BE3CEF2004378DA /* IngredientDataModelExtension.swift */,
 				9C923B372BE3CF24004378DA /* InstructionDataModelExtension.swift */,
 				9C923B392BE3CF58004378DA /* RecipeDietDataModelExtension.swift */,
@@ -837,7 +831,6 @@
 				9C5A123427CE7F67007D0A99 /* CustomRecipesView.swift in Sources */,
 				9C371F552BC81FE00060A2BB /* SimilarRecipeObject.swift in Sources */,
 				9CDA0EA12C3C66B500542DCC /* AddCustomRecipeViewModel.swift in Sources */,
-				9C923B342BE3CEDD004378DA /* DishTypeDataModelExtension.swift in Sources */,
 				9C38478E2BCEFD5C009A9173 /* Database.xcdatamodeld in Sources */,
 				9C4E85E32BA4729200590CEF /* RecipeDetailView.swift in Sources */,
 				9CA98702288CCA3900DF38FF /* BaseUrl.swift in Sources */,
@@ -876,7 +869,6 @@
 				9CD8A6622C19DFDE0089D291 /* RequestBuilder.swift in Sources */,
 				9CDA0EA42C3C82DF00542DCC /* FieldValidator.swift in Sources */,
 				9CDDBF6F283ABE3C005D63B0 /* Instruction.swift in Sources */,
-				9C923B322BE3CED3004378DA /* DietDataModelExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
