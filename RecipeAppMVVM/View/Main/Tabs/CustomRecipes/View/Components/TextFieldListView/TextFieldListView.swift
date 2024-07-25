@@ -29,40 +29,42 @@ struct TextFieldListView {
 
 extension TextFieldListView: View {
     var body: some View {
-        ZStack(alignment: .leading) {
-            TextField("", text: $currentValue)
-                .submitLabel(.done)
-                .onSubmit {
-                    submit()
-                }
-            
-            if currentValue.isEmpty {
-                Text(placeHolder)
-                    .foregroundColor(.gray)
-                    .allowsHitTesting(false)
-            }
-        }
-        
-        VStack(alignment: .leading, spacing: hasOrderedValues ? 16 : 8) {
-            ForEach(Array(values.enumerated()), id: \.0) { item in
-                HStack(alignment: .top, spacing: 16) {
-                    if hasOrderedValues {
-                        Text("\(item.0 + 1)")
-                            .bold()
-                            .frame(alignment: .leading)
-                    } else {
-                        Image(systemName: "circle.fill")
-                            .resizable()
-                            .frame(width: 8, height: 8)
-                            .frame(alignment: .topLeading)
-                            .padding(.top, 8)
+        VStack {
+            ZStack(alignment: .leading) {
+                TextField("", text: $currentValue)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        submit()
                     }
-                    
-                    Text(item.1)
-                        .frame(alignment: .topTrailing)
-                        .multilineTextAlignment(.leading)
-                    
-                    Spacer()
+                
+                if currentValue.isEmpty {
+                    Text(placeHolder)
+                        .foregroundColor(.gray)
+                        .allowsHitTesting(false)
+                }
+            }
+            
+            VStack(alignment: .leading, spacing: hasOrderedValues ? 16 : 8) {
+                ForEach(Array(values.enumerated()), id: \.0) { item in
+                    HStack(alignment: .top, spacing: 16) {
+                        if hasOrderedValues {
+                            Text("\(item.0 + 1)")
+                                .bold()
+                                .frame(alignment: .leading)
+                        } else {
+                            Image(systemName: "circle.fill")
+                                .resizable()
+                                .frame(width: 8, height: 8)
+                                .frame(alignment: .topLeading)
+                                .padding(.top, 8)
+                        }
+                        
+                        Text(item.1)
+                            .frame(alignment: .topTrailing)
+                            .multilineTextAlignment(.leading)
+                        
+                        Spacer()
+                    }
                 }
             }
         }
