@@ -54,6 +54,7 @@ extension CustomRecipeDataModel {
         instructions: Instruction,
         dishTypes: [DishType],
         diets: [Diet],
+        isFavorite: Bool,
         with context: NSManagedObjectContext
     ) throws {
         let request = CustomRecipeDataModel.fetchRequest()
@@ -73,7 +74,15 @@ extension CustomRecipeDataModel {
         RecipeDishTypeDataModel.update(dishTypes, for: recipe, with: context)
         RecipeDietDataModel.update(diets, for: recipe, with: context)
         
-        // TODO: - change recipe title and image onFavorite table
+        if isFavorite {
+            FavoriteRecipeDataModel.update(
+                id: id,
+                title: title,
+                image: image,
+                with: context
+            )
+        }
+        
         try context.save()
     }
     

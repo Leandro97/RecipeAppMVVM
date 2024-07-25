@@ -17,7 +17,7 @@ extension FavoriteRecipeDataModel {
         return request
     }
     
-    static func createFavorite(
+    static func create(
         _ recipe: Recipe,
         with context: NSManagedObjectContext
     ) {
@@ -34,7 +34,24 @@ extension FavoriteRecipeDataModel {
         }
     }
     
-    static func deleteFavorite(
+    static func update(
+        id recipeId: Int,
+        title: String,
+        image: String?,
+        with context: NSManagedObjectContext
+    ) {
+        let request = FavoriteRecipeDataModel.fetchRequest()
+        request.predicate = NSPredicate(format: "recipeId == %i", Int64(recipeId))
+        
+        guard
+            let recipe = try? context.fetch(request).first
+        else { return }
+        
+        recipe.title = title
+        recipe.image = image
+    }
+    
+    static func delete(
         _ recipe: Recipe,
         with context: NSManagedObjectContext
     ) {

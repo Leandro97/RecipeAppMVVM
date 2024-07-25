@@ -16,8 +16,10 @@ struct AddCustomRecipeView {
     @State private var selectedTextField: Int?
     @State private var openCamera = false
     private var recipeId: Int?
+    private var isFavorite = false
     
-    init(with recipe: Recipe? = nil) {
+    init(with recipe: Recipe? = nil, isFavorite: Bool) {
+        self.isFavorite = isFavorite
         let auxViewModel = AddCustomRecipeViewModel()
         
         guard let recipe else {
@@ -39,6 +41,7 @@ struct AddCustomRecipeView {
     }
     
     init() {
+        self.isFavorite = false
         self._viewModel = StateObject(wrappedValue: AddCustomRecipeViewModel())
     }
 }
@@ -192,7 +195,11 @@ extension AddCustomRecipeView: View {
                         .background(Color.accentColor)
                         .cornerRadius(12)
                         .onTapGesture {
-                            viewModel.saveRecipe(recipeId: recipeId, with: context)
+                            viewModel.saveRecipe(
+                                recipeId: recipeId,
+                                isFavorite: isFavorite,
+                                with: context
+                            )
                         }
                 }
             }

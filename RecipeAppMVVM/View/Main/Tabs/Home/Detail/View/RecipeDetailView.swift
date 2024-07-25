@@ -141,18 +141,17 @@ extension RecipeDetailView {
         ToolbarItem(placement: .topBarTrailing) {
             HStack(spacing: 8) {
                 if let recipe = viewModel.recipe , recipe.isCustom {
-                    NavigationLink(destination: AddCustomRecipeView(with: recipe)) {
+                    NavigationLink(destination: AddCustomRecipeView(with: recipe, isFavorite: isFavorite)) {
                         Image(systemName: "pencil.circle.fill")
                     }
                 }
                 
                 Button {
-                    // TODO: - fix favorite when similar recipe is displayed
                     if let recipe = viewModel.recipe {
                         if isFavorite {
-                            FavoriteRecipeDataModel.deleteFavorite(recipe, with: context)
+                            FavoriteRecipeDataModel.delete(recipe, with: context)
                         } else {
-                            FavoriteRecipeDataModel.createFavorite(recipe, with: context)
+                            FavoriteRecipeDataModel.create(recipe, with: context)
                         }
                     }
                 } label: {

@@ -10,7 +10,6 @@ import Foundation
 struct Ingredient: Decodable, Equatable {
     let original: String
     
-    // TODO: - Remove defaults
     init(original: String = "1 tbsp of butter") {
         self.original = original
     }

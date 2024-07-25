@@ -76,6 +76,7 @@ class AddCustomRecipeViewModel: ObservableObject {
 extension AddCustomRecipeViewModel {
     func saveRecipe(
         recipeId: Int?,
+        isFavorite: Bool,
         with context: NSManagedObjectContext
     ) {
         hasUncommittedChanges = false
@@ -95,7 +96,7 @@ extension AddCustomRecipeViewModel {
         if isValid {
             do {
                 if let recipeId {
-                    try update(recipeId, with: context)
+                    try update(recipeId, isFavorite: isFavorite, with: context)
                 } else {
                     try create(with: context)
                 }
@@ -137,6 +138,7 @@ extension AddCustomRecipeViewModel {
     
     private func update(
         _  id: Int?,
+        isFavorite: Bool,
         with context: NSManagedObjectContext
     ) throws {
         guard let id else { return }
@@ -156,6 +158,7 @@ extension AddCustomRecipeViewModel {
             instructions: instructionList,
             dishTypes: dishTypeList,
             diets: dietList,
+            isFavorite: isFavorite,
             with: context
         )
     }
