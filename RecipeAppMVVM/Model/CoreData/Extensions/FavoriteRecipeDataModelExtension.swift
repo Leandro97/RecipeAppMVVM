@@ -20,18 +20,14 @@ extension FavoriteRecipeDataModel {
     static func create(
         _ recipe: Recipe,
         with context: NSManagedObjectContext
-    ) {
+    ) throws {
         let favorite = FavoriteRecipeDataModel(context: context)
         favorite.recipeId = Int64(recipe.id)
         favorite.title = recipe.title
         favorite.image = recipe.image
         favorite.isCustom = recipe.isCustom
         
-        do {
-            try context.save()
-        } catch {
-            // TODO
-        }
+        try context.save()
     }
     
     static func update(
@@ -39,13 +35,13 @@ extension FavoriteRecipeDataModel {
         title: String,
         image: String?,
         with context: NSManagedObjectContext
-    ) {
+    ) throws {
         let request = FavoriteRecipeDataModel.fetchRequest()
         request.predicate = NSPredicate(format: "recipeId == %i", Int64(recipeId))
         
         guard
             let recipe = try? context.fetch(request).first
-        else { return }
+        else { throw NSError(domain: "Non existing recipe", code: 404) }
         
         recipe.title = title
         recipe.image = image
@@ -54,16 +50,12 @@ extension FavoriteRecipeDataModel {
     static func delete(
         _ recipe: Recipe,
         with context: NSManagedObjectContext
-    ) {
+    ) throws {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.identifier)
         let predicate = NSPredicate(format: "recipeId == %i", Int64(recipe.id))
         request.predicate = predicate
         
-        do {
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-            try context.executeAndMergeChanges(using: deleteRequest)
-        } catch {
-            // TODO
-        }
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        try context.executeAndMergeChanges(using: deleteRequest)
     }
 }

@@ -16,7 +16,8 @@ struct RecipeDetailView {
     @State private var headerId = UUID()
     @State private var isIngredientsExpanded = true
     @State private var isInstructionsExpanded = true
-    @State private var showingSimilarRecipeAlert = false
+    @State private var showSimilarRecipeAlert = false
+    @State private var showGenericErrorAlert = false
     private var recipe: Recipe?
     private var favoriteRecipe: FavoriteRecipeDataModel?
     private var customRecipeId: Int?
@@ -148,10 +149,14 @@ extension RecipeDetailView {
                 
                 Button {
                     if let recipe = viewModel.recipe {
-                        if isFavorite {
-                            FavoriteRecipeDataModel.delete(recipe, with: context)
-                        } else {
-                            FavoriteRecipeDataModel.create(recipe, with: context)
+                        do {
+                            if isFavorite {
+                                try FavoriteRecipeDataModel.delete(recipe, with: context)
+                            } else {
+                                try FavoriteRecipeDataModel.create(recipe, with: context)
+                            }
+                        } catch {
+                            showGenericErrorAlert = true
                         }
                     }
                 } label: {
@@ -161,11 +166,13 @@ extension RecipeDetailView {
                 }
                 
                 Button {
-                    showingSimilarRecipeAlert = true
+                    showSimilarRecipeAlert = true
                 } label: {
                     Image(systemName: "text.magnifyingglass")
                 }
-                .alert("Search for a similar recipe?", isPresented: $showingSimilarRecipeAlert) {
+                .alert("Something went wrong! Try again later.", isPresented: $showGenericErrorAlert) {
+                }
+                .alert("Search for a similar recipe?", isPresented: $showSimilarRecipeAlert) {
                     Button("Go for it!") {
                         Task {
                             await viewModel.getSimilarRecipe()
@@ -173,7 +180,7 @@ extension RecipeDetailView {
                     }
                     
                     Button("Not Now") {
-                        showingSimilarRecipeAlert = false
+                        showSimilarRecipeAlert = false
                     }
                 }
             }

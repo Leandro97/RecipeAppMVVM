@@ -75,7 +75,7 @@ extension CustomRecipeDataModel {
         RecipeDietDataModel.update(diets, for: recipe, with: context)
         
         if isFavorite {
-            FavoriteRecipeDataModel.update(
+            try FavoriteRecipeDataModel.update(
                 id: id,
                 title: title,
                 image: image,
