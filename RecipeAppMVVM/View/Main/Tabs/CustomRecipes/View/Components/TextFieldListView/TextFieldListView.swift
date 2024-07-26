@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-// TODO: - add delete and reorder actions
 struct TextFieldListView {
     @State private var currentValue = ""
+    @State private var showDeletionAlert = false
+    @State private var itemIndexToDelete = -1
     @Binding var values: [String]
     var placeHolder: String
     var hasOrderedValues: Bool
@@ -29,43 +30,66 @@ struct TextFieldListView {
 
 extension TextFieldListView: View {
     var body: some View {
-        VStack {
-            ZStack(alignment: .leading) {
-                TextField("", text: $currentValue)
-                    .submitLabel(.done)
-                    .onSubmit {
-                        submit()
-                    }
-                
-                if currentValue.isEmpty {
-                    Text(placeHolder)
-                        .foregroundColor(.gray)
-                        .allowsHitTesting(false)
+        ZStack(alignment: .leading) {
+            TextField("", text: $currentValue)
+                .submitLabel(.done)
+                .onSubmit {
+                    submit()
                 }
+            
+            if currentValue.isEmpty {
+                Text(placeHolder)
+                    .foregroundColor(.gray)
+                    .allowsHitTesting(false)
+            }
+        }
+        
+        ForEach(Array(values.enumerated()), id: \.0) { item in
+            HStack(alignment: .top, spacing: 16) {
+                if hasOrderedValues {
+                    Text("\(item.0 + 1)")
+                        .bold()
+                        .frame(alignment: .leading)
+                } else {
+                    Image(systemName: "circle.fill")
+                        .resizable()
+                        .frame(width: 8, height: 8)
+                        .frame(alignment: .topLeading)
+                        .padding(.top, 8)
+                }
+                
+                Text(item.1)
+                    .frame(alignment: .topTrailing)
+                    .multilineTextAlignment(.leading)
+                
+                Spacer()
+                
+                Image(systemName: "line.3.horizontal")
+                    .padding(.top, 4)
+                    .foregroundColor(.accentColor)
+                
+                Image(systemName: "trash")
+                    .padding(.top, -2)
+                    .padding(.leading, -8)
+                    .foregroundColor(.red)
+                    .onTapGesture {
+                        itemIndexToDelete = item.0
+                        showDeletionAlert = true
+                    }
+            }
+        }
+        .onMove { from, to in
+            values.move(fromOffsets: from, toOffset: to)
+        }
+        .alert("Delete this item?", isPresented: $showDeletionAlert) {
+            Button("Yes") {
+                values.remove(at: itemIndexToDelete)
+                itemIndexToDelete = -1
             }
             
-            VStack(alignment: .leading, spacing: hasOrderedValues ? 16 : 8) {
-                ForEach(Array(values.enumerated()), id: \.0) { item in
-                    HStack(alignment: .top, spacing: 16) {
-                        if hasOrderedValues {
-                            Text("\(item.0 + 1)")
-                                .bold()
-                                .frame(alignment: .leading)
-                        } else {
-                            Image(systemName: "circle.fill")
-                                .resizable()
-                                .frame(width: 8, height: 8)
-                                .frame(alignment: .topLeading)
-                                .padding(.top, 8)
-                        }
-                        
-                        Text(item.1)
-                            .frame(alignment: .topTrailing)
-                            .multilineTextAlignment(.leading)
-                        
-                        Spacer()
-                    }
-                }
+            Button("No") {
+                showDeletionAlert = false
+                itemIndexToDelete = -1
             }
         }
     }
