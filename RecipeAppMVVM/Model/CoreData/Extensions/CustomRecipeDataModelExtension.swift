@@ -44,6 +44,14 @@ extension CustomRecipeDataModel {
         try context.save()
     }
     
+    static func getRecipe(with id: Int, and context: NSManagedObjectContext) -> CustomRecipeDataModel? {
+        let request = CustomRecipeDataModel.fetchRequest()
+        request.predicate = NSPredicate(format: "recipeId == %i", Int64(id))
+        
+        let objects = try? context.fetch(request)
+        return objects?.first
+    }
+    
     static func updateRecipe(
         id: Int,
         title: String,
@@ -86,11 +94,13 @@ extension CustomRecipeDataModel {
         try context.save()
     }
     
-    static func getRecipe(with id: Int, and context: NSManagedObjectContext) -> CustomRecipeDataModel? {
-        let request = CustomRecipeDataModel.fetchRequest()
+    static func deleteRecipe(with id: Int, and context: NSManagedObjectContext) throws {
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: CustomRecipeDataModel.identifier)
         request.predicate = NSPredicate(format: "recipeId == %i", Int64(id))
         
-        let objects = try? context.fetch(request)
-        return objects?.first
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        deleteRequest.resultType = .resultTypeObjectIDs
+        
+        try context.executeAndMergeChanges(using: deleteRequest)
     }
 }

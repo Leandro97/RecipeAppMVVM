@@ -13,6 +13,7 @@ class RecipeDetailViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var recipe: Recipe?
     @Published var hasError = false
+    @Published var recipeDeleted = false
     
     init(service: RecipeServiceProtocol = RecipeService()) {
         self.service = service
@@ -53,6 +54,19 @@ extension RecipeDetailViewModel {
     func getCustomRecipeData(with id: Int, and context: NSManagedObjectContext) {
         guard let model = CustomRecipeDataModel.getRecipe(with: id, and: context) else { return }
         self.recipe = Recipe(with: model)
+    }
+    
+    @MainActor
+    func deleteRecipe(with context: NSManagedObjectContext) {
+        self.recipeDeleted = false
+        guard let recipe = recipe else { return }
+        
+        do {
+            try CustomRecipeDataModel.deleteRecipe(with: recipe.id, and: context)
+            self.recipeDeleted = true
+        } catch {
+            self.hasError = true
+        }
     }
 }
 

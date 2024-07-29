@@ -213,6 +213,7 @@
 		9C0852BB2C1CBF98006DE6E1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9C0852B32C1CBD06006DE6E1 /* Mocks */,
 				9C0852C02C1CC962006DE6E1 /* JSONLoader.swift */,
 				9CEA9C832C1C6D3500112349 /* URLSessionHandlerMock.swift */,
 				9C0852B82C1CBF90006DE6E1 /* BundleHelper.swift */,
@@ -672,7 +673,6 @@
 		9CEA9C7E2C1C671200112349 /* RequestBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				9C0852B32C1CBD06006DE6E1 /* Mocks */,
 				9CEA9C812C1C6B0400112349 /* RequestBuilderTests.swift */,
 			);
 			path = RequestBuilder;
@@ -1104,7 +1104,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K353TDH7H3;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1129,7 +1129,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K353TDH7H3;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

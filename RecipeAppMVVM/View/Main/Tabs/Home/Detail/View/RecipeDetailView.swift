@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct RecipeDetailView {
+    @Environment(\.presentationMode) var isPresented
     @Environment(\.managedObjectContext) private var context
-    @FetchRequest(fetchRequest: FavoriteRecipeDataModel.allFavorites) 
+    
+    @FetchRequest(fetchRequest: FavoriteRecipeDataModel.allFavorites)
     private var favoriteRecipes: FetchedResults<FavoriteRecipeDataModel>
     
     @StateObject private var viewModel: RecipeDetailViewModel = .init()
@@ -17,6 +19,7 @@ struct RecipeDetailView {
     @State private var isIngredientsExpanded = true
     @State private var isInstructionsExpanded = true
     @State private var showSimilarRecipeAlert = false
+    @State private var showDeleteRecipeAlert = false
     @State private var showGenericErrorAlert = false
     private var recipe: Recipe?
     private var favoriteRecipe: FavoriteRecipeDataModel?
@@ -118,9 +121,6 @@ extension RecipeDetailView: View {
                 }
             }
         }
-//        .onChange(of: viewModel.recipe) { _ in
-//            self.headerId = UUID()
-//        }
         .alert(isPresented: $viewModel.hasError) {
             Alert(
                 title: Text("Service error!"),
@@ -165,23 +165,45 @@ extension RecipeDetailView {
                         : Image(systemName: "heart")
                 }
                 
-                Button {
-                    showSimilarRecipeAlert = true
-                } label: {
-                    Image(systemName: "text.magnifyingglass")
-                }
-                .alert("Something went wrong! Try again later.", isPresented: $showGenericErrorAlert) {
-                }
-                .alert("Search for a similar recipe?", isPresented: $showSimilarRecipeAlert) {
-                    Button("Go for it!") {
-                        Task {
-                            await viewModel.getSimilarRecipe()
+                if let recipe, !recipe.isCustom {
+                    Button {
+                        showSimilarRecipeAlert = true
+                    } label: {
+                        Image(systemName: "text.magnifyingglass")
+                    }
+                    .alert("Search for a similar recipe?", isPresented: $showSimilarRecipeAlert) {
+                        Button("Go for it!") {
+                            Task {
+                                await viewModel.getSimilarRecipe()
+                            }
+                        }
+                        
+                        Button("Not Now") {
+                            showSimilarRecipeAlert = false
                         }
                     }
-                    
-                    Button("Not Now") {
-                        showSimilarRecipeAlert = false
+                } else {
+                    Button {
+                        showDeleteRecipeAlert = true
+                    } label: {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
                     }
+                    .alert("Delete your recipe?", isPresented: $showDeleteRecipeAlert) {
+                        Button("Yes") {
+                            viewModel.deleteRecipe(with: context)
+                        }
+                        
+                        Button("Cancel") {
+                            showDeleteRecipeAlert = false
+                        }
+                    }
+                }
+            }
+            .alert("Something went wrong! Try again later.", isPresented: $showGenericErrorAlert) {}
+            .onChange(of: viewModel.recipeDeleted) { value in
+                if value {
+                    isPresented.wrappedValue.dismiss()
                 }
             }
         }
