@@ -243,6 +243,7 @@
 		9C2C9A972C2B40EC00203434 /* Unit */ = {
 			isa = PBXGroup;
 			children = (
+				9CB629E42C582A39004A2892 /* CoreData */,
 				9CEA9C7E2C1C671200112349 /* RequestBuilder */,
 				9CEA9C7B2C1C65F400112349 /* RecipeService */,
 			);
@@ -266,12 +267,12 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		9C343D722ACB61B800BFA5E3 /* Shared */ = {
+		9C343D722ACB61B800BFA5E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				9C89D28E2B29E47E005940D9 /* ActivityIndicator.swift */,
 			);
-			path = Shared;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9C38478B2BCEFD46009A9173 /* CoreData */ = {
@@ -288,6 +289,7 @@
 		9C42C0E42C49968A00C8F5C7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9C343D722ACB61B800BFA5E3 /* Views */,
 				9C42C0E52C49971100C8F5C7 /* UIImageExtension.swift */,
 			);
 			path = Utils;
@@ -376,9 +378,8 @@
 			isa = PBXGroup;
 			children = (
 				9C42C0E42C49968A00C8F5C7 /* Utils */,
-				9C5A11FF27CE7E68007D0A99 /* RecipeAppMVVMApp.swift */,
 				9C5A122927CE7E78007D0A99 /* Model */,
-				9C5A122A27CE7E84007D0A99 /* View */,
+				9C5A122C27CE7EE2007D0A99 /* Main */,
 				9C5A124227CE8DA0007D0A99 /* Service */,
 				9C5A120327CE7E69007D0A99 /* Assets.xcassets */,
 				9C5A120527CE7E69007D0A99 /* Preview Content */,
@@ -422,18 +423,10 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		9C5A122A27CE7E84007D0A99 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9C343D722ACB61B800BFA5E3 /* Shared */,
-				9C5A122C27CE7EE2007D0A99 /* Main */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		9C5A122C27CE7EE2007D0A99 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				9C5A11FF27CE7E68007D0A99 /* RecipeAppMVVMApp.swift */,
 				9C0706902BD97AFF00AB501A /* AppTheme */,
 				9C5A123B27CE8325007D0A99 /* Tabs */,
 				9C5A120127CE7E68007D0A99 /* ContentView.swift */,
@@ -522,6 +515,13 @@
 				9CC901132C2C40B7003DF8F0 /* ViewModel */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		9CB629E42C582A39004A2892 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		9CC428522BE27B8F007211F1 /* Extensions */ = {
