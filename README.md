@@ -1,75 +1,78 @@
-# RecipeAppMVVM
 
-RecipeAppMVVM é um aplicativo de receitas iOS que permite que os usuários pesquisem, visualizem e favoritem receitas, e criem suas próprias receitas e tudo isso utilizando uma interface moderna e responsiva.
+RecipeAppMVVM
+RecipeAppMVVM é um aplicativo de receitas desenvolvido usando o padrão MVVM (Model-View-ViewModel) para Android. O aplicativo permite que os usuários pesquisem e visualizem receitas, utilizando uma interface moderna e responsiva.
 
-## 🚀 Começando
+<!-- Adicione uma imagem do aplicativo, se disponível -->
 
+🚀 Começando
 Siga estas etapas para configurar e executar o projeto na sua máquina local.
 
-### Pré-requisitos
-
+Pré-requisitos
 Certifique-se de ter as seguintes ferramentas instaladas:
 
-- [Xcode](https://developer.apple.com/xcode/) (versão recomendada: a mais recente estável)
+Android Studio
+Java Development Kit (JDK) (versão recomendada: 11 ou superior)
+Instalação
+Clone o repositório:
 
-### Instalação
+bash
+Copy code
+git clone https://github.com/Leandro97/RecipeAppMVVM.git
+Navegue até o diretório do projeto:
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/Leandro97/RecipeAppMVVM.git
-   ```
+bash
+Copy code
+cd RecipeAppMVVM
+Abra o projeto no Android Studio.
 
-2. Navegue até o diretório do projeto:
-   ```bash
-   cd RecipeAppMVVM
-   ```
-   
-3. Abra o projeto no Xcode:
-   - Abra o arquivo `.xcworkspace` no Xcode (não o `.xcodeproj`).
+Baixe as dependências e sincronize o projeto:
 
-## 📋 Uso
+No Android Studio, selecione File > Sync Project with Gradle Files.
+Configure o ambiente para execução:
 
+Certifique-se de ter um emulador Android configurado ou um dispositivo Android conectado.
+Execute o aplicativo:
+
+No Android Studio, clique no botão Run ou use o atalho Shift + F10.
+📋 Uso
 Depois de executar o aplicativo, você poderá:
 
-- **Pesquisar Receitas:** Utilize a barra de pesquisa para encontrar receitas por nome ou ingredientes.
-- **Visualizar Receitas:** Toque em uma receita para ver os detalhes, incluindo ingredientes e instruções.
-- **Salvar Receitas:** Adicione receitas aos seus favoritos para fácil acesso futuro.
-- **Criar Receitas:** Crie suas próprias receitas e faça um cardápio com a sua cara.
-
-## 🤔 Como Contribuir
-
+Pesquisar Receitas: Utilize a barra de pesquisa para encontrar receitas por nome ou ingredientes.
+Visualizar Receitas: Toque em uma receita para ver os detalhes, incluindo ingredientes e instruções.
+Salvar Receitas: Adicione receitas aos seus favoritos para fácil acesso futuro.
+🤔 Como Contribuir
 Contribuições são bem-vindas! Siga estas etapas para contribuir:
 
-1. Faça um fork do repositório clicando no botão **Fork** no canto superior direito da página do repositório.
+Faça um fork do repositório clicando no botão Fork no canto superior direito da página do repositório.
 
-2. Crie uma nova branch para suas alterações:
-   ```bash
-   git checkout -b minha-nova-feature
-   ```
+Crie uma nova branch para suas alterações:
 
-3. Faça suas alterações e adicione-as:
-   ```bash
-   git add .
-   ```
+bash
+Copy code
+git checkout -b minha-nova-feature
+Faça suas alterações e adicione-as:
 
-4. Comite suas mudanças:
-   ```bash
-   git commit -m "Descrição das minhas alterações"
-   ```
+bash
+Copy code
+git add .
+Comite suas mudanças:
 
-5. Envie suas mudanças para o repositório remoto:
-   ```bash
-   git push origin minha-nova-feature
-   ```
+bash
+Copy code
+git commit -m "Descrição das minhas alterações"
+Envie suas mudanças para o repositório remoto:
 
-6. Abra um Pull Request no GitHub para revisão.
+bash
+Copy code
+git push origin minha-nova-feature
+Abra um Pull Request no GitHub para revisão.
 
-## 📜 Licença
+📜 Licença
+Este projeto é licenciado sob a Licença MIT - veja o arquivo LICENSE para detalhes.
 
-Este projeto é licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+📧 Contato
+Leandro - seu-email@example.com
 
-## 📧 Contato
+Link para o perfil GitHub: Leandro97
 
-Leandro - [leandro97.martins@gmail.com](mailto:leandro97.martins@gmail.com)
-
-Link para o perfil GitHub: [Leandro97](https://github.com/Leandro97)
+# RecipeAppMVVM
